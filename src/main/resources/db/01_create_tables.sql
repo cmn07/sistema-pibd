@@ -1,0 +1,2 @@
+-- Script para criacao das tabelas do banco universidade.
+-- Adicionar aqui os comandos CREATE TABLE conforme o modelo fisico do projeto.

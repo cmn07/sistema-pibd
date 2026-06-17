@@ -1,0 +1,93 @@
+:root {
+    --bg: #f3f0e8;
+    --surface: #ffffff;
+    --ink: #202124;
+    --muted: #67615a;
+    --line: #d8d0c2;
+    --accent: #16665b;
+    --accent-strong: #104c44;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    background:
+            linear-gradient(135deg, rgba(22, 102, 91, 0.12), transparent 34%),
+            linear-gradient(315deg, rgba(160, 93, 42, 0.12), transparent 34%),
+            var(--bg);
+}
+
+.page {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 48px 0;
+}
+
+.hero {
+    padding: 56px 0 36px;
+}
+
+.eyebrow {
+    margin: 0 0 14px;
+    color: var(--accent);
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0 0 16px;
+    max-width: 880px;
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    line-height: 1;
+}
+
+.subtitle {
+    max-width: 680px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.15rem;
+    line-height: 1.6;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+}
+
+.menu-card {
+    display: flex;
+    min-height: 108px;
+    align-items: flex-end;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 12px 30px rgba(32, 33, 36, 0.08);
+}
+
+.menu-card:hover {
+    border-color: var(--accent);
+    color: var(--accent-strong);
+}
+
+@media (max-width: 640px) {
+    .page {
+        padding: 28px 0;
+    }
+
+    .hero {
+        padding-top: 24px;
+    }
+}

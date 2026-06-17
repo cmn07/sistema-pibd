@@ -1,0 +1,2 @@
+-- Script para triggers, functions e procedures.
+-- Adicionar aqui regras de negocio implementadas no PostgreSQL quando necessario.

@@ -1,0 +1,2 @@
+-- Script para indices do banco.
+-- Adicionar aqui comandos CREATE INDEX para otimizar consultas importantes.

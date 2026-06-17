@@ -1,0 +1,2 @@
+-- Script para insercao de dados iniciais.
+-- Adicionar aqui comandos INSERT para dados de teste e carga inicial.
