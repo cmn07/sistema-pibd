@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pessoas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Pessoas</h1>
+            <p class="page-subtitle">Cadastro base com edição e exclusão por linha, usando lápis e lixeira.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de pessoas">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">Use o lápis para carregar um registro para edição ou a lixeira para excluir.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Contato</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(pessoas)}">
+                    <td class="records-empty" colspan="4">Nenhuma pessoa cadastrada.</td>
+                </tr>
+                <tr th:each="pessoa : ${pessoas}">
+                    <td th:text="${pessoa.nome}"></td>
+                    <td th:text="${pessoa.cpf}"></td>
+                    <td>
+                        <div class="record-meta" th:text="${pessoa.email != null ? pessoa.email : '-'}"></div>
+                        <div class="record-meta" th:text="${pessoa.telefone != null ? pessoa.telefone : '-'}"></div>
+                    </td>
+                    <td>
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/pessoas(editar=${pessoa.idPessoa})}" title="Editar pessoa" aria-label="Editar pessoa">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/pessoas/excluir}" method="post">
+                                <input type="hidden" name="idPessoa" th:value="${pessoa.idPessoa}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir pessoa" aria-label="Excluir pessoa">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Nova pessoa</h2>
+                <p class="panel-note">Cria um registro base para ser usado pelos demais papéis.</p>
+
+                <form class="entity-form" th:action="@{/pessoas/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="pessoa-nome">Nome</label>
+                            <input id="pessoa-nome" name="nome" type="text" maxlength="150" required>
+                        </div>
+                        <div class="field">
+                            <label for="pessoa-cpf">CPF</label>
+                            <input id="pessoa-cpf" name="cpf" type="text" maxlength="11" required>
+                        </div>
+                        <div class="field">
+                            <label for="pessoa-email">Email</label>
+                            <input id="pessoa-email" name="email" type="email" maxlength="100">
+                        </div>
+                        <div class="field">
+                            <label for="pessoa-telefone">Telefone</label>
+                            <input id="pessoa-telefone" name="telefone" type="text" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${pessoaSelecionada != null}">
+                <h2 class="panel-title">Editar pessoa</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${pessoaSelecionada.nome}"></span></p>
+
+                <form class="entity-form" th:action="@{/pessoas/editar}" method="post">
+                    <input type="hidden" name="idPessoa" th:value="${pessoaSelecionada.idPessoa}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="pessoa-edit-nome">Nome</label>
+                            <input id="pessoa-edit-nome" name="nome" type="text" maxlength="150" th:value="${pessoaSelecionada.nome}" required>
+                        </div>
+                        <div class="field">
+                            <label for="pessoa-edit-cpf">CPF</label>
+                            <input id="pessoa-edit-cpf" name="cpf" type="text" maxlength="11" th:value="${pessoaSelecionada.cpf}" required>
+                        </div>
+                        <div class="field">
+                            <label for="pessoa-edit-email">Email</label>
+                            <input id="pessoa-edit-email" name="email" type="email" maxlength="100" th:value="${pessoaSelecionada.email}">
+                        </div>
+                        <div class="field">
+                            <label for="pessoa-edit-telefone">Telefone</label>
+                            <input id="pessoa-edit-telefone" name="telefone" type="text" maxlength="20" th:value="${pessoaSelecionada.telefone}">
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/pessoas}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${pessoaSelecionada != null}">
+                <h2 class="panel-title">Editar pessoa</h2>
+                <p class="panel-note">Escolha o lápis em um registro da tabela para carregar os dados aqui.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

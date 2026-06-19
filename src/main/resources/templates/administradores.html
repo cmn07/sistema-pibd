@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administradores</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Administradores</h1>
+            <p class="page-subtitle">Lista operacional com edição e exclusão por ícone, sem campos de ID abertos.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de administradores">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">Cada linha permite editar ou excluir o administrador correspondente.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Administrador</th>
+                    <th>ID administrativo</th>
+                    <th>Setor</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(administradores)}">
+                    <td class="records-empty" colspan="4">Nenhum administrador cadastrado.</td>
+                </tr>
+                <tr th:each="administrador : ${administradores}">
+                    <td th:text="${administrador.nome}"></td>
+                    <td th:text="${administrador.idAdmin}"></td>
+                    <td th:text="${administrador.setor != null ? administrador.setor : '-'}"></td>
+                    <td>
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/administradores(editar=${administrador.idPessoa})}" title="Editar administrador" aria-label="Editar administrador">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/administradores/excluir}" method="post">
+                                <input type="hidden" name="idPessoa" th:value="${administrador.idPessoa}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir administrador" aria-label="Excluir administrador">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Novo administrador</h2>
+                <p class="panel-note">Escolha uma pessoa e defina o identificador administrativo.</p>
+
+                <form class="entity-form" th:action="@{/administradores/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="admin-id-pessoa">Pessoa</label>
+                            <select id="admin-id-pessoa" name="idPessoa" required>
+                                <option value="" selected disabled>Selecione uma pessoa</option>
+                                <option th:each="pessoa : ${pessoas}" th:value="${pessoa.idPessoa}" th:text="${pessoa.nome}"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="admin-id-admin">ID administrativo</label>
+                            <input id="admin-id-admin" name="idAdmin" type="text" maxlength="30" required>
+                        </div>
+                        <div class="field">
+                            <label for="admin-setor">Setor</label>
+                            <input id="admin-setor" name="setor" type="text" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${administradorSelecionado != null}">
+                <h2 class="panel-title">Editar administrador</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${administradorSelecionado.nome}"></span></p>
+
+                <form class="entity-form" th:action="@{/administradores/editar}" method="post">
+                    <input type="hidden" name="idPessoa" th:value="${administradorSelecionado.idPessoa}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="admin-edit-id-admin">ID administrativo</label>
+                            <input id="admin-edit-id-admin" name="idAdmin" type="text" maxlength="30" th:value="${administradorSelecionado.idAdmin}" required>
+                        </div>
+                        <div class="field">
+                            <label for="admin-edit-setor">Setor</label>
+                            <input id="admin-edit-setor" name="setor" type="text" maxlength="100" th:value="${administradorSelecionado.setor}">
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/administradores}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${administradorSelecionado != null}">
+                <h2 class="panel-title">Editar administrador</h2>
+                <p class="panel-note">Escolha o lápis em um registro para carregar a edição.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>
