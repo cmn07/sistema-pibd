@@ -9,6 +9,7 @@ import br.ufscar.sistema_universidade.repository.DiscenteRepository;
 import br.ufscar.sistema_universidade.repository.FuncionarioRepository;
 import br.ufscar.sistema_universidade.repository.PessoaRepository;
 import br.ufscar.sistema_universidade.repository.UsuarioRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HomeController {
+
+    private static final String MENSAGEM_CONFLITO_INTEGRIDADE =
+        "Nao foi possivel inserir ou realizar a acao. Ja existe um registro com a mesma chave ou com dados conflitantes.";
 
     private final PessoaRepository pessoaRepository;
     private final UsuarioRepository usuarioRepository;
@@ -37,6 +41,26 @@ public class HomeController {
         this.discenteRepository = discenteRepository;
         this.funcionarioRepository = funcionarioRepository;
         this.administradorRepository = administradorRepository;
+    }
+
+    @FunctionalInterface
+    private interface OperacaoPersistencia {
+        void executar();
+    }
+
+    private String executarComTratamentoDeErro(
+        String destino,
+        String mensagemSucesso,
+        RedirectAttributes redirectAttributes,
+        OperacaoPersistencia operacao
+    ) {
+        try {
+            operacao.executar();
+            redirectAttributes.addFlashAttribute("mensagem", mensagemSucesso);
+        } catch (DataIntegrityViolationException ex) {
+            redirectAttributes.addFlashAttribute("mensagem", MENSAGEM_CONFLITO_INTEGRIDADE);
+        }
+        return "redirect:" + destino;
     }
 
     @GetMapping("/")
@@ -59,19 +83,27 @@ public class HomeController {
         @RequestParam(required = false) String telefone,
         RedirectAttributes redirectAttributes
     ) {
-        pessoaRepository.salvar(new Pessoa(null, nome, cpf, email, telefone));
-        redirectAttributes.addFlashAttribute("mensagem", "Pessoa salva com sucesso.");
-        return "redirect:/pessoas";
+        return executarComTratamentoDeErro(
+            "/pessoas",
+            "Pessoa salva com sucesso.",
+            redirectAttributes,
+            () -> pessoaRepository.salvar(new Pessoa(null, nome, cpf, email, telefone))
+        );
     }
 
     @PostMapping("/pessoas/excluir")
     public String excluirPessoa(@RequestParam Long idPessoa, RedirectAttributes redirectAttributes) {
-        funcionarioRepository.deletarPorId(idPessoa);
-        administradorRepository.deletarPorId(idPessoa);
-        usuarioRepository.deletarPorId(idPessoa);
-        pessoaRepository.deletarPorId(idPessoa);
-        redirectAttributes.addFlashAttribute("mensagem", "Pessoa excluida com sucesso.");
-        return "redirect:/pessoas";
+        return executarComTratamentoDeErro(
+            "/pessoas",
+            "Pessoa excluida com sucesso.",
+            redirectAttributes,
+            () -> {
+                funcionarioRepository.deletarPorId(idPessoa);
+                administradorRepository.deletarPorId(idPessoa);
+                usuarioRepository.deletarPorId(idPessoa);
+                pessoaRepository.deletarPorId(idPessoa);
+            }
+        );
     }
 
     @PostMapping("/pessoas/editar")
@@ -83,9 +115,12 @@ public class HomeController {
         @RequestParam(required = false) String telefone,
         RedirectAttributes redirectAttributes
     ) {
-        pessoaRepository.atualizar(new Pessoa(idPessoa, nome, cpf, email, telefone));
-        redirectAttributes.addFlashAttribute("mensagem", "Pessoa atualizada com sucesso.");
-        return "redirect:/pessoas";
+        return executarComTratamentoDeErro(
+            "/pessoas",
+            "Pessoa atualizada com sucesso.",
+            redirectAttributes,
+            () -> pessoaRepository.atualizar(new Pessoa(idPessoa, nome, cpf, email, telefone))
+        );
     }
 
     @GetMapping("/usuarios")
@@ -98,17 +133,25 @@ public class HomeController {
 
     @PostMapping("/usuarios/salvar")
     public String salvarUsuario(@RequestParam Long idPessoa, RedirectAttributes redirectAttributes) {
-        usuarioRepository.salvar(idPessoa);
-        redirectAttributes.addFlashAttribute("mensagem", "Usuario salvo com sucesso.");
-        return "redirect:/usuarios";
+        return executarComTratamentoDeErro(
+            "/usuarios",
+            "Usuario salvo com sucesso.",
+            redirectAttributes,
+            () -> usuarioRepository.salvar(idPessoa)
+        );
     }
 
     @PostMapping("/usuarios/excluir")
     public String excluirUsuario(@RequestParam Long idPessoa, RedirectAttributes redirectAttributes) {
-        funcionarioRepository.deletarPorId(idPessoa);
-        usuarioRepository.deletarPorId(idPessoa);
-        redirectAttributes.addFlashAttribute("mensagem", "Usuario excluido com sucesso.");
-        return "redirect:/usuarios";
+        return executarComTratamentoDeErro(
+            "/usuarios",
+            "Usuario excluido com sucesso.",
+            redirectAttributes,
+            () -> {
+                funcionarioRepository.deletarPorId(idPessoa);
+                usuarioRepository.deletarPorId(idPessoa);
+            }
+        );
     }
 
     @PostMapping("/usuarios/editar")
@@ -117,14 +160,19 @@ public class HomeController {
         @RequestParam Long idPessoa,
         RedirectAttributes redirectAttributes
     ) {
-        if (!idPessoaAtual.equals(idPessoa)) {
-            if (!usuarioRepository.existePorId(idPessoa)) {
-                usuarioRepository.deletarPorId(idPessoaAtual);
-                usuarioRepository.salvar(idPessoa);
+        return executarComTratamentoDeErro(
+            "/usuarios",
+            "Usuario atualizado com sucesso.",
+            redirectAttributes,
+            () -> {
+                if (!idPessoaAtual.equals(idPessoa)) {
+                    if (!usuarioRepository.existePorId(idPessoa)) {
+                        usuarioRepository.deletarPorId(idPessoaAtual);
+                        usuarioRepository.salvar(idPessoa);
+                    }
+                }
             }
-        }
-        redirectAttributes.addFlashAttribute("mensagem", "Usuario atualizado com sucesso.");
-        return "redirect:/usuarios";
+        );
     }
 
     @GetMapping("/discentes")
@@ -142,19 +190,27 @@ public class HomeController {
         @RequestParam String curso,
         RedirectAttributes redirectAttributes
     ) {
-        if (!usuarioRepository.existePorId(idPessoa)) {
-            usuarioRepository.salvar(idPessoa);
-        }
-        discenteRepository.salvar(new Discente(idPessoa, null, null, null, null, ra, curso));
-        redirectAttributes.addFlashAttribute("mensagem", "Discente salvo com sucesso.");
-        return "redirect:/discentes";
+        return executarComTratamentoDeErro(
+            "/discentes",
+            "Discente salvo com sucesso.",
+            redirectAttributes,
+            () -> {
+                if (!usuarioRepository.existePorId(idPessoa)) {
+                    usuarioRepository.salvar(idPessoa);
+                }
+                discenteRepository.salvar(new Discente(idPessoa, null, null, null, null, ra, curso));
+            }
+        );
     }
 
     @PostMapping("/discentes/excluir")
     public String excluirDiscente(@RequestParam Long idPessoa, RedirectAttributes redirectAttributes) {
-        discenteRepository.deletarPorId(idPessoa);
-        redirectAttributes.addFlashAttribute("mensagem", "Discente excluido com sucesso.");
-        return "redirect:/discentes";
+        return executarComTratamentoDeErro(
+            "/discentes",
+            "Discente excluido com sucesso.",
+            redirectAttributes,
+            () -> discenteRepository.deletarPorId(idPessoa)
+        );
     }
 
     @PostMapping("/discentes/editar")
@@ -165,12 +221,17 @@ public class HomeController {
         @RequestParam String curso,
         RedirectAttributes redirectAttributes
     ) {
-        if (!usuarioRepository.existePorId(idPessoa)) {
-            usuarioRepository.salvar(idPessoa);
-        }
-        discenteRepository.atualizar(idPessoaAtual, new Discente(idPessoa, null, null, null, null, ra, curso));
-        redirectAttributes.addFlashAttribute("mensagem", "Discente atualizado com sucesso.");
-        return "redirect:/discentes";
+        return executarComTratamentoDeErro(
+            "/discentes",
+            "Discente atualizado com sucesso.",
+            redirectAttributes,
+            () -> {
+                if (!usuarioRepository.existePorId(idPessoa)) {
+                    usuarioRepository.salvar(idPessoa);
+                }
+                discenteRepository.atualizar(idPessoaAtual, new Discente(idPessoa, null, null, null, null, ra, curso));
+            }
+        );
     }
 
     @GetMapping("/funcionarios")
@@ -188,19 +249,27 @@ public class HomeController {
         @RequestParam String tipoVinculo,
         RedirectAttributes redirectAttributes
     ) {
-        if (!usuarioRepository.existePorId(idPessoa)) {
-            usuarioRepository.salvar(idPessoa);
-        }
-        funcionarioRepository.salvar(new Funcionario(idPessoa, null, null, null, null, idFunc, tipoVinculo));
-        redirectAttributes.addFlashAttribute("mensagem", "Funcionario salvo com sucesso.");
-        return "redirect:/funcionarios";
+        return executarComTratamentoDeErro(
+            "/funcionarios",
+            "Funcionario salvo com sucesso.",
+            redirectAttributes,
+            () -> {
+                if (!usuarioRepository.existePorId(idPessoa)) {
+                    usuarioRepository.salvar(idPessoa);
+                }
+                funcionarioRepository.salvar(new Funcionario(idPessoa, null, null, null, null, idFunc, tipoVinculo));
+            }
+        );
     }
 
     @PostMapping("/funcionarios/excluir")
     public String excluirFuncionario(@RequestParam Long idPessoa, RedirectAttributes redirectAttributes) {
-        funcionarioRepository.deletarPorId(idPessoa);
-        redirectAttributes.addFlashAttribute("mensagem", "Funcionario excluido com sucesso.");
-        return "redirect:/funcionarios";
+        return executarComTratamentoDeErro(
+            "/funcionarios",
+            "Funcionario excluido com sucesso.",
+            redirectAttributes,
+            () -> funcionarioRepository.deletarPorId(idPessoa)
+        );
     }
 
     @PostMapping("/funcionarios/editar")
@@ -210,9 +279,12 @@ public class HomeController {
         @RequestParam String tipoVinculo,
         RedirectAttributes redirectAttributes
     ) {
-        funcionarioRepository.atualizar(new Funcionario(idPessoa, null, null, null, null, idFunc, tipoVinculo));
-        redirectAttributes.addFlashAttribute("mensagem", "Funcionario atualizado com sucesso.");
-        return "redirect:/funcionarios";
+        return executarComTratamentoDeErro(
+            "/funcionarios",
+            "Funcionario atualizado com sucesso.",
+            redirectAttributes,
+            () -> funcionarioRepository.atualizar(new Funcionario(idPessoa, null, null, null, null, idFunc, tipoVinculo))
+        );
     }
 
     @GetMapping("/administradores")
@@ -230,16 +302,22 @@ public class HomeController {
         @RequestParam(required = false) String setor,
         RedirectAttributes redirectAttributes
     ) {
-        administradorRepository.salvar(new Administrador(idPessoa, null, null, null, null, idAdmin, setor));
-        redirectAttributes.addFlashAttribute("mensagem", "Administrador salvo com sucesso.");
-        return "redirect:/administradores";
+        return executarComTratamentoDeErro(
+            "/administradores",
+            "Administrador salvo com sucesso.",
+            redirectAttributes,
+            () -> administradorRepository.salvar(new Administrador(idPessoa, null, null, null, null, idAdmin, setor))
+        );
     }
 
     @PostMapping("/administradores/excluir")
     public String excluirAdministrador(@RequestParam Long idPessoa, RedirectAttributes redirectAttributes) {
-        administradorRepository.deletarPorId(idPessoa);
-        redirectAttributes.addFlashAttribute("mensagem", "Administrador excluido com sucesso.");
-        return "redirect:/administradores";
+        return executarComTratamentoDeErro(
+            "/administradores",
+            "Administrador excluido com sucesso.",
+            redirectAttributes,
+            () -> administradorRepository.deletarPorId(idPessoa)
+        );
     }
 
     @PostMapping("/administradores/editar")
@@ -249,8 +327,11 @@ public class HomeController {
         @RequestParam(required = false) String setor,
         RedirectAttributes redirectAttributes
     ) {
-        administradorRepository.atualizar(new Administrador(idPessoa, null, null, null, null, idAdmin, setor));
-        redirectAttributes.addFlashAttribute("mensagem", "Administrador atualizado com sucesso.");
-        return "redirect:/administradores";
+        return executarComTratamentoDeErro(
+            "/administradores",
+            "Administrador atualizado com sucesso.",
+            redirectAttributes,
+            () -> administradorRepository.atualizar(new Administrador(idPessoa, null, null, null, null, idAdmin, setor))
+        );
     }
 }
