@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discentes</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Discentes</h1>
+            <p class="page-subtitle">CRUD de discente sobre a camada de usuario. O vínculo usa pessoa, RA e curso.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de discentes">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">Use o lápis para editar ou a lixeira para remover o discente.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Discente</th>
+                    <th>RA</th>
+                    <th>Curso</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(discentes)}">
+                    <td class="records-empty" colspan="4">Nenhum discente cadastrado.</td>
+                </tr>
+                <tr th:each="discente : ${discentes}">
+                    <td th:text="${discente.nome}"></td>
+                    <td th:text="${discente.ra}"></td>
+                    <td th:text="${discente.curso}"></td>
+                    <td>
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/discentes(editar=${discente.idPessoa})}" title="Editar discente" aria-label="Editar discente">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/discentes/excluir}" method="post">
+                                <input type="hidden" name="idPessoa" th:value="${discente.idPessoa}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir discente" aria-label="Excluir discente">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Novo discente</h2>
+                <p class="panel-note">Selecione uma pessoa e informe RA e curso.</p>
+
+                <form class="entity-form" th:action="@{/discentes/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="discente-id-pessoa">Pessoa</label>
+                            <select id="discente-id-pessoa" name="idPessoa" required>
+                                <option value="" selected disabled>Selecione uma pessoa</option>
+                                <option th:each="pessoa : ${pessoas}" th:value="${pessoa.idPessoa}" th:text="${pessoa.nome}"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="discente-ra">RA</label>
+                            <input id="discente-ra" name="ra" type="text" maxlength="20" required>
+                        </div>
+                        <div class="field">
+                            <label for="discente-curso">Curso</label>
+                            <input id="discente-curso" name="curso" type="text" maxlength="100" required>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${discenteSelecionado != null}">
+                <h2 class="panel-title">Editar discente</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${discenteSelecionado.nome}"></span></p>
+
+                <form class="entity-form" th:action="@{/discentes/editar}" method="post">
+                    <input type="hidden" name="idPessoaAtual" th:value="${discenteSelecionado.idPessoa}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="discente-edit-pessoa">Pessoa vinculada</label>
+                            <select id="discente-edit-pessoa" name="idPessoa" required>
+                                <option value="" disabled>Selecione uma pessoa</option>
+                                <option th:each="pessoa : ${pessoas}"
+                                        th:value="${pessoa.idPessoa}"
+                                        th:text="${pessoa.nome}"
+                                        th:selected="${pessoa.idPessoa == discenteSelecionado.idPessoa}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="discente-edit-ra">RA</label>
+                            <input id="discente-edit-ra" name="ra" type="text" maxlength="20" th:value="${discenteSelecionado.ra}" required>
+                        </div>
+                        <div class="field">
+                            <label for="discente-edit-curso">Curso</label>
+                            <input id="discente-edit-curso" name="curso" type="text" maxlength="100" th:value="${discenteSelecionado.curso}" required>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/discentes}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${discenteSelecionado != null}">
+                <h2 class="panel-title">Editar discente</h2>
+                <p class="panel-note">Escolha o lápis em um registro para carregar a edição.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

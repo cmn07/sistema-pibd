@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Usuarios</h1>
+            <p class="page-subtitle">Lista por linha com lápis e lixeira. A base de usuario alimenta funcionarios e discentes.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de usuarios">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">A edição carrega o vínculo selecionado no painel lateral.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Pessoa</th>
+                    <th>Id</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(usuarios)}">
+                    <td class="records-empty" colspan="3">Nenhum usuario cadastrado.</td>
+                </tr>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.nome}"></td>
+                    <td th:text="${usuario.idPessoa}"></td>
+                    <td>
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/usuarios(editar=${usuario.idPessoa})}" title="Editar usuario" aria-label="Editar usuario">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/usuarios/excluir}" method="post">
+                                <input type="hidden" name="idPessoa" th:value="${usuario.idPessoa}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir usuario" aria-label="Excluir usuario">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Novo usuario</h2>
+                <p class="panel-note">Vincule uma pessoa ao papel de usuario.</p>
+
+                <form class="entity-form" th:action="@{/usuarios/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="usuario-id-pessoa">Pessoa</label>
+                            <select id="usuario-id-pessoa" name="idPessoa" required>
+                                <option value="" selected disabled>Selecione uma pessoa</option>
+                                <option th:each="pessoa : ${pessoas}" th:value="${pessoa.idPessoa}" th:text="${pessoa.nome}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${usuarioSelecionado != null}">
+                <h2 class="panel-title">Editar usuario</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${usuarioSelecionado.nome}"></span></p>
+
+                <form class="entity-form" th:action="@{/usuarios/editar}" method="post">
+                    <input type="hidden" name="idPessoaAtual" th:value="${usuarioSelecionado.idPessoa}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="usuario-edit-pessoa">Pessoa vinculada</label>
+                            <select id="usuario-edit-pessoa" name="idPessoa" required>
+                                <option value="" disabled>Selecione uma pessoa</option>
+                                <option th:each="pessoa : ${pessoas}"
+                                        th:value="${pessoa.idPessoa}"
+                                        th:text="${pessoa.nome}"
+                                        th:selected="${pessoa.idPessoa == usuarioSelecionado.idPessoa}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/usuarios}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${usuarioSelecionado != null}">
+                <h2 class="panel-title">Editar usuario</h2>
+                <p class="panel-note">Escolha o lápis em um registro para carregar a edição.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

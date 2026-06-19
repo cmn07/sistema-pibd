@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funcionarios</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Funcionarios</h1>
+            <p class="page-subtitle">Lista operacional com ações de lápis e lixeira, ligada ao cadastro de pessoa.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de funcionarios">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">A tabela mostra o vínculo funcional, o tipo e os controles de ação.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Funcionario</th>
+                    <th>ID funcional</th>
+                    <th>Vínculo</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(funcionarios)}">
+                    <td class="records-empty" colspan="4">Nenhum funcionario cadastrado.</td>
+                </tr>
+                <tr th:each="funcionario : ${funcionarios}">
+                    <td th:text="${funcionario.nome}"></td>
+                    <td th:text="${funcionario.idFunc}"></td>
+                    <td th:text="${funcionario.tipoVinculo}"></td>
+                    <td>
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/funcionarios(editar=${funcionario.idPessoa})}" title="Editar funcionario" aria-label="Editar funcionario">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/funcionarios/excluir}" method="post">
+                                <input type="hidden" name="idPessoa" th:value="${funcionario.idPessoa}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir funcionario" aria-label="Excluir funcionario">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Novo funcionario</h2>
+                <p class="panel-note">Escolha a pessoa e complemente os dados funcionais.</p>
+
+                <form class="entity-form" th:action="@{/funcionarios/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="funcionario-id-pessoa">Pessoa</label>
+                            <select id="funcionario-id-pessoa" name="idPessoa" required>
+                                <option value="" selected disabled>Selecione uma pessoa</option>
+                                <option th:each="pessoa : ${pessoas}" th:value="${pessoa.idPessoa}" th:text="${pessoa.nome}"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="funcionario-id-func">ID funcional</label>
+                            <input id="funcionario-id-func" name="idFunc" type="text" maxlength="30" required>
+                        </div>
+                        <div class="field">
+                            <label for="funcionario-tipo-vinculo">Tipo de vínculo</label>
+                            <select id="funcionario-tipo-vinculo" name="tipoVinculo" required>
+                                <option value="" selected disabled>Selecione</option>
+                                <option value="professor">professor</option>
+                                <option value="servidor">servidor</option>
+                                <option value="tecnico_administrativo">tecnico_administrativo</option>
+                                <option value="externo">externo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${funcionarioSelecionado != null}">
+                <h2 class="panel-title">Editar funcionario</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${funcionarioSelecionado.nome}"></span></p>
+
+                <form class="entity-form" th:action="@{/funcionarios/editar}" method="post">
+                    <input type="hidden" name="idPessoa" th:value="${funcionarioSelecionado.idPessoa}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="funcionario-edit-id-func">ID funcional</label>
+                            <input id="funcionario-edit-id-func" name="idFunc" type="text" maxlength="30" th:value="${funcionarioSelecionado.idFunc}" required>
+                        </div>
+                        <div class="field">
+                            <label for="funcionario-edit-tipo-vinculo">Tipo de vínculo</label>
+                            <select id="funcionario-edit-tipo-vinculo" name="tipoVinculo" required>
+                                <option value="professor" th:selected="${funcionarioSelecionado.tipoVinculo == 'professor'}">professor</option>
+                                <option value="servidor" th:selected="${funcionarioSelecionado.tipoVinculo == 'servidor'}">servidor</option>
+                                <option value="tecnico_administrativo" th:selected="${funcionarioSelecionado.tipoVinculo == 'tecnico_administrativo'}">tecnico_administrativo</option>
+                                <option value="externo" th:selected="${funcionarioSelecionado.tipoVinculo == 'externo'}">externo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/funcionarios}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${funcionarioSelecionado != null}">
+                <h2 class="panel-title">Editar funcionario</h2>
+                <p class="panel-note">Escolha o lápis em um registro para carregar a edição.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>
