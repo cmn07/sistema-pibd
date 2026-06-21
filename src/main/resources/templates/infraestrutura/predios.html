@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prédios</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Prédios</h1>
+            <p class="page-subtitle">Gerenciamento de blocos e edifícios vinculados a um campus.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de predios">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">Use o lápis para carregar um registro para edição ou a lixeira para excluir.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Bloco</th>
+                    <th>Campus (Código)</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(predios)}">
+                    <td class="records-empty" colspan="5">Nenhum prédio cadastrado.</td>
+                </tr>
+                <tr th:each="predio : ${predios}">
+                    <td th:text="${predio.codigo}"></td>
+                    <td th:text="${predio.nome}"></td>
+                    <td th:text="${predio.bloco != null && !predio.bloco.isEmpty() ? predio.bloco : '-'}"></td>
+                    <td th:text="${predio.codigoCampus}"></td>
+                    <td>
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/predios(editar=${predio.codigo})}" title="Editar prédio" aria-label="Editar prédio">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/predios/excluir}" method="post">
+                                <input type="hidden" name="codigo" th:value="${predio.codigo}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir prédio" aria-label="Excluir prédio">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Novo Prédio</h2>
+                <p class="panel-note">Associe um prédio ou bloco a um campus existente.</p>
+
+                <form class="entity-form" th:action="@{/predios/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="predio-campus">Campus</label>
+                            <select id="predio-campus" name="codigoCampus" required>
+                                <option value="" selected disabled>Selecione um campus</option>
+                                <option th:each="c : ${campi}" th:value="${c.codigo}" th:text="${c.nome}"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="predio-nome">Nome do Prédio</label>
+                            <input id="predio-nome" name="nome" type="text" maxlength="100" required>
+                        </div>
+                        <div class="field">
+                            <label for="predio-bloco">Bloco</label>
+                            <input id="predio-bloco" name="bloco" type="text" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${predioSelecionado != null}">
+                <h2 class="panel-title">Editar Prédio</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${predioSelecionado.nome}"></span></p>
+
+                <form class="entity-form" th:action="@{/predios/editar}" method="post">
+                    <input type="hidden" name="codigo" th:value="${predioSelecionado.codigo}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="predio-edit-campus">Campus</label>
+                            <select id="predio-edit-campus" name="codigoCampus" required>
+                                <option value="" disabled>Selecione um campus</option>
+                                <option th:each="c : ${campi}"
+                                        th:value="${c.codigo}"
+                                        th:text="${c.nome}"
+                                        th:selected="${c.codigo == predioSelecionado.codigoCampus}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="predio-edit-nome">Nome do Prédio</label>
+                            <input id="predio-edit-nome" name="nome" type="text" maxlength="100" th:value="${predioSelecionado.nome}" required>
+                        </div>
+                        <div class="field">
+                            <label for="predio-edit-bloco">Bloco</label>
+                            <input id="predio-edit-bloco" name="bloco" type="text" maxlength="20" th:value="${predioSelecionado.bloco}">
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/predios}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${predioSelecionado != null}">
+                <h2 class="panel-title">Editar Prédio</h2>
+                <p class="panel-note">Escolha o lápis em um registro da tabela para carregar os dados aqui.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

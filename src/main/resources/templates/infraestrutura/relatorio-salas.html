@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Infraestrutura</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Relatório Geral de Salas</h1>
+            <p class="page-subtitle">Mapeamento completo de todos os espaços físicos e suas hierarquias nos campi.</p>
+        </div>
+    </header>
+
+    <section class="surface-panel" aria-label="Relatório de Salas">
+        <table class="records-table">
+            <thead>
+            <tr>
+                <th>Campus (Cidade)</th>
+                <th>Prédio (Bloco)</th>
+                <th>Número da Sala</th>
+                <th>Categoria</th>
+                <th>Capacidade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(relatorio)}">
+                <td class="records-empty" colspan="5">Nenhum dado de infraestrutura encontrado.</td>
+            </tr>
+            <tr th:each="linha : ${relatorio}">
+                <td>
+                    <strong th:text="${linha.nomeCampus}"></strong>
+                    <div class="record-meta" th:text="${linha.cidadeCampus}"></div>
+                </td>
+                <td>
+                    <span th:text="${linha.nomePredio}"></span>
+                    <div class="record-meta" th:text="${linha.blocoPredio != null ? 'Bloco: ' + linha.blocoPredio : ''}"></div>
+                </td>
+                <td th:text="${linha.numeroSala}"></td>
+                <td th:text="${linha.categoriaSala}"></td>
+                <td th:text="${linha.capacidade + ' pessoas'}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
