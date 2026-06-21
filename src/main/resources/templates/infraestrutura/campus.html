@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campi</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Campi</h1>
+            <p class="page-subtitle">Gerenciamento de campus universitários cadastrados no sistema.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de campi">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">Use o lápis para carregar um registro para edição ou a lixeira para excluir.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Cidade</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(campi)}">
+                    <td class="records-empty" colspan="4">Nenhum campus cadastrado.</td>
+                </tr>
+                <tr th:each="campus : ${campi}">
+                    <td th:text="${campus.codigo}"></td>
+                    <td th:text="${campus.nome}"></td>
+                    <td th:text="${campus.cidade}"></td>
+                    <td>
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/campus(editar=${campus.codigo})}" title="Editar campus" aria-label="Editar campus">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/campus/excluir}" method="post">
+                                <input type="hidden" name="codigo" th:value="${campus.codigo}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir campus" aria-label="Excluir campus">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Novo Campus</h2>
+                <p class="panel-note">Cria um registro base para vinculação de prédios.</p>
+
+                <form class="entity-form" th:action="@{/campus/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="campus-nome">Nome</label>
+                            <input id="campus-nome" name="nome" type="text" maxlength="100" required>
+                        </div>
+                        <div class="field">
+                            <label for="campus-cidade">Cidade</label>
+                            <input id="campus-cidade" name="cidade" type="text" maxlength="100" required>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${campusSelecionado != null}">
+                <h2 class="panel-title">Editar Campus</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${campusSelecionado.nome}"></span></p>
+
+                <form class="entity-form" th:action="@{/campus/editar}" method="post">
+                    <input type="hidden" name="codigo" th:value="${campusSelecionado.codigo}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="campus-edit-nome">Nome</label>
+                            <input id="campus-edit-nome" name="nome" type="text" maxlength="100" th:value="${campusSelecionado.nome}" required>
+                        </div>
+                        <div class="field">
+                            <label for="campus-edit-cidade">Cidade</label>
+                            <input id="campus-edit-cidade" name="cidade" type="text" maxlength="100" th:value="${campusSelecionado.cidade}" required>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/campus}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${campusSelecionado != null}">
+                <h2 class="panel-title">Editar Campus</h2>
+                <p class="panel-note">Escolha o lápis em um registro da tabela para carregar os dados aqui.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>
