@@ -9,11 +9,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/infraestrutura")
 public class InfraestruturaController {
 
     private static final String MENSAGEM_CONFLITO_INTEGRIDADE =
@@ -65,7 +67,7 @@ public class InfraestruturaController {
             RedirectAttributes redirectAttributes
     ) {
         return executarComTratamentoDeErro(
-                "/campus",
+                "/infraestrutura/campus",
                 "Campus salvo com sucesso.",
                 redirectAttributes,
                 () -> campusRepository.salvar(new Campus(null, nome, cidade))
@@ -80,7 +82,7 @@ public class InfraestruturaController {
             RedirectAttributes redirectAttributes
     ) {
         return executarComTratamentoDeErro(
-                "/campus",
+                "/infraestrutura/campus",
                 "Campus atualizado com sucesso.",
                 redirectAttributes,
                 () -> campusRepository.atualizar(new Campus(codigo, nome, cidade))
@@ -90,7 +92,7 @@ public class InfraestruturaController {
     @PostMapping("/campus/excluir")
     public String excluirCampus(@RequestParam Long codigo, RedirectAttributes redirectAttributes) {
         return executarComTratamentoDeErro(
-                "/campus",
+                "/infraestrutura/campus",
                 "Campus excluido com sucesso.",
                 redirectAttributes,
                 () -> campusRepository.deletarPorId(codigo)
@@ -115,7 +117,7 @@ public class InfraestruturaController {
             RedirectAttributes redirectAttributes
     ) {
         return executarComTratamentoDeErro(
-                "/predios",
+                "/infraestrutura/predios",
                 "Predio salvo com sucesso.",
                 redirectAttributes,
                 () -> predioRepository.salvar(new Predio(null, nome, bloco, codigoCampus))
@@ -131,7 +133,7 @@ public class InfraestruturaController {
             RedirectAttributes redirectAttributes
     ) {
         return executarComTratamentoDeErro(
-                "/predios",
+                "/infraestrutura/predios",
                 "Predio atualizado com sucesso.",
                 redirectAttributes,
                 () -> predioRepository.atualizar(new Predio(codigo, nome, bloco, codigoCampus))
@@ -141,7 +143,7 @@ public class InfraestruturaController {
     @PostMapping("/predios/excluir")
     public String excluirPredio(@RequestParam Long codigo, RedirectAttributes redirectAttributes) {
         return executarComTratamentoDeErro(
-                "/predios",
+                "/infraestrutura/predios",
                 "Predio excluido com sucesso.",
                 redirectAttributes,
                 () -> predioRepository.deletarPorId(codigo)

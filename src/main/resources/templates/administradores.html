@@ -78,7 +78,11 @@
                         </div>
                         <div class="field">
                             <label for="admin-setor">Setor</label>
-                            <input id="admin-setor" name="setor" type="text" maxlength="100">
+                            <select id="admin-setor" name="setor" required>
+                                <option value="" selected disabled>Selecione um setor</option>
+                                <option value="Master">Master</option>
+                                <option value="Operacional">Operacional</option>
+                            </select>
                         </div>
                     </div>
                     <div class="button-row">
@@ -101,7 +105,10 @@
                         </div>
                         <div class="field">
                             <label for="admin-edit-setor">Setor</label>
-                            <input id="admin-edit-setor" name="setor" type="text" maxlength="100" th:value="${administradorSelecionado.setor}">
+                            <select id="admin-edit-setor" name="setor" required>
+                                <option value="Master" th:selected="${administradorSelecionado.setor == 'Master'}">Master</option>
+                                <option value="Operacional" th:selected="${administradorSelecionado.setor == 'Operacional'}">Operacional</option>
+                            </select>
                         </div>
                     </div>
                     <div class="button-row">

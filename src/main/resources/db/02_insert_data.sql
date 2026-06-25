@@ -13,3 +13,27 @@ INSERT INTO predio (nome, bloco, codigo_campus) VALUES ('Prédio das Aulas AT2',
 -- 3. Inserindo Salas válidas no prédio 1 (DC)
 INSERT INTO sala (numero_sala, categoria, capacidade, codigo_predio) VALUES ('Sala 20', 'sala_aula', 40, 1);
 INSERT INTO sala (numero_sala, categoria, capacidade, codigo_predio) VALUES ('Auditório Principal', 'auditorio', 120, 1);
+-- Dados de teste para autenticacao e demonstracao de perfis acumulaveis.
+-- Senha de todos os usuarios de teste: 123456
+INSERT INTO pessoa (nome, cpf, email, telefone) VALUES ('Ana Funcionaria', '11111111111', 'ana@ufscar.br', '1111-1111');
+INSERT INTO pessoa (nome, cpf, email, telefone) VALUES ('Bruno Admin Master', '22222222222', 'bruno@ufscar.br', '2222-2222');
+INSERT INTO pessoa (nome, cpf, email, telefone) VALUES ('Carla Admin Operacional', '33333333333', 'carla@ufscar.br', '3333-3333');
+INSERT INTO pessoa (nome, cpf, email, telefone) VALUES ('Diego Discente', '44444444444', 'diego@ufscar.br', '4444-4444');
+
+INSERT INTO usuario (id_pessoa) VALUES (1), (4);
+
+INSERT INTO funcionario (id_pessoa, id_func, tipo_vinculo) VALUES (1, 'FUNC001', 'servidor');
+
+INSERT INTO discente (id_pessoa, ra, curso) VALUES (4, '800000', 'Ciencia da Computacao');
+
+INSERT INTO administrador (id_pessoa, id_admin, setor) VALUES (2, 'ADM001', 'Master');
+INSERT INTO administrador (id_pessoa, id_admin, setor) VALUES (3, 'ADM002', 'Operacional');
+
+INSERT INTO credencial_acesso (id_pessoa, login, senha_hash) VALUES
+    (1, 'ana', '$2b$12$DeCLLy2ayuvoAz5XzM.UW.vAJZl.9IEDzxi6nGnHF53KVQMR1171S'),
+    (2, 'bruno', '$2b$12$DeCLLy2ayuvoAz5XzM.UW.vAJZl.9IEDzxi6nGnHF53KVQMR1171S'),
+    (3, 'carla', '$2b$12$DeCLLy2ayuvoAz5XzM.UW.vAJZl.9IEDzxi6nGnHF53KVQMR1171S'),
+    (4, 'diego', '$2b$12$DeCLLy2ayuvoAz5XzM.UW.vAJZl.9IEDzxi6nGnHF53KVQMR1171S');
+
+INSERT INTO reserva (data, tipo_reserva, status_reserva, objetivo, horario_inicio, horario_fim, codigo_usuario, codigo_sala, codigo_administrador)
+VALUES (CURRENT_DATE + 1, 'reuniao', 'pendente', 'Reuniao de planejamento', '10:00', '11:00', 1, 1, NULL);

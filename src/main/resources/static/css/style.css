@@ -367,3 +367,54 @@ h1 {
         flex-direction: column;
     }
 }
+
+.session-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 680px;
+    margin-top: 28px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.session-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px 28px;
+}
+
+.session-label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-transform: uppercase;
+}
+
+.login-page {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    padding: 32px;
+}
+
+.login-panel {
+    width: min(520px, 100%);
+    padding: 32px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: 0 18px 44px rgba(32, 33, 36, 0.12);
+}
+
+.login-panel h1 {
+    font-size: clamp(2rem, 8vw, 3.2rem);
+}
+
+.field-grid--single {
+    grid-template-columns: 1fr;
+}

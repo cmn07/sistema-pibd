@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Reservas</h1>
+            <p class="page-subtitle">Controle de reservas de salas solicitadas por funcionarios. O status e definido apenas na edicao administrativa.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de reservas">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">Use o lápis para carregar a reserva no painel lateral ou a lixeira para excluir.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Tipo</th>
+                    <th>Status</th>
+                    <th>Sala</th>
+                    <th>Funcionario</th>
+                    <th sec:authorize="hasRole('ADMIN_OPERACIONAL')">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(reservas)}">
+                    <td class="records-empty" colspan="8">Nenhuma reserva cadastrada.</td>
+                </tr>
+                <tr th:each="reserva : ${reservas}">
+                    <td th:text="${reserva.idReserva}"></td>
+                    <td th:text="${#temporals.format(reserva.data, 'dd/MM/yyyy')}"></td>
+                    <td>
+                        <span th:text="${#temporals.format(reserva.horarioInicio, 'HH:mm')}"></span>
+                        <span> - </span>
+                        <span th:text="${#temporals.format(reserva.horarioFim, 'HH:mm')}"></span>
+                    </td>
+                    <td th:text="${reserva.tipoReserva}"></td>
+                    <td th:text="${reserva.statusReserva}"></td>
+                    <td th:text="${reserva.codigoSala}"></td>
+                    <td th:text="${reserva.codigoUsuario}"></td>
+                    <td sec:authorize="hasRole('ADMIN_OPERACIONAL')">
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/reservas(editar=${reserva.idReserva})}" title="Editar reserva" aria-label="Editar reserva">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/reservas/excluir}" method="post">
+                                <input type="hidden" name="idReserva" th:value="${reserva.idReserva}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir reserva" aria-label="Excluir reserva">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Nova reserva</h2>
+                <p class="panel-note">O horario final precisa ser posterior ao horario inicial.</p>
+
+                <form class="entity-form" th:action="@{/reservas/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field" sec:authorize="hasRole('ADMIN_OPERACIONAL')">
+                            <label for="reserva-usuario">Funcionario</label>
+                            <select id="reserva-usuario" name="codigoUsuario">
+                                <option value="" selected disabled>Selecione um funcionario</option>
+                                <option th:each="funcionario : ${funcionarios}"
+                                        th:value="${funcionario.idPessoa}"
+                                        th:text="${funcionario.nome}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-sala">Sala</label>
+                            <select id="reserva-sala" name="codigoSala" required>
+                                <option value="" selected disabled>Selecione uma sala</option>
+                                <option th:each="sala : ${salas}"
+                                        th:value="${sala.codigo}"
+                                        th:text="${sala.numeroSala + ' - ' + sala.categoria + ' (' + sala.capacidade + ' lugares)'}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-data">Data</label>
+                            <input id="reserva-data" name="data" type="date" required>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-inicio">Início</label>
+                            <input id="reserva-inicio" name="horarioInicio" type="time" required>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-fim">Fim</label>
+                            <input id="reserva-fim" name="horarioFim" type="time" required>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-tipo">Tipo</label>
+                            <select id="reserva-tipo" name="tipoReserva" required>
+                                <option value="" selected disabled>Selecione um tipo</option>
+                                <option th:each="tipo : ${tiposReserva}" th:value="${tipo}" th:text="${tipo}"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-objetivo">Objetivo</label>
+                            <textarea id="reserva-objetivo" name="objetivo" maxlength="500"></textarea>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${reservaSelecionada != null}" sec:authorize="hasRole('ADMIN_OPERACIONAL')">
+                <h2 class="panel-title">Editar reserva</h2>
+                <p class="panel-note">Registro carregado: reserva <span th:text="${reservaSelecionada.idReserva}"></span></p>
+
+                <form class="entity-form" th:action="@{/reservas/editar}" method="post">
+                    <input type="hidden" name="idReserva" th:value="${reservaSelecionada.idReserva}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="reserva-edit-usuario">Funcionario</label>
+                            <select id="reserva-edit-usuario" name="codigoUsuario" required>
+                                <option value="" disabled>Selecione um funcionario</option>
+                                <option th:each="funcionario : ${funcionarios}"
+                                        th:value="${funcionario.idPessoa}"
+                                        th:text="${funcionario.nome}"
+                                        th:selected="${funcionario.idPessoa == reservaSelecionada.codigoUsuario}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-edit-sala">Sala</label>
+                            <select id="reserva-edit-sala" name="codigoSala" required>
+                                <option value="" disabled>Selecione uma sala</option>
+                                <option th:each="sala : ${salas}"
+                                        th:value="${sala.codigo}"
+                                        th:text="${sala.numeroSala + ' - ' + sala.categoria + ' (' + sala.capacidade + ' lugares)'}"
+                                        th:selected="${sala.codigo == reservaSelecionada.codigoSala}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-edit-administrador">Administrador</label>
+                            <select id="reserva-edit-administrador" name="codigoAdministrador">
+                                <option value="" th:selected="${reservaSelecionada.codigoAdministrador == null}">Sem administrador</option>
+                                <option th:each="administrador : ${administradores}"
+                                        th:value="${administrador.idPessoa}"
+                                        th:text="${administrador.nome}"
+                                        th:selected="${administrador.idPessoa == reservaSelecionada.codigoAdministrador}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-edit-data">Data</label>
+                            <input id="reserva-edit-data" name="data" type="date" th:value="${reservaSelecionada.data}" required>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-edit-inicio">Início</label>
+                            <input id="reserva-edit-inicio" name="horarioInicio" type="time" th:value="${reservaSelecionada.horarioInicio}" required>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-edit-fim">Fim</label>
+                            <input id="reserva-edit-fim" name="horarioFim" type="time" th:value="${reservaSelecionada.horarioFim}" required>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-edit-tipo">Tipo</label>
+                            <select id="reserva-edit-tipo" name="tipoReserva" required>
+                                <option value="" disabled>Selecione um tipo</option>
+                                <option th:each="tipo : ${tiposReserva}"
+                                        th:value="${tipo}"
+                                        th:text="${tipo}"
+                                        th:selected="${tipo == reservaSelecionada.tipoReserva}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-edit-status">Status</label>
+                            <select id="reserva-edit-status" name="statusReserva" required>
+                                <option th:each="status : ${statusReserva}"
+                                        th:value="${status}"
+                                        th:text="${status}"
+                                        th:selected="${status == reservaSelecionada.statusReserva}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="reserva-edit-objetivo">Objetivo</label>
+                            <textarea id="reserva-edit-objetivo" name="objetivo" maxlength="500" th:text="${reservaSelecionada.objetivo}"></textarea>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/reservas}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${reservaSelecionada != null}" sec:authorize="hasRole('ADMIN_OPERACIONAL')">
+                <h2 class="panel-title">Editar reserva</h2>
+                <p class="panel-note">Escolha o lápis em um registro da tabela para carregar os dados aqui.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

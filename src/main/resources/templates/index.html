@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,22 +11,40 @@
     <section class="hero">
         <p class="eyebrow">Projeto e Implementacao de Banco de Dados</p>
         <h1>Sistema Universidade - Infraestrutura e Biblioteca</h1>
+        <p class="subtitle">Base integrada com PostgreSQL, JdbcTemplate, Thymeleaf e perfis derivados do DER.</p>
+
+        <div class="session-card">
+            <div class="session-details">
+                <div>
+                    <span class="session-label">Usuario autenticado</span>
+                    <strong sec:authentication="name">login</strong>
+                </div>
+                <div>
+                    <span class="session-label">Papeis</span>
+                    <strong sec:authentication="principal.papeisAtuantes">Papeis</strong>
+                </div>
+            </div>
+            <form th:action="@{/logout}" method="post">
+                <button class="button button-secondary" type="submit">Sair</button>
+            </form>
+        </div>
     </section>
 
     <section class="menu-grid" aria-label="Menu principal">
-        <a class="menu-card" th:href="@{/pessoas}">Pessoas</a>
-        <a class="menu-card" th:href="@{/usuarios}">Usuarios</a>
-        <a class="menu-card" th:href="@{/discentes}">Discentes</a>
-        <a class="menu-card" th:href="@{/funcionarios}">Funcionarios</a>
-        <a class="menu-card" th:href="@{/administradores}">Administradores</a>
-        <a class="menu-card" th:href="@{/campus}">Campus</a>
-        <a class="menu-card" th:href="@{/predios}">Prédios</a>
-        <a class="menu-card" href="#">Acervo</a>
-        <a class="menu-card" href="#">Reservas</a>
-        <a class="menu-card" href="#">Emprestimos</a>
-        <a class="menu-card" href="#">Pendencias</a>
-        <a class="menu-card" href="#">Relatorios</a>
-        <a class="menu-card" th:href="@{/relatorios/salas}">Relatório de Infraestrutura</a>
+        <a class="menu-card" th:href="@{/pessoas}" sec:authorize="hasRole('ADMIN_MASTER')">Pessoas</a>
+        <a class="menu-card" th:href="@{/usuarios}" sec:authorize="hasRole('ADMIN_MASTER')">Usuarios</a>
+        <a class="menu-card" th:href="@{/credenciais}" sec:authorize="hasRole('ADMIN_MASTER')">Credenciais</a>
+        <a class="menu-card" th:href="@{/discentes}" sec:authorize="hasRole('ADMIN_MASTER')">Discentes</a>
+        <a class="menu-card" th:href="@{/funcionarios}" sec:authorize="hasRole('ADMIN_MASTER')">Funcionarios</a>
+        <a class="menu-card" th:href="@{/administradores}" sec:authorize="hasRole('ADMIN_MASTER')">Administradores</a>
+        <a class="menu-card" th:href="@{/estrutura}" sec:authorize="hasAnyRole('USUARIO','ADMIN_MASTER')">Estrutura</a>
+        <a class="menu-card" th:href="@{/infraestrutura/campus}" sec:authorize="hasRole('ADMIN_MASTER')">Campus</a>
+        <a class="menu-card" th:href="@{/infraestrutura/predios}" sec:authorize="hasRole('ADMIN_MASTER')">Predios</a>
+        <a class="menu-card" th:href="@{/relatorios/salas}" sec:authorize="hasRole('ADMIN_MASTER')">Relatorios</a>
+        <a class="menu-card" th:href="@{/reservas}" sec:authorize="hasAnyRole('FUNCIONARIO','ADMIN_OPERACIONAL')">Reservas</a>
+        <a class="menu-card" th:href="@{/acervo}" sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Acervo</a>
+        <a class="menu-card" th:href="@{/emprestimos}" sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Emprestimos</a>
+        <a class="menu-card" th:href="@{/pendencias}" sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Pendencias</a>
     </section>
 </main>
 </body>
