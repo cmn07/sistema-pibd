@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendencias</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Pendencias</h1>
+            <p class="page-subtitle" th:text="${adminOperacional ? 'Administradores operacionais cadastram e acompanham pendencias de emprestimos.' : 'Consulte as pendencias vinculadas aos seus emprestimos.'}">Consulte pendencias.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" th:classappend="${adminOperacional} ? '' : ' content-grid--full'" aria-label="Pendencias de emprestimos">
+        <article class="surface-panel">
+            <h2 class="panel-title" th:text="${adminOperacional ? 'Todas as pendencias' : 'Minhas pendencias'}">Pendencias</h2>
+            <p class="panel-note" th:text="${adminOperacional ? 'Acompanhe pendencias cadastradas para emprestimos da biblioteca.' : 'Usuarios comuns apenas visualizam suas proprias pendencias.'}">Acompanhe pendencias.</p>
+
+            <div class="table-scroll">
+                <table class="records-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Emprestimo</th>
+                        <th>Material</th>
+                        <th>Motivo</th>
+                        <th>Status</th>
+                        <th>Inicio</th>
+                        <th>Fim</th>
+                        <th th:if="${adminOperacional}">Usuario</th>
+                        <th th:if="${adminOperacional}">Admin</th>
+                        <th th:if="${adminOperacional}">Acoes</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(pendencias)}">
+                        <td class="records-empty" th:colspan="${adminOperacional ? 10 : 7}">Nenhuma pendencia registrada.</td>
+                    </tr>
+                    <tr th:each="pendencia : ${pendencias}">
+                        <td th:text="${pendencia.codigo}"></td>
+                        <td th:text="${pendencia.codigoEmprestimo}"></td>
+                        <td>
+                            <strong th:text="${pendencia.tituloMaterial}">Material</strong><br>
+                            <span th:text="${pendencia.tipoMaterial}">Tipo</span>
+                        </td>
+                        <td th:text="${pendencia.motivo}"></td>
+                        <td th:text="${pendencia.statusPendencia}"></td>
+                        <td th:text="${#temporals.format(pendencia.dataInicioPendencia, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${pendencia.dataFimPendencia != null ? #temporals.format(pendencia.dataFimPendencia, 'dd/MM/yyyy') : '-'}"></td>
+                        <td th:if="${adminOperacional}" th:text="${pendencia.nomeUsuario}"></td>
+                        <td th:if="${adminOperacional}" th:text="${pendencia.nomeAdministrador != null ? pendencia.nomeAdministrador : '-'}"></td>
+                        <td th:if="${adminOperacional}">
+                            <form class="inline-form" th:if="${pendencia.statusPendencia == 'ativa'}" th:action="@{/pendencias/encerrar}" method="post">
+                                <input type="hidden" name="codigoPendencia" th:value="${pendencia.codigo}">
+                                <button class="button button-secondary" type="submit">Encerrar</button>
+                            </form>
+                            <span th:unless="${pendencia.statusPendencia == 'ativa'}">-</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <aside class="surface-panel" th:if="${adminOperacional}">
+            <h2 class="panel-title">Cadastrar pendencia</h2>
+            <p class="panel-note">Somente administradores operacionais podem cadastrar pendencias. O emprestimo deve estar ativo ou atrasado e ainda nao pode ter pendencia.</p>
+
+            <form class="entity-form" th:action="@{/pendencias/salvar}" method="post">
+                <div class="field-grid">
+                    <div class="field">
+                        <label for="pendencia-emprestimo">Emprestimo</label>
+                        <select id="pendencia-emprestimo" name="codigoEmprestimo" required>
+                            <option value="" selected disabled>Selecione um emprestimo</option>
+                            <option th:each="emprestimo : ${emprestimos}"
+                                    th:if="${emprestimo.statusEmprestimo == 'ativo' || emprestimo.statusEmprestimo == 'atrasado'}"
+                                    th:value="${emprestimo.idEmprestimo}"
+                                    th:text="${'#' + emprestimo.idEmprestimo + ' - ' + emprestimo.nomeUsuario + ' - ' + emprestimo.tituloMaterial + ' (' + emprestimo.statusEmprestimo + ')'}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="pendencia-motivo">Motivo</label>
+                        <textarea id="pendencia-motivo" name="motivo" placeholder="Descreva o motivo da pendencia" required></textarea>
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="button button-primary" type="submit">Cadastrar pendencia</button>
+                    <button class="button button-secondary" type="reset">Limpar</button>
+                </div>
+            </form>
+        </aside>
+    </section>
+</main>
+</body>
+</html>

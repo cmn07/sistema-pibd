@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acervo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Acervo</h1>
+            <p class="page-subtitle">Consulta de materiais da biblioteca. Categoria e editora ja ficam visiveis para filtros futuros.</p>
+        </div>
+        <a class="button button-primary" th:href="@{/acervo/novo}" sec:authorize="hasRole('ADMIN_OPERACIONAL')">Cadastrar material</a>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="surface-panel" aria-label="Lista de materiais do acervo">
+        <h2 class="panel-title">Materiais cadastrados</h2>
+        <p class="panel-note">Todos os usuarios autenticados podem consultar esta tabela.</p>
+
+        <table class="records-table">
+            <thead>
+            <tr>
+                <th>Codigo</th>
+                <th>Titulo</th>
+                <th>Tipo</th>
+                <th>Categoria</th>
+                <th>Editora</th>
+                <th>Idioma</th>
+                <th>Ano</th>
+                <th>Copias</th>
+                <th sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Acoes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(materiais)}">
+                <td class="records-empty" colspan="9">Nenhum material cadastrado.</td>
+            </tr>
+            <tr th:each="material : ${materiais}">
+                <td th:text="${material.codigo}"></td>
+                <td th:text="${material.titulo}"></td>
+                <td th:text="${material.tipoMaterial}"></td>
+                <td th:text="${material.categoria != null && !material.categoria.isEmpty() ? material.categoria : '-'}"></td>
+                <td th:text="${material.editora != null && !material.editora.isEmpty() ? material.editora : '-'}"></td>
+                <td th:text="${material.idioma != null && !material.idioma.isEmpty() ? material.idioma : '-'}"></td>
+                <td th:text="${material.anoPublicacao != null ? material.anoPublicacao : '-'}"></td>
+                <td th:text="${material.quantidadeCopias}"></td>
+                <td sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">
+                    <div class="record-actions">
+                        <a class="icon-button" th:href="@{/emprestimos(material=${material.codigo})}" sec:authorize="hasRole('USUARIO')" title="Emprestar material" aria-label="Emprestar material">
+                            <i data-lucide="book-open-check"></i>
+                        </a>
+                        <a class="icon-button" th:href="@{/acervo/editar(codigo=${material.codigo})}" sec:authorize="hasRole('ADMIN_OPERACIONAL')" title="Editar material" aria-label="Editar material">
+                            <i data-lucide="pencil"></i>
+                        </a>
+                        <form class="inline-form" th:action="@{/acervo/excluir}" method="post" sec:authorize="hasRole('ADMIN_OPERACIONAL')">
+                            <input type="hidden" name="codigo" th:value="${material.codigo}">
+                            <button class="icon-button icon-button--danger" type="submit" title="Excluir material" aria-label="Excluir material">
+                                <i data-lucide="trash-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

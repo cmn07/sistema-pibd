@@ -140,6 +140,10 @@ h1 {
     gap: 20px;
 }
 
+.content-grid--full {
+    grid-template-columns: 1fr;
+}
+
 .subpanel-stack {
     display: grid;
     gap: 20px;
@@ -269,6 +273,15 @@ h1 {
     width: 100%;
     margin-top: 18px;
     border-collapse: collapse;
+}
+
+.table-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table-scroll .records-table {
+    min-width: 900px;
 }
 
 .records-table th,

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${edicao ? 'Editar material' : 'Cadastrar material'}">Material do acervo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/acervo}">Voltar ao acervo</a>
+            <h1 class="page-title" th:text="${edicao ? 'Editar material' : 'Cadastrar material'}">Material do acervo</h1>
+            <p class="page-subtitle">Preencha os dados gerais do material. Os campos categoria e editora ficam preparados para consultas especificas futuras.</p>
+        </div>
+    </header>
+
+    <section class="surface-panel">
+        <h2 class="panel-title" th:text="${edicao ? 'Dados do material' : 'Novo material'}">Dados do material</h2>
+        <p class="panel-note" th:if="${edicao}">Registro carregado: <span th:text="${materialSelecionado.titulo}"></span></p>
+        <p class="panel-note" th:unless="${edicao}">Cadastro exclusivo do administrador operacional.</p>
+
+        <form class="entity-form"
+              th:action="${edicao} ? @{/acervo/editar} : @{/acervo/salvar}"
+              method="post">
+            <input type="hidden" name="codigo" th:if="${edicao}" th:value="${materialSelecionado.codigo}">
+
+            <div class="field-grid">
+                <div class="field">
+                    <label for="material-tipo">Tipo</label>
+                    <select id="material-tipo" name="tipoMaterial" required>
+                        <option value="" th:selected="${!edicao}" disabled>Selecione um tipo</option>
+                        <option th:each="tipo : ${tiposMaterial}"
+                                th:value="${tipo}"
+                                th:text="${tipo}"
+                                th:selected="${tipo == materialSelecionado.tipoMaterial}">
+                        </option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="material-titulo">Titulo</label>
+                    <input id="material-titulo" name="titulo" type="text" maxlength="200" th:value="${materialSelecionado.titulo}" required>
+                </div>
+                <div class="field">
+                    <label for="material-copias">Copias</label>
+                    <input id="material-copias" name="quantidadeCopias" type="number" min="0" th:value="${edicao ? materialSelecionado.quantidadeCopias : 1}" required>
+                </div>
+                <div class="field">
+                    <label for="material-ano">Ano de publicacao</label>
+                    <input id="material-ano" name="anoPublicacao" type="number" min="1001" max="2100" th:value="${materialSelecionado.anoPublicacao}">
+                </div>
+                <div class="field">
+                    <label for="material-idioma">Idioma</label>
+                    <input id="material-idioma" name="idioma" type="text" maxlength="50" th:value="${materialSelecionado.idioma}">
+                </div>
+                <div class="field">
+                    <label for="material-categoria">Categoria</label>
+                    <input id="material-categoria" name="categoria" type="text" maxlength="80" th:value="${materialSelecionado.categoria}">
+                </div>
+                <div class="field">
+                    <label for="material-editora">Editora</label>
+                    <input id="material-editora" name="editora" type="text" maxlength="100" th:value="${materialSelecionado.editora}">
+                </div>
+            </div>
+
+            <div class="button-row">
+                <button class="button button-primary" type="submit" th:text="${edicao ? 'Salvar alteracoes' : 'Salvar'}">Salvar</button>
+                <a class="button button-secondary" th:href="@{/acervo}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>
