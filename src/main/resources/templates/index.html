@@ -37,7 +37,6 @@
         <a class="menu-card" th:href="@{/discentes}" sec:authorize="hasRole('ADMIN_MASTER')">Discentes</a>
         <a class="menu-card" th:href="@{/funcionarios}" sec:authorize="hasRole('ADMIN_MASTER')">Funcionarios</a>
         <a class="menu-card" th:href="@{/administradores}" sec:authorize="hasRole('ADMIN_MASTER')">Administradores</a>
-        <a class="menu-card" th:href="@{/estrutura}" sec:authorize="hasAnyRole('USUARIO','ADMIN_MASTER')">Estrutura</a>
         <a class="menu-card" th:href="@{/infraestrutura/campus}" sec:authorize="hasRole('ADMIN_MASTER')">Campus</a>
         <a class="menu-card" th:href="@{/infraestrutura/predios}" sec:authorize="hasRole('ADMIN_MASTER')">Predios</a>
         <a class="menu-card" th:href="@{/relatorios/salas}" sec:authorize="hasRole('ADMIN_MASTER')">Relatorios</a>

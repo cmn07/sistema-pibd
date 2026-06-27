@@ -28,13 +28,6 @@ public class PlaceholderController {
         return "placeholder";
     }
 
-    @GetMapping("/estrutura")
-    public String estrutura(Model model) {
-        model.addAttribute("titulo", "Estrutura");
-        model.addAttribute("descricao", "Consulta da estrutura de campi, predios e salas disponiveis.");
-        return "placeholder";
-    }
-
     @GetMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("titulo", "Administracao Geral");
