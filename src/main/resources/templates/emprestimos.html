@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emprestimos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Emprestimos</h1>
+            <p class="page-subtitle">Usuarios acompanham seus emprestimos ativos. Administradores operacionais acompanham todos e registram devolucoes ou pendencias.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" th:classappend="${adminOperacional} ? ' content-grid--full' : ''" aria-label="Emprestimos de materiais">
+        <article class="surface-panel">
+            <h2 class="panel-title" th:text="${adminOperacional ? 'Todos os emprestimos' : 'Meus emprestimos'}">Emprestimos</h2>
+            <p class="panel-note" th:text="${adminOperacional ? 'Acompanhe todos os emprestimos registrados.' : 'Acompanhe seus emprestimos ativos.'}">Acompanhe emprestimos.</p>
+
+            <div class="table-scroll">
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Material</th>
+                    <th>Tipo</th>
+                    <th>Data</th>
+                    <th>Prevista</th>
+                    <th>Devolucao</th>
+                    <th>Status</th>
+                    <th th:if="${adminOperacional}">Usuario</th>
+                    <th th:if="${adminOperacional}">Acoes</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(emprestimos)}">
+                    <td class="records-empty" th:colspan="${adminOperacional ? 9 : 7}">Nenhum emprestimo registrado.</td>
+                </tr>
+                <tr th:each="emprestimo : ${emprestimos}">
+                    <td th:text="${emprestimo.idEmprestimo}"></td>
+                    <td th:text="${emprestimo.tituloMaterial}"></td>
+                    <td th:text="${emprestimo.tipoMaterial}"></td>
+                    <td th:text="${#temporals.format(emprestimo.dataEmprestimo, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#temporals.format(emprestimo.dataDevolucaoPrevista, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${emprestimo.dataDevolucaoReal != null ? #temporals.format(emprestimo.dataDevolucaoReal, 'dd/MM/yyyy') : '-'}"></td>
+                    <td th:text="${emprestimo.statusEmprestimo}"></td>
+                    <td th:if="${adminOperacional}" th:text="${emprestimo.nomeUsuario}"></td>
+                    <td th:if="${adminOperacional}">
+                        <div class="record-actions" th:if="${emprestimo.statusEmprestimo == 'ativo'}">
+                            <form class="inline-form" th:action="@{/emprestimos/devolver}" method="post">
+                                <input type="hidden" name="idEmprestimo" th:value="${emprestimo.idEmprestimo}">
+                                <button class="icon-button" type="submit" title="Registrar devolucao" aria-label="Registrar devolucao">
+                                    <i data-lucide="check"></i>
+                                </button>
+                            </form>
+                            <form class="inline-form" th:action="@{/emprestimos/pendencia}" method="post">
+                                <input type="hidden" name="idEmprestimo" th:value="${emprestimo.idEmprestimo}">
+                                <input name="motivo" type="hidden" value="Pendencia registrada pelo administrador operacional.">
+                                <button class="icon-button icon-button--danger" type="submit" title="Criar pendencia" aria-label="Criar pendencia">
+                                    <i data-lucide="alert-triangle"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <span th:unless="${emprestimo.statusEmprestimo == 'ativo'}">-</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </article>
+
+        <aside class="surface-panel" th:if="${podeRealizarEmprestimo}">
+            <h2 class="panel-title">Novo emprestimo</h2>
+            <p class="panel-note">Escolha um material do acervo ou use o material ja selecionado na listagem do acervo.</p>
+
+            <form class="entity-form" th:action="@{/emprestimos/salvar}" method="post">
+                <div class="field-grid">
+                    <div class="field">
+                        <label for="emprestimo-material">Material</label>
+                        <select id="emprestimo-material" name="codigoMaterialAcervo" required>
+                            <option value="" selected disabled>Selecione um material</option>
+                            <option th:each="material : ${materiais}"
+                                    th:value="${material.codigo}"
+                                    th:text="${material.titulo + ' - ' + material.tipoMaterial + ' (' + material.quantidadeCopias + ' copias)'}"
+                                    th:selected="${material.codigo == materialSelecionado}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="emprestimo-data-prevista">Data prevista de devolucao</label>
+                        <input id="emprestimo-data-prevista"
+                               name="dataDevolucaoPrevista"
+                               type="date"
+                               th:value="${dataDevolucaoSugerida}"
+                               required>
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="button button-primary" type="submit">Realizar emprestimo</button>
+                    <a class="button button-secondary" th:href="@{/acervo}">Escolher no acervo</a>
+                    <button class="button button-secondary" type="reset">Limpar</button>
+                </div>
+            </form>
+        </aside>
+
+        <aside class="surface-panel" th:unless="${podeRealizarEmprestimo || adminOperacional}">
+            <h2 class="panel-title">Novo emprestimo</h2>
+            <p class="panel-note">Somente pessoas cadastradas como usuario podem realizar emprestimos de materiais.</p>
+        </aside>
+    </section>
+</main>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

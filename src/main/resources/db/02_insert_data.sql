@@ -37,3 +37,14 @@ INSERT INTO credencial_acesso (id_pessoa, login, senha_hash) VALUES
 
 INSERT INTO reserva (data, tipo_reserva, status_reserva, objetivo, horario_inicio, horario_fim, codigo_usuario, codigo_sala, codigo_administrador)
 VALUES (CURRENT_DATE + 1, 'reuniao', 'pendente', 'Reuniao de planejamento', '10:00', '11:00', 1, 1, NULL);
+
+-- Dados de teste para consulta e gestao do acervo
+INSERT INTO material_acervo (tipo_material, titulo, quantidade_copias, ano_publicacao, idioma, categoria, editora)
+VALUES
+    ('LIVRO', 'Sistemas de Banco de Dados', 4, 2019, 'Portugues', 'Banco de Dados', 'Pearson'),
+    ('LIVRO', 'Engenharia de Software Moderna', 3, 2020, 'Portugues', 'Engenharia de Software', 'Casa do Codigo'),
+    ('PERIODICO', 'Revista Brasileira de Computacao Aplicada', 2, 2023, 'Portugues', 'Computacao', 'SBC'),
+    ('OUTROS', 'Manual de Normas Academicas', 1, 2022, 'Portugues', 'Institucional', 'UFSCar');
+
+INSERT INTO emprestimo (data_emprestimo, status_emprestimo, data_devolucao_prevista, codigo_material_acervo, codigo_usuario, codigo_administrador)
+VALUES (CURRENT_DATE, 'ativo', CURRENT_DATE + 14, 1, 4, NULL);
