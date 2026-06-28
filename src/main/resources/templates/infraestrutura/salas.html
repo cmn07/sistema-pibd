@@ -9,23 +9,29 @@
 
     <!-- Formulário de cadastro/edição -->
     <form th:action="@{/infraestrutura/salas/salvar}" method="post">
-        <input type="hidden" name="codigo" th:value="${salaSelecionada != null} ? ${salaSelecionada.codigo} : ''" />
+        <input type="hidden" name="codigo" th:value="${salaSelecionada != null ? salaSelecionada.codigo : ''}" />
         <div class="mb-3">
             <label for="numero" class="form-label">Número da Sala</label>
             <input type="text" id="numero" name="numero" class="form-control"
-                   th:value="${salaSelecionada != null} ? ${salaSelecionada.numero} : ''" required />
+                   th:value="${salaSelecionada != null ? salaSelecionada.numero : ''}" required />
         </div>
         <div class="mb-3">
             <label for="capacidade" class="form-label">Capacidade</label>
             <input type="number" id="capacidade" name="capacidade" class="form-control"
-                   th:value="${salaSelecionada != null} ? ${salaSelecionada.capacidade} : ''" required />
+                   th:value="${salaSelecionada != null ? salaSelecionada.capacidade : ''}" required />
         </div>
         <div class="mb-3">
-            <label for="descricao" class="form-label">Descrição</label>
-            <div class="mb-3">
             <label for="categoria" class="form-label">Categoria</label>
-            <input type="text" id="categoria" name="categoria" class="form-control"
-                   th:value="${salaSelecionada != null} ? ${salaSelecionada.categoria} : ''" />
+            <select id="categoria" name="categoria" class="form-control">
+                <option value="Laboratório">Laboratório</option>
+                <option value="Sala de Aula">Sala de Aula</option>
+                <option value="Auditório">Auditório</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="predio" class="form-label">Prédio</label>
+            <input type="text" id="predio" name="predio" class="form-control"
+                   th:value="${salaSelecionada != null} ? ${salaSelecionada.predio} : ''"/>
         </div>
         <button type="submit" class="btn btn-primary">
             <span th:text="${salaSelecionada != null} ? 'Atualizar' : 'Cadastrar'"></span>
@@ -34,13 +40,13 @@
 
     <!-- Tabela de salas -->
     <table class="table mt-4">
-        <thead><tr><th>#</th><th>Número</th><th>Capacidade</th><th>Descrição</th><th>Ações</th></tr></thead>
+        <thead><tr><th>#</th><th>Número</th><th>Capacidade</th><th>Categoria</th><th>Ações</th></tr></thead>
         <tbody>
             <tr th:each="s : ${salas}">
                 <td th:text="${s.codigo}"></td>
-                <td th:text="${s.numero}"></td>
+                <td th:text="${s.numeroSala}"></td>
                 <td th:text="${s.capacidade}"></td>
-                <td th:text="${s.descricao}"></td>
+                <td th:text="${s.categoria}"></td>
                 <td>
                     <a th:href="@{'/infraestrutura/salas'(editar=${s.codigo})}" class="btn btn-sm btn-warning">Editar</a>
                     <form th:action="@{/infraestrutura/salas/excluir}" method="post" style="display:inline">

@@ -56,12 +56,14 @@ public class SalaController {
     public String salvarSala(
             @RequestParam String numero,
             @RequestParam Integer capacidade,
+            @RequestParam(required=false) String categoria,
+            @RequestParam(required=false) Long predio,
             RedirectAttributes redirectAttributes) {
         return executarComTratamentoDeErro(
                 "/infraestrutura/salas",
                 "Sala salva com sucesso.",
                 redirectAttributes,
-                () -> salaRepository.salvar(new Sala(null, numero, null, capacidade, null))
+                () -> salaRepository.salvar(new Sala(null, numero, categoria, capacidade, predio))
         );
     }
 
@@ -70,12 +72,14 @@ public class SalaController {
             @RequestParam Long codigo,
             @RequestParam String numero,
             @RequestParam Integer capacidade,
+            @RequestParam(required=false) String categoria,
+            @RequestParam(required=false) Long predio,
             RedirectAttributes redirectAttributes) {
         return executarComTratamentoDeErro(
                 "/infraestrutura/salas",
                 "Sala atualizada com sucesso.",
                 redirectAttributes,
-                () -> salaRepository.atualizar(new Sala(codigo, numero, null, capacidade, null))
+                () -> salaRepository.atualizar(new Sala(codigo, numero, categoria, capacidade, predio))
         );
     }
 
