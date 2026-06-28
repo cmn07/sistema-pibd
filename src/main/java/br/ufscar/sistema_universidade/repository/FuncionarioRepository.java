@@ -93,6 +93,15 @@ public class FuncionarioRepository {
         );
     }
 
+    public boolean existePorId(Long idPessoa) {
+        Integer quantidade = jdbcTemplate.queryForObject(
+            "SELECT COUNT(*) FROM funcionario WHERE id_pessoa = ?",
+            Integer.class,
+            idPessoa
+        );
+        return quantidade != null && quantidade > 0;
+    }
+
     public List<Funcionario> listarPorTipoVinculo(String tipoVinculo) {
         return jdbcTemplate.query(
             """

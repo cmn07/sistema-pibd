@@ -1,51 +1,72 @@
 # Sistema Universidade
 
-Projeto base para a disciplina Projeto e Implementacao de Banco de Dados.
+Aplicacao web da disciplina Projeto e Implementacao de Banco de Dados para o subsistema **Infraestrutura e Biblioteca** de uma universidade.
 
-O objetivo deste repositorio e fornecer uma estrutura inicial em Spring Boot para que cada integrante do grupo implemente sua propria funcionalidade depois. Neste momento, o projeto contem apenas configuracao, models simples, repositories/services esqueleto e uma tela inicial.
+O projeto usa o DER/esquema relacional definido pelo grupo e serve como base integrada para a Etapa 3: interface web basica, acesso ao PostgreSQL via Java, SQL explicito com `JdbcTemplate`, regras de banco em scripts SQL e funcionalidades separadas por integrantes.
 
 ## Tecnologias
 
-- Java
+- Java 17
 - Spring Boot
 - Spring Web MVC
+- Spring Security
 - Thymeleaf
+- Thymeleaf Extras Spring Security
 - JdbcTemplate
 - PostgreSQL
+- pgAdmin
 - Docker Compose
 - Maven
 
-Nao usar neste projeto base:
+Nao usar neste projeto:
 
-- Spring Security
-- JPA/Hibernate
-- Controllers com regras de negocio prontas
-- Funcionalidades completas de cadastro, listagem, edicao ou exclusao
+- JPA
+- Hibernate
+- `@Entity`
+- Spring Data JPA
 
-## Como subir o banco
+## Funcionalidades existentes
 
-Na raiz do projeto, execute:
+- Gestao de pessoas, usuarios, discentes, funcionarios e administradores.
+- Gestao de infraestrutura com campus e predios.
+- Relatorio SQL de salas por campus/predio.
+- Reservas com validacao de funcionario solicitante e bloqueio de conflito de horario.
+- Login com Spring Security e perfis derivados do DER.
+- Placeholders navegaveis para acervo, emprestimos, pendencias e administracao da biblioteca.
+
+## Banco com Docker
+
+Suba PostgreSQL e pgAdmin na raiz do projeto:
 
 ```bash
 docker compose up -d
 ```
 
-Configuracao do PostgreSQL:
+PostgreSQL:
 
-- Host: `localhost`
-- Porta: `5432`
+- Host local: `localhost`
+- Host dentro do Docker/pgAdmin: `postgres`
+- Porta local: `5433`
+- Porta dentro do Docker/pgAdmin: `5432`
 - Banco: `universidade`
 - Usuario: `postgres`
 - Senha: `postgres`
 
-Os scripts em `src/main/resources/db/` sao montados no container para inicializacao do banco. Por enquanto eles possuem apenas comentarios e devem ser preenchidos pelo grupo conforme o desenvolvimento.
+Os scripts em `src/main/resources/db/` sao montados em `/docker-entrypoint-initdb.d` e executados na primeira criacao do volume do PostgreSQL.
 
-## Como acessar o pgAdmin
+Se alterar scripts e quiser recriar o banco local de desenvolvimento:
+
+```bash
+docker compose down -v
+docker compose up -d
+```
+
+## pgAdmin
 
 Acesse:
 
 ```text
-http://localhost:8081
+http://localhost:8083
 ```
 
 Credenciais:
@@ -53,7 +74,7 @@ Credenciais:
 - Email: `admin@admin.com`
 - Senha: `admin`
 
-Para cadastrar o servidor PostgreSQL no pgAdmin:
+Servidor PostgreSQL no pgAdmin:
 
 - Host: `postgres`
 - Porta: `5432`
@@ -61,14 +82,14 @@ Para cadastrar o servidor PostgreSQL no pgAdmin:
 - Username: `postgres`
 - Password: `postgres`
 
-## Como rodar a aplicacao no IntelliJ
+## Rodar no IntelliJ
 
 1. Abra a pasta do projeto no IntelliJ.
 2. Aguarde o Maven carregar as dependencias.
-3. Configure o SDK Java do projeto.
+3. Configure o SDK Java 17.
 4. Suba o banco com `docker compose up -d`.
-5. Execute a classe `SistemaUniversidadeApplication`.
-6. Acesse `http://localhost:8080`.
+5. Execute `SistemaUniversidadeApplication`.
+6. Acesse `http://localhost:8082`.
 
 Tambem e possivel rodar pelo terminal:
 
@@ -76,55 +97,117 @@ Tambem e possivel rodar pelo terminal:
 ./mvnw spring-boot:run
 ```
 
-Se a porta `8080` estiver ocupada, finalize o processo que esta usando a porta ou rode em outra porta temporariamente:
+## Login de teste
 
-```bash
-./mvnw spring-boot:run -Dspring-boot.run.arguments=--server.port=8082
+Todos usam senha:
+
+```text
+123456
 ```
 
-## Estrutura de pastas
+Usuarios iniciais:
+
+| Login | Perfis derivados |
+| --- | --- |
+| `ana` | `ROLE_USUARIO`, `ROLE_FUNCIONARIO` |
+| `bruno` | `ROLE_ADMINISTRADOR`, `ROLE_ADMIN_MASTER` |
+| `carla` | `ROLE_ADMINISTRADOR`, `ROLE_ADMIN_OPERACIONAL` |
+| `diego` | `ROLE_USUARIO`, `ROLE_DISCENTE` |
+
+Os perfis nao ficam em tabela propria. Eles sao derivados das tabelas `usuario`, `discente`, `funcionario` e `administrador`. Para administradores, o campo `setor` define o papel especifico:
+
+- `Master`: cadastros-base, credenciais e infraestrutura.
+- `Operacional`: reservas, acervo, emprestimos e pendencias.
+
+## Regras de acesso
+
+Rotas publicas:
+
+- `/login`
+- `/css/**`
+- `/images/**`
+
+Rotas autenticadas:
+
+- `/`
+- `/estrutura`: `ROLE_USUARIO` ou `ROLE_ADMIN_MASTER`
+
+Rotas por papel:
+
+- `/pessoas/**`: `ROLE_ADMIN_MASTER`
+- `/usuarios/**`: `ROLE_ADMIN_MASTER`
+- `/credenciais/**`: `ROLE_ADMIN_MASTER`
+- `/funcionarios/**`: `ROLE_ADMIN_MASTER`
+- `/discentes/**`: `ROLE_ADMIN_MASTER`
+- `/administradores/**`: `ROLE_ADMIN_MASTER`
+- `/infraestrutura/**`: `ROLE_ADMIN_MASTER`
+- `/relatorios/**`: `ROLE_ADMIN_MASTER`
+- `/admin/**`: `ROLE_ADMIN_MASTER`
+- `/reservas`: `ROLE_FUNCIONARIO` ou `ROLE_ADMIN_OPERACIONAL`
+- `/reservas/nova`: `ROLE_FUNCIONARIO` ou `ROLE_ADMIN_OPERACIONAL`
+- `/reservas/salvar`: `ROLE_FUNCIONARIO` ou `ROLE_ADMIN_OPERACIONAL`
+- `/reservas/editar`: `ROLE_ADMIN_OPERACIONAL`
+- `/reservas/excluir`: `ROLE_ADMIN_OPERACIONAL`
+- `/acervo/**`: `ROLE_USUARIO` ou `ROLE_ADMIN_OPERACIONAL`
+- `/emprestimos/**`: `ROLE_USUARIO` ou `ROLE_ADMIN_OPERACIONAL`
+- `/pendencias/**`: `ROLE_USUARIO` ou `ROLE_ADMIN_OPERACIONAL`
+
+## Estrutura de pacotes
 
 ```text
 src/main/java/br/ufscar/sistema_universidade/
-  config/       Configuracoes futuras do projeto
+  config/       Configuracoes do projeto, incluindo Spring Security
   controller/   Controllers MVC
-  dto/          Objetos de transferencia de dados futuros
+  dto/          Objetos de transferencia para consultas especificas
   model/        Classes Java simples que representam o DER
   repository/   Acesso ao banco com JdbcTemplate e SQL explicito
-  service/      Regras de negocio futuras
+  service/      Regras de negocio
 
 src/main/resources/
   db/           Scripts SQL do banco
-  static/css/   Arquivos CSS
+  static/css/   Estilos da interface
   templates/    Paginas Thymeleaf
 ```
 
 ## Scripts SQL
 
-- `01_create_tables.sql`: criacao das tabelas
-- `02_insert_data.sql`: dados iniciais
-- `03_indexes.sql`: indices
-- `04_triggers_functions_procedures.sql`: triggers, functions e procedures
+- `01_create_tables.sql`: criacao das tabelas do esquema relacional.
+- `02_insert_data.sql`: dados iniciais e usuarios de teste.
+- `03_indexes.sql`: indices para consultas frequentes.
+- `04_triggers_functions_procedures.sql`: triggers, functions e procedures.
 
-## Organizacao do trabalho
+Regras de banco ja previstas:
 
-Cada integrante deve criar uma branch para sua funcionalidade:
+- Validacao de capacidade de sala por categoria.
+- Bloqueio de reservas conflitantes para mesma sala/data/horario.
+- Bloqueio de emprestimo para usuario com pendencia ativa.
+
+## Organizacao do grupo
+
+Cada integrante deve trabalhar em uma branch propria:
 
 ```bash
 git checkout -b feature/nome-da-funcionalidade
 ```
 
-Exemplos:
+Sugestao de divisao:
 
-- `feature/pessoas`
+- `feature/gestao-pessoas`
 - `feature/infraestrutura`
-- `feature/acervo`
 - `feature/reservas`
-- `feature/emprestimos`
+- `feature/acervo`
+- `feature/emprestimos-pendencias`
 
-Nao fazer commit direto na `main`. Implemente a funcionalidade na sua branch, rode os testes e depois abra merge/pull request para revisao do grupo.
+Fluxo recomendado:
 
-Antes de enviar alteracoes, execute:
+1. Nao fazer commit direto na `main`.
+2. Criar branch a partir da `main` atualizada.
+3. Implementar a funcionalidade mantendo `controller/service/repository/model` separados.
+4. Usar SQL explicito com `JdbcTemplate`.
+5. Rodar testes/compilacao antes de enviar.
+6. Abrir Pull Request para revisao do grupo.
+
+Comando de verificacao:
 
 ```bash
 ./mvnw test

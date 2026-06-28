@@ -44,10 +44,10 @@
                     <td th:text="${predio.codigoCampus}"></td>
                     <td>
                         <div class="record-actions">
-                            <a class="icon-button" th:href="@{/predios(editar=${predio.codigo})}" title="Editar prédio" aria-label="Editar prédio">
+                            <a class="icon-button" th:href="@{/infraestrutura/predios(editar=${predio.codigo})}" title="Editar prédio" aria-label="Editar prédio">
                                 <i data-lucide="pencil"></i>
                             </a>
-                            <form class="inline-form" th:action="@{/predios/excluir}" method="post">
+                            <form class="inline-form" th:action="@{/infraestrutura/predios/excluir}" method="post">
                                 <input type="hidden" name="codigo" th:value="${predio.codigo}">
                                 <button class="icon-button icon-button--danger" type="submit" title="Excluir prédio" aria-label="Excluir prédio">
                                     <i data-lucide="trash-2"></i>
@@ -65,7 +65,7 @@
                 <h2 class="panel-title">Novo Prédio</h2>
                 <p class="panel-note">Associe um prédio ou bloco a um campus existente.</p>
 
-                <form class="entity-form" th:action="@{/predios/salvar}" method="post">
+                <form class="entity-form" th:action="@{/infraestrutura/predios/salvar}" method="post">
                     <div class="field-grid">
                         <div class="field">
                             <label for="predio-campus">Campus</label>
@@ -94,7 +94,7 @@
                 <h2 class="panel-title">Editar Prédio</h2>
                 <p class="panel-note">Registro carregado: <span th:text="${predioSelecionado.nome}"></span></p>
 
-                <form class="entity-form" th:action="@{/predios/editar}" method="post">
+                <form class="entity-form" th:action="@{/infraestrutura/predios/editar}" method="post">
                     <input type="hidden" name="codigo" th:value="${predioSelecionado.codigo}">
                     <div class="field-grid">
                         <div class="field">
@@ -119,7 +119,7 @@
                     </div>
                     <div class="button-row">
                         <button class="button button-primary" type="submit">Salvar alterações</button>
-                        <a class="button button-secondary" th:href="@{/predios}">Limpar</a>
+                        <a class="button button-secondary" th:href="@{/infraestrutura/predios}">Limpar</a>
                     </div>
                 </form>
             </section>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema Universidade</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="login-page">
+    <section class="login-panel">
+        <p class="eyebrow">Acesso ao sistema</p>
+        <h1>Infraestrutura e Biblioteca</h1>
+        <p class="panel-note">Use uma credencial cadastrada em <code>credencial_acesso</code>. A senha dos usuarios de teste e <strong>123456</strong>.</p>
+
+        <p class="flash-message" th:if="${param.error}">Login ou senha invalidos.</p>
+        <p class="flash-message" th:if="${param.logout}">Sessao encerrada.</p>
+
+        <form class="entity-form" th:action="@{/login}" method="post">
+            <div class="field-grid field-grid--single">
+                <div class="field">
+                    <label for="username">Login</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required autofocus>
+                </div>
+                <div class="field">
+                    <label for="password">Senha</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                </div>
+            </div>
+            <div class="button-row">
+                <button class="button button-primary" type="submit">Entrar</button>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

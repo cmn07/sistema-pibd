@@ -1,15 +1,18 @@
 package br.ufscar.sistema_universidade.controller;
 
 import br.ufscar.sistema_universidade.model.Administrador;
+import br.ufscar.sistema_universidade.model.CredencialAcesso;
 import br.ufscar.sistema_universidade.model.Discente;
 import br.ufscar.sistema_universidade.model.Funcionario;
 import br.ufscar.sistema_universidade.model.Pessoa;
 import br.ufscar.sistema_universidade.repository.AdministradorRepository;
+import br.ufscar.sistema_universidade.repository.CredencialAcessoRepository;
 import br.ufscar.sistema_universidade.repository.DiscenteRepository;
 import br.ufscar.sistema_universidade.repository.FuncionarioRepository;
 import br.ufscar.sistema_universidade.repository.PessoaRepository;
 import br.ufscar.sistema_universidade.repository.UsuarioRepository;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,19 +31,25 @@ public class HomeController {
     private final DiscenteRepository discenteRepository;
     private final FuncionarioRepository funcionarioRepository;
     private final AdministradorRepository administradorRepository;
+    private final CredencialAcessoRepository credencialAcessoRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public HomeController(
         PessoaRepository pessoaRepository,
         UsuarioRepository usuarioRepository,
         DiscenteRepository discenteRepository,
         FuncionarioRepository funcionarioRepository,
-        AdministradorRepository administradorRepository
+        AdministradorRepository administradorRepository,
+        CredencialAcessoRepository credencialAcessoRepository,
+        PasswordEncoder passwordEncoder
     ) {
         this.pessoaRepository = pessoaRepository;
         this.usuarioRepository = usuarioRepository;
         this.discenteRepository = discenteRepository;
         this.funcionarioRepository = funcionarioRepository;
         this.administradorRepository = administradorRepository;
+        this.credencialAcessoRepository = credencialAcessoRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @FunctionalInterface
@@ -61,6 +70,11 @@ public class HomeController {
             redirectAttributes.addFlashAttribute("mensagem", MENSAGEM_CONFLITO_INTEGRIDADE);
         }
         return "redirect:" + destino;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
     @GetMapping("/")
@@ -101,6 +115,7 @@ public class HomeController {
                 funcionarioRepository.deletarPorId(idPessoa);
                 administradorRepository.deletarPorId(idPessoa);
                 usuarioRepository.deletarPorId(idPessoa);
+                credencialAcessoRepository.deletarPorId(idPessoa);
                 pessoaRepository.deletarPorId(idPessoa);
             }
         );
@@ -172,6 +187,63 @@ public class HomeController {
                     }
                 }
             }
+        );
+    }
+
+    @GetMapping("/credenciais")
+    public String credenciais(Model model, @RequestParam(required = false) Long editar) {
+        model.addAttribute("pessoas", pessoaRepository.listarTodos());
+        model.addAttribute("credenciais", credencialAcessoRepository.listarTodos());
+        model.addAttribute("credencialSelecionada", editar == null ? null : credencialAcessoRepository.buscarPorPessoa(editar));
+        return "credenciais";
+    }
+
+    @PostMapping("/credenciais/salvar")
+    public String salvarCredencial(
+        @RequestParam Long idPessoa,
+        @RequestParam String login,
+        @RequestParam String senha,
+        @RequestParam(required = false) Boolean ativo,
+        RedirectAttributes redirectAttributes
+    ) {
+        return executarComTratamentoDeErro(
+            "/credenciais",
+            "Credencial salva com sucesso.",
+            redirectAttributes,
+            () -> credencialAcessoRepository.salvar(
+                new CredencialAcesso(idPessoa, login, passwordEncoder.encode(senha), ativo)
+            )
+        );
+    }
+
+    @PostMapping("/credenciais/editar")
+    public String editarCredencial(
+        @RequestParam Long idPessoa,
+        @RequestParam String login,
+        @RequestParam(required = false) String novaSenha,
+        @RequestParam(required = false) Boolean ativo,
+        RedirectAttributes redirectAttributes
+    ) {
+        return executarComTratamentoDeErro(
+            "/credenciais",
+            "Credencial atualizada com sucesso.",
+            redirectAttributes,
+            () -> {
+                credencialAcessoRepository.atualizarDados(idPessoa, login, ativo);
+                if (novaSenha != null && !novaSenha.isBlank()) {
+                    credencialAcessoRepository.atualizarSenha(idPessoa, passwordEncoder.encode(novaSenha));
+                }
+            }
+        );
+    }
+
+    @PostMapping("/credenciais/excluir")
+    public String excluirCredencial(@RequestParam Long idPessoa, RedirectAttributes redirectAttributes) {
+        return executarComTratamentoDeErro(
+            "/credenciais",
+            "Credencial excluida com sucesso.",
+            redirectAttributes,
+            () -> credencialAcessoRepository.deletarPorId(idPessoa)
         );
     }
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Area do sistema</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title" th:text="${titulo}">Area do sistema</h1>
+            <p class="page-subtitle" th:text="${descricao}">Funcionalidade reservada para implementacao posterior.</p>
+        </div>
+    </header>
+
+    <section class="surface-panel">
+        <h2 class="panel-title">Implementacao pendente</h2>
+        <p class="panel-note">Esta rota existe para manter a navegacao coerente enquanto cada integrante desenvolve sua funcionalidade em branch propria.</p>
+    </section>
+</main>
+</body>
+</html>

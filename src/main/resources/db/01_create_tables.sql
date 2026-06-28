@@ -16,6 +16,18 @@ CREATE TABLE pessoa (
                         telefone VARCHAR(20)
 );
 
+-- Tabela para guardar autenticação
+CREATE TABLE credencial_acesso (
+    id_pessoa INT PRIMARY KEY,
+    login VARCHAR(100) NOT NULL UNIQUE,
+    senha_hash VARCHAR(255) NOT NULL,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE,
+
+    CONSTRAINT fk_credencial_pessoa
+        FOREIGN KEY (id_pessoa)
+        REFERENCES pessoa(id_pessoa)
+);
+
 CREATE TABLE usuario (
                          id_pessoa INT PRIMARY KEY,
 

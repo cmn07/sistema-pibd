@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credenciais</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Credenciais</h1>
+            <p class="page-subtitle">Crie login e senha para uma pessoa cadastrada. A senha e armazenada somente como hash BCrypt.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de credenciais">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">Use o lápis para alterar login, status ou redefinir a senha.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Pessoa</th>
+                    <th>Login</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(credenciais)}">
+                    <td class="records-empty" colspan="4">Nenhuma credencial cadastrada.</td>
+                </tr>
+                <tr th:each="credencial : ${credenciais}">
+                    <td th:text="${credencial.nomePessoa}"></td>
+                    <td th:text="${credencial.login}"></td>
+                    <td th:text="${credencial.ativo ? 'Ativa' : 'Inativa'}"></td>
+                    <td>
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/credenciais(editar=${credencial.idPessoa})}" title="Editar credencial" aria-label="Editar credencial">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/credenciais/excluir}" method="post">
+                                <input type="hidden" name="idPessoa" th:value="${credencial.idPessoa}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir credencial" aria-label="Excluir credencial">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Nova credencial</h2>
+                <p class="panel-note">Cada pessoa pode ter uma unica credencial de acesso.</p>
+
+                <form class="entity-form" th:action="@{/credenciais/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="credencial-id-pessoa">Pessoa</label>
+                            <select id="credencial-id-pessoa" name="idPessoa" required>
+                                <option value="" selected disabled>Selecione uma pessoa</option>
+                                <option th:each="pessoa : ${pessoas}" th:value="${pessoa.idPessoa}" th:text="${pessoa.nome}"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="credencial-login">Login</label>
+                            <input id="credencial-login" name="login" type="text" maxlength="100" required>
+                        </div>
+                        <div class="field">
+                            <label for="credencial-senha">Senha</label>
+                            <input id="credencial-senha" name="senha" type="password" minlength="6" maxlength="100" required>
+                        </div>
+                        <div class="field">
+                            <label for="credencial-ativo">Status</label>
+                            <select id="credencial-ativo" name="ativo" required>
+                                <option value="true" selected>Ativa</option>
+                                <option value="false">Inativa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${credencialSelecionada != null}">
+                <h2 class="panel-title">Editar credencial</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${credencialSelecionada.nomePessoa}"></span></p>
+
+                <form class="entity-form" th:action="@{/credenciais/editar}" method="post">
+                    <input type="hidden" name="idPessoa" th:value="${credencialSelecionada.idPessoa}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="credencial-edit-login">Login</label>
+                            <input id="credencial-edit-login" name="login" type="text" maxlength="100" th:value="${credencialSelecionada.login}" required>
+                        </div>
+                        <div class="field">
+                            <label for="credencial-edit-senha">Nova senha</label>
+                            <input id="credencial-edit-senha" name="novaSenha" type="password" minlength="6" maxlength="100" placeholder="Deixe em branco para manter">
+                        </div>
+                        <div class="field">
+                            <label for="credencial-edit-ativo">Status</label>
+                            <select id="credencial-edit-ativo" name="ativo" required>
+                                <option value="true" th:selected="${credencialSelecionada.ativo}">Ativa</option>
+                                <option value="false" th:selected="${!credencialSelecionada.ativo}">Inativa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/credenciais}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${credencialSelecionada != null}">
+                <h2 class="panel-title">Editar credencial</h2>
+                <p class="panel-note">Escolha o lápis em um registro para carregar a edição.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>
