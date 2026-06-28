@@ -169,10 +169,7 @@ public class CredencialAcessoRepository {
         if (setor == null) {
             return false;
         }
-        String setorNormalizado = setor.trim().toLowerCase();
-        return setorNormalizado.equals("master")
-            || setorNormalizado.equals("admin master")
-            || setorNormalizado.equals("administracao master");
+        return "master".equalsIgnoreCase(setor.trim());
     }
 
     private boolean ehAdministradorOperacional(String setor) {

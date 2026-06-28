@@ -1,9 +1,12 @@
 package br.ufscar.sistema_universidade.repository;
 
 import br.ufscar.sistema_universidade.dto.RelatorioSalaDTO;
+import br.ufscar.sistema_universidade.dto.RelatorioEmprestimoUsuarioDTO;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
 public class RelatorioRepository {
@@ -39,5 +42,29 @@ public class RelatorioRepository {
                 rs.getString("categoria_sala"),
                 rs.getInt("capacidade")
         ));
+    }
+
+    public List<RelatorioEmprestimoUsuarioDTO> emitirRelatorioEmprestimosPorPeriodo(LocalDate dataInicio, LocalDate dataFim) {
+        String sql = """
+            SELECT
+                p.id_pessoa AS id_pessoa,
+                p.nome AS nome_usuario,
+                COUNT(*) AS quantidade_emprestimos,
+                MIN(e.data_emprestimo) AS primeiro_emprestimo,
+                MAX(e.data_emprestimo) AS ultimo_emprestimo
+            FROM emprestimo e
+            INNER JOIN pessoa p ON p.id_pessoa = e.codigo_usuario
+            WHERE e.data_emprestimo BETWEEN ? AND ?
+            GROUP BY p.id_pessoa, p.nome
+            ORDER BY quantidade_emprestimos DESC, p.nome ASC
+            """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new RelatorioEmprestimoUsuarioDTO(
+                rs.getLong("id_pessoa"),
+                rs.getString("nome_usuario"),
+                rs.getInt("quantidade_emprestimos"),
+                rs.getDate("primeiro_emprestimo").toLocalDate(),
+                rs.getDate("ultimo_emprestimo").toLocalDate()
+        ), Date.valueOf(dataInicio), Date.valueOf(dataFim));
     }
 }
