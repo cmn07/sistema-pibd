@@ -10,10 +10,12 @@ import br.ufscar.sistema_universidade.repository.RelatorioRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/infraestrutura")
 public class InfraestruturaVisualizacaoController {
     private final CampusRepository campusRepo;
     private final PredioRepository predioRepo;

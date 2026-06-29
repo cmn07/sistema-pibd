@@ -110,7 +110,7 @@
 
             <section class="surface-panel" th:if="${salaSelecionada != null}">
                 <h2 class="panel-title">Editar Sala</h2>
-                <p class="panel-note">Registro carregado: <span th:text="${salaSelecionada.numero}"></span></p>
+                <p class="panel-note">Registro carregado: <span th:text="${salaSelecionada.numeroSala}"></span></p>
 
                 <form class="entity-form" th:action="@{/infraestrutura/salas/editar}" method="post">
                     <input type="hidden" name="codigo" th:value="${salaSelecionada.codigo}">
@@ -139,7 +139,7 @@
                         </div>
                         <div class="field">
                             <label for="sala-edit-numero">Número da Sala</label>
-                            <input id="sala-edit-numero" name="numero" type="text" maxlength="50" th:value="${salaSelecionada.numero}" required>
+                            <input id="sala-edit-numero" name="numero" type="text" maxlength="50" th:value="${salaSelecionada.numeroSala}" required>
                         </div>
                         <div class="field">
                             <label for="sala-edit-categoria">Categoria</label>
