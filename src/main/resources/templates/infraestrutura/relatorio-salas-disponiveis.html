@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salas Disponíveis</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Salas Disponíveis</h1>
+            <p class="page-subtitle">Consulte as salas disponíveis para reserva em uma data e horário específicos.</p>
+        </div>
+    </header>
+
+    <section class="surface-panel" aria-label="Filtro de Data e Horário">
+        <form method="get" th:action="@{/infraestrutura/relatorios/salas-disponiveis}" style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
+            <label for="data"><strong>Data:</strong></label>
+            <input type="date" id="data" name="data" th:value="${dataSelecionada}" class="form-input">
+
+            <label for="horarioInicio"><strong>Início:</strong></label>
+            <input type="time" id="horarioInicio" name="horarioInicio" th:value="${horarioInicioSelecionado}" class="form-input">
+
+            <label for="horarioFim"><strong>Fim:</strong></label>
+            <input type="time" id="horarioFim" name="horarioFim" th:value="${horarioFimSelecionado}" class="form-input">
+
+            <button type="submit" class="btn-primary">Consultar</button>
+        </form>
+    </section>
+
+    <section class="surface-panel" aria-label="Salas Disponíveis">
+        <table class="records-table">
+            <thead>
+            <tr>
+                <th>Campus (Cidade)</th>
+                <th>Prédio (Bloco)</th>
+                <th>Número da Sala</th>
+                <th>Categoria</th>
+                <th>Capacidade</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(salas)}">
+                <td class="records-empty" colspan="5">Nenhuma sala disponível nesta data/horário.</td>
+            </tr>
+            <tr th:each="sala : ${salas}">
+                <td>
+                    <strong th:text="${sala.nomeCampus}"></strong>
+                    <div class="record-meta" th:text="${sala.cidadeCampus}"></div>
+                </td>
+                <td>
+                    <span th:text="${sala.nomePredio}"></span>
+                    <div class="record-meta" th:text="${sala.blocoPredio != null ? 'Bloco: ' + sala.blocoPredio : ''}"></div>
+                </td>
+                <td th:text="${sala.numeroSala}"></td>
+                <td th:text="${sala.categoriaSala}"></td>
+                <td th:text="${sala.capacidade + ' pessoas'}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

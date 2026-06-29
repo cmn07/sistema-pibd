@@ -5,7 +5,10 @@ import br.ufscar.sistema_universidade.dto.RelatorioEmprestimoUsuarioDTO;
 import br.ufscar.sistema_universidade.dto.RelatorioReservaDTO;
 import br.ufscar.sistema_universidade.dto.RelatorioInfraestruturaDTO;
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -92,6 +95,51 @@ public class RelatorioRepository {
                 rs.getDate("primeiro_emprestimo").toLocalDate(),
                 rs.getDate("ultimo_emprestimo").toLocalDate()
         ), Date.valueOf(dataInicio), Date.valueOf(dataFim));
+    }
+
+    public List<RelatorioSalaDTO> listarSalasDisponiveis(LocalDate data, LocalTime horarioInicio, LocalTime horarioFim) {
+        StringBuilder sql = new StringBuilder("""
+            SELECT
+                c.nome AS nome_campus,
+                c.cidade AS cidade_campus,
+                p.nome AS nome_predio,
+                p.bloco AS bloco_predio,
+                s.numero_sala,
+                s.categoria AS categoria_sala,
+                s.capacidade
+            FROM sala s
+            JOIN predio p ON p.codigo = s.codigo_predio
+            JOIN campus c ON c.codigo = p.codigo_campus
+            WHERE s.codigo NOT IN (
+                SELECT r.codigo_sala
+                FROM reserva r
+                WHERE r.data = ?
+                AND r.status_reserva = 'aprovada'
+            """);
+
+        List<Object> params = new ArrayList<>();
+        params.add(Date.valueOf(data));
+
+        if (horarioInicio != null && horarioFim != null) {
+            sql.append(" AND r.horario_inicio < ? AND r.horario_fim > ? ");
+            params.add(Time.valueOf(horarioFim));
+            params.add(Time.valueOf(horarioInicio));
+        }
+
+        sql.append("""
+            )
+            ORDER BY c.nome, p.nome, s.numero_sala
+            """);
+
+        return jdbcTemplate.query(sql.toString(), (rs, rowNum) -> new RelatorioSalaDTO(
+                rs.getString("nome_campus"),
+                rs.getString("cidade_campus"),
+                rs.getString("nome_predio"),
+                rs.getString("bloco_predio"),
+                rs.getString("numero_sala"),
+                rs.getString("categoria_sala"),
+                rs.getInt("capacidade")
+        ), params.toArray());
     }
 
     public List<RelatorioReservaDTO> emitirRelatorioReservasPorPeriodo(

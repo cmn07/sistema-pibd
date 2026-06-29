@@ -4,13 +4,14 @@ import java.time.LocalDate;
 
 public class RelatorioEmprestimoUsuarioDTO {
 
-    private Long idPessoa;
-    private String nomeUsuario;
-    private Integer quantidadeEmprestimos;
-    private LocalDate primeiroEmprestimo;
-    private LocalDate ultimoEmprestimo;
+    private final Long idPessoa;
+    private final String nomeUsuario;
+    private final Integer quantidadeEmprestimos;
+    private final LocalDate primeiroEmprestimo;
+    private final LocalDate ultimoEmprestimo;
 
-    public RelatorioEmprestimoUsuarioDTO(Long idPessoa, String nomeUsuario, Integer quantidadeEmprestimos, LocalDate primeiroEmprestimo, LocalDate ultimoEmprestimo) {
+    public RelatorioEmprestimoUsuarioDTO(Long idPessoa, String nomeUsuario,
+                                         Integer quantidadeEmprestimos, LocalDate primeiroEmprestimo, LocalDate ultimoEmprestimo) {
         this.idPessoa = idPessoa;
         this.nomeUsuario = nomeUsuario;
         this.quantidadeEmprestimos = quantidadeEmprestimos;

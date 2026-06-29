@@ -6,6 +6,7 @@ import br.ufscar.sistema_universidade.repository.CampusRepository;
 import br.ufscar.sistema_universidade.repository.PredioRepository;
 import br.ufscar.sistema_universidade.repository.RelatorioRepository;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Controller
 @RequestMapping("/infraestrutura")
@@ -61,42 +64,21 @@ public class InfraestruturaController {
     }
 
     @PostMapping("/campus/salvar")
-    public String salvarCampus(
-            @RequestParam String nome,
-            @RequestParam String cidade,
-            RedirectAttributes redirectAttributes
-    ) {
-        return executarComTratamentoDeErro(
-                "/infraestrutura/campus",
-                "Campus salvo com sucesso.",
-                redirectAttributes,
-                () -> campusRepository.salvar(new Campus(null, nome, cidade))
-        );
+    public String salvarCampus(@RequestParam String nome, @RequestParam String cidade, RedirectAttributes redirectAttributes) {
+        return executarComTratamentoDeErro("/infraestrutura/campus", "Campus salvo com sucesso.", redirectAttributes,
+                () -> campusRepository.salvar(new Campus(null, nome, cidade)));
     }
 
     @PostMapping("/campus/editar")
-    public String editarCampus(
-            @RequestParam Long codigo,
-            @RequestParam String nome,
-            @RequestParam String cidade,
-            RedirectAttributes redirectAttributes
-    ) {
-        return executarComTratamentoDeErro(
-                "/infraestrutura/campus",
-                "Campus atualizado com sucesso.",
-                redirectAttributes,
-                () -> campusRepository.atualizar(new Campus(codigo, nome, cidade))
-        );
+    public String editarCampus(@RequestParam Long codigo, @RequestParam String nome, @RequestParam String cidade, RedirectAttributes redirectAttributes) {
+        return executarComTratamentoDeErro("/infraestrutura/campus", "Campus atualizado com sucesso.", redirectAttributes,
+                () -> campusRepository.atualizar(new Campus(codigo, nome, cidade)));
     }
 
     @PostMapping("/campus/excluir")
     public String excluirCampus(@RequestParam Long codigo, RedirectAttributes redirectAttributes) {
-        return executarComTratamentoDeErro(
-                "/infraestrutura/campus",
-                "Campus excluido com sucesso.",
-                redirectAttributes,
-                () -> campusRepository.deletarPorId(codigo)
-        );
+        return executarComTratamentoDeErro("/infraestrutura/campus", "Campus excluido com sucesso.", redirectAttributes,
+                () -> campusRepository.deletarPorId(codigo));
     }
 
     // ROTAS DE PRÉDIO
@@ -110,44 +92,21 @@ public class InfraestruturaController {
     }
 
     @PostMapping("/predios/salvar")
-    public String salvarPredio(
-            @RequestParam String nome,
-            @RequestParam(required = false) String bloco,
-            @RequestParam Long codigoCampus,
-            RedirectAttributes redirectAttributes
-    ) {
-        return executarComTratamentoDeErro(
-                "/infraestrutura/predios",
-                "Predio salvo com sucesso.",
-                redirectAttributes,
-                () -> predioRepository.salvar(new Predio(null, nome, bloco, codigoCampus))
-        );
+    public String salvarPredio(@RequestParam String nome, @RequestParam(required = false) String bloco, @RequestParam Long codigoCampus, RedirectAttributes redirectAttributes) {
+        return executarComTratamentoDeErro("/infraestrutura/predios", "Predio salvo com sucesso.", redirectAttributes,
+                () -> predioRepository.salvar(new Predio(null, nome, bloco, codigoCampus)));
     }
 
     @PostMapping("/predios/editar")
-    public String editarPredio(
-            @RequestParam Long codigo,
-            @RequestParam String nome,
-            @RequestParam(required = false) String bloco,
-            @RequestParam Long codigoCampus,
-            RedirectAttributes redirectAttributes
-    ) {
-        return executarComTratamentoDeErro(
-                "/infraestrutura/predios",
-                "Predio atualizado com sucesso.",
-                redirectAttributes,
-                () -> predioRepository.atualizar(new Predio(codigo, nome, bloco, codigoCampus))
-        );
+    public String editarPredio(@RequestParam Long codigo, @RequestParam String nome, @RequestParam(required = false) String bloco, @RequestParam Long codigoCampus, RedirectAttributes redirectAttributes) {
+        return executarComTratamentoDeErro("/infraestrutura/predios", "Predio atualizado com sucesso.", redirectAttributes,
+                () -> predioRepository.atualizar(new Predio(codigo, nome, bloco, codigoCampus)));
     }
 
     @PostMapping("/predios/excluir")
     public String excluirPredio(@RequestParam Long codigo, RedirectAttributes redirectAttributes) {
-        return executarComTratamentoDeErro(
-                "/infraestrutura/predios",
-                "Predio excluido com sucesso.",
-                redirectAttributes,
-                () -> predioRepository.deletarPorId(codigo)
-        );
+        return executarComTratamentoDeErro("/infraestrutura/predios", "Predio excluido com sucesso.", redirectAttributes,
+                () -> predioRepository.deletarPorId(codigo));
     }
 
     // ROTAS DE RELATÓRIOS
@@ -156,5 +115,20 @@ public class InfraestruturaController {
     public String relatorioSalas(Model model) {
         model.addAttribute("relatorio", relatorioRepository.emitirRelatorioInfraestrutura());
         return "infraestrutura/relatorio-salas";
+    }
+
+    // RELATÓRIO DE SALAS DISPONÍVEIS POR DATA (Hashimoto)
+    @GetMapping("/relatorios/salas-disponiveis")
+    public String relatorioSalasDisponiveis(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate data,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime horarioInicio,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime horarioFim,
+            Model model) {
+        if (data == null) data = LocalDate.now();
+        model.addAttribute("salas", relatorioRepository.listarSalasDisponiveis(data, horarioInicio, horarioFim));
+        model.addAttribute("dataSelecionada", data);
+        model.addAttribute("horarioInicioSelecionado", horarioInicio);
+        model.addAttribute("horarioFimSelecionado", horarioFim);
+        return "infraestrutura/relatorio-salas-disponiveis";
     }
 }
