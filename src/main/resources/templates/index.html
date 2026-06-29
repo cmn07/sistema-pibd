@@ -46,7 +46,8 @@
         <a class="menu-card" th:href="@{/acervo}" sec:authorize="isAuthenticated()">Acervo</a>
         <a class="menu-card" th:href="@{/emprestimos}" sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Emprestimos</a>
         <a class="menu-card" th:href="@{/pendencias}" sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Pendencias</a>
-        <a class="menu-card" th:href="@{/relatorios/emprestimos}" sec:authorize="hasRole('ADMIN_OPERACIONAL')">Relatorio</a>
+        <a class="menu-card" th:href="@{/relatorios/emprestimos}" sec:authorize="hasRole('ADMIN_OPERACIONAL')">Relatorio de Emprestimos</a>
+        <a class="menu-card" th:href="@{/relatorios/reservas}" sec:authorize="hasAnyRole('ADMIN_OPERACIONAL','ADMIN_MASTER')">Relatorio de Reservas</a>
     </section>
 </main>
 </body>

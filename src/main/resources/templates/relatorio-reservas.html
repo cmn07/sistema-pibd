@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatorio de Reservas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Relatorio de Reservas</h1>
+            <p class="page-subtitle">Consulte reservas por periodo e acompanhe solicitante, sala, predio e campus.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${erro}" th:text="${erro}"></p>
+
+    <section class="surface-panel" aria-label="Filtros do relatorio">
+        <h2 class="panel-title">Filtros</h2>
+        <p class="panel-note">O periodo e obrigatorio. O status pode ser usado para restringir o resultado.</p>
+
+        <form class="entity-form" th:action="@{/relatorios/reservas}" method="get">
+            <div class="field-grid">
+                <div class="field">
+                    <label for="data-inicio">Data inicial</label>
+                    <input id="data-inicio" name="dataInicio" type="date" th:value="${dataInicio}" required>
+                </div>
+                <div class="field">
+                    <label for="data-fim">Data final</label>
+                    <input id="data-fim" name="dataFim" type="date" th:value="${dataFim}" required>
+                </div>
+                <div class="field">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="">Todos</option>
+                        <option th:each="opcao : ${statusDisponiveis}"
+                                th:value="${opcao}"
+                                th:text="${opcao}"
+                                th:selected="${opcao == statusSelecionado}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="button-row">
+                <button class="button button-primary" type="submit">Consultar</button>
+                <a class="button button-secondary" th:href="@{/relatorios/reservas}">Limpar filtros</a>
+            </div>
+        </form>
+    </section>
+
+    <section class="surface-panel report-results" aria-label="Resultado do relatorio">
+        <h2 class="panel-title">Reservas encontradas</h2>
+        <div class="table-scroll">
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Data e horario</th>
+                    <th>Solicitante</th>
+                    <th>Reserva</th>
+                    <th>Sala</th>
+                    <th>Predio</th>
+                    <th>Campus</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(relatorio)}">
+                    <td class="records-empty" colspan="6">Nenhuma reserva encontrada para os filtros informados.</td>
+                </tr>
+                <tr th:each="linha : ${relatorio}">
+                    <td>
+                        <strong th:text="${#temporals.format(linha.data, 'dd/MM/yyyy')}"></strong>
+                        <div class="record-meta"
+                             th:text="${#temporals.format(linha.horarioInicio, 'HH:mm') + ' - ' + #temporals.format(linha.horarioFim, 'HH:mm')}"></div>
+                    </td>
+                    <td th:text="${linha.nomeSolicitante}"></td>
+                    <td>
+                        <strong th:text="${linha.tipoReserva}"></strong>
+                        <div class="record-meta" th:text="${linha.statusReserva}"></div>
+                    </td>
+                    <td>
+                        <strong th:text="${linha.numeroSala}"></strong>
+                        <div class="record-meta" th:text="${linha.categoriaSala}"></div>
+                    </td>
+                    <td>
+                        <span th:text="${linha.nomePredio}"></span>
+                        <div class="record-meta"
+                             th:if="${linha.blocoPredio != null and !linha.blocoPredio.isBlank()}"
+                             th:text="${'Bloco: ' + linha.blocoPredio}"></div>
+                    </td>
+                    <td th:text="${linha.nomeCampus}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

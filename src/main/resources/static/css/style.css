@@ -161,6 +161,10 @@ h1 {
     border-color: rgba(143, 43, 43, 0.25);
 }
 
+.report-results {
+    margin-top: 20px;
+}
+
 .panel-title {
     margin: 0;
     font-size: 1.3rem;
