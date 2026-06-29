@@ -1,5 +1,6 @@
 package br.ufscar.sistema_universidade.service;
 
+import br.ufscar.sistema_universidade.dto.MaterialAcervoConsultaDTO;
 import br.ufscar.sistema_universidade.model.MaterialAcervo;
 import br.ufscar.sistema_universidade.repository.MaterialRepository;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class MaterialService {
 
     private static final Set<String> TIPOS_MATERIAL = Set.of("LIVRO", "PERIODICO", "OUTROS");
+    private static final Set<String> SITUACOES_CONSULTA = Set.of("TODOS", "DISPONIVEL", "EMPRESTADO");
 
     private final MaterialRepository materialRepository;
 
@@ -19,6 +21,23 @@ public class MaterialService {
 
     public List<MaterialAcervo> listarTodos() {
         return materialRepository.listarTodos();
+    }
+
+    public List<MaterialAcervoConsultaDTO> consultarAcervo(String termo, String tipoMaterial, String situacao) {
+        String tipoNormalizado = normalizarFiltroMaiusculo(tipoMaterial);
+        if (tipoNormalizado != null && !TIPOS_MATERIAL.contains(tipoNormalizado)) {
+            throw new IllegalArgumentException("Tipo de material invalido.");
+        }
+
+        String situacaoNormalizada = normalizarFiltroMaiusculo(situacao);
+        if (situacaoNormalizada == null) {
+            situacaoNormalizada = "TODOS";
+        }
+        if (!SITUACOES_CONSULTA.contains(situacaoNormalizada)) {
+            throw new IllegalArgumentException("Situacao de material invalida.");
+        }
+
+        return materialRepository.consultarAcervo(termo, tipoNormalizado, situacaoNormalizada);
     }
 
     public MaterialAcervo buscarPorId(Long codigo) {
@@ -39,6 +58,10 @@ public class MaterialService {
 
     public List<String> listarTiposMaterial() {
         return List.of("LIVRO", "PERIODICO", "OUTROS");
+    }
+
+    public List<String> listarSituacoesConsulta() {
+        return List.of("TODOS", "DISPONIVEL", "EMPRESTADO");
     }
 
     private MaterialAcervo normalizar(MaterialAcervo material) {
@@ -76,5 +99,12 @@ public class MaterialService {
             return null;
         }
         return valor.trim();
+    }
+
+    private String normalizarFiltroMaiusculo(String valor) {
+        if (valor == null || valor.trim().isEmpty()) {
+            return null;
+        }
+        return valor.trim().toUpperCase();
     }
 }
