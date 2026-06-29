@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Infraestrutura - Laboratórios</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-neutral-50">
+<main class="page-shell">
+    <header class="topbar">
+        <div class="topbar-content">
+            <a class="back-link" th:href="@{/infraestrutura/predios}">Voltar aos Prédios</a>
+            <h1 class="page-title">Laboratórios</h1>
+            <p class="page-subtitle">Gerenciamento de espaços especializados e laboratórios.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de laboratorios">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">Use o lápis para carregar um registro para edição ou a lixeira para excluir.</p>
+
+            <table class="records-table">
+                <thead class="records-table-head">
+                <tr class="records-table-row">
+                    <th class="records-table-cell">Campus (Cidade)</th>
+                    <th class="records-table-cell">Prédio (Bloco)</th>
+                    <th class="records-table-cell">Número do Lab</th>
+                    <th class="records-table-cell">Categoria</th>
+                    <th class="records-table-cell">Capacidade</th>
+                    <th class="records-table-cell">Dep. Setor</th>
+                    <th class="records-table-cell">Equip. Info</th>
+                    <th class="records-table-cell">Ações</th>
+                </tr>
+                </thead>
+                <tbody class="records-table-body">
+                <tr th:if="${#lists.isEmpty(laboratorios)}">
+                    <td class="records-empty" colspan="8">Nenhum laboratório cadastrado.</td>
+                </tr>
+                <tr th:each="l : ${laboratorios}">
+                    <td class="records-table-cell">
+                        <strong th:text="${l.getCampus().getNome()}"></strong>
+                        <div class="record-meta" th:text="${l.getCampus().getCidade()}"></div>
+                    </td>
+                    <td class="records-table-cell">
+                        <span th:text="${l.predio.nome}"></span>
+                        <div class="record-meta" th:text="${l.predio.bloco != null ? 'Bloco: ' + l.predio.bloco : ''}"></div>
+                    </td>
+                    <td class="records-table-cell" th:text="${l.numeroSala}"></td>
+                    <td class="records-table-cell" th:text="${l.categoria}"></td>
+                    <td class="records-table-cell" th:text="${l.capacidade + ' pessoas'}"></td>
+                    <td class="records-table-cell" th:text="${l.departamentoSetor}"></td>
+                    <td class="records-table-cell" th:text="${l.quantidadeEquipamentosInformatica}"></td>
+                    <td class="records-table-cell">
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/infraestrutura/laboratorios(editar=${l.codigo})}" title="Editar laboratório" aria-label="Editar laboratório">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/infraestrutura/laboratorios/excluir}" method="post">
+                                <input type="hidden" name="codigo" th:value="${l.codigo}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir laboratório" aria-label="Excluir laboratório">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Novo Laboratório</h2>
+                <p class="panel-note">Cadastre um novo laboratório vinculado a um prédio existente.</p>
+
+                <form class="entity-form" th:action="@{/infraestrutura/laboratorios/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="lab-predio">Prédio</label>
+                            <select id="lab-predio" name="predio" required>
+                                <option value="" selected disabled>Selecione um prédio</option>
+                                <option th:each="p : ${predios}" th:value="${p.codigo}" th:text="${p.nome}"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="lab-numero">Número do Lab</label>
+                            <input id="lab-numero" name="numero" type="text" maxlength="50" required>
+                        </div>
+                        <div class="field">
+                            <label for="lab-categoria">Categoria</label>
+                            <input id="lab-categoria" name="categoria" type="text" maxlength="50">
+                        </div>
+                        <div class="field">
+                            <label for="lab-capacidade">Capacidade</label>
+                            <input id="lab-capacidade" name="capacidade" type="number" min="0" required>
+                        </div>
+                        <div class="field">
+                            <label for="lab-depar">Dep. Setor</label>
+                            <input id="lab-depar" name="departamentoSetor" type="text" maxlength="100">
+                        </div>
+                        <div class="field">
+                            <label for="lab-equip">Equip. Informática</label>
+                            <input id="lab-equip" name="quantidadeEquipamentos" type="number" min="0" required>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${laboratorioSelecionado != null}">
+                <h2 class="panel-title">Editar Laboratório</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${laboratorioSelecionado.numero}"></span></p>
+
+                <form class="entity-form" th:action="@{/infraestrutura/laboratorios/editar}" method="post">
+                    <input type="hidden" name="codigo" th:value="${laboratorioSelecionado.codigo}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="lab-edit-predio">Prédio</label>
+                            <select id="lab-edit-predio" name="predio" required>
+                                <option value="" disabled>Selecione um prédio</option>
+                                <option th:each="p : ${predios}"
+                                        th:value="${p.codigo}"
+                                        th:text="${p.nome}"
+                                        th:selected="${p.codigo == laboratorioSelecionado.codigoPredio}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="lab-edit-numero">Número do Lab</label>
+                            <input id="lab-edit-numero" name="numero" type="text" maxlength="50" th:value="${laboratorioSelecionado.numero}" required>
+                        </div>
+                        <div class="field">
+                            <label for="lab-edit-categoria">Categoria</label>
+                            <input id="lab-edit-categoria" name="categoria" type="text" maxlength="50" th:value="${laboratorioSelecionado.categoria}">
+                        </div>
+                        <div class="field">
+                            <label for="lab-edit-capacidade">Capacidade</label>
+                            <input id="lab-edit-capacidade" name="capacidade" type="number" min="0" th:value="${laboratorioSelecionado.capacidade}" required>
+                        </div>
+                        <div class="field">
+                            <label for="lab-edit-depar">Dep. Setor</label>
+                            <input id="lab-edit-depar" name="departamentoSetor" type="text" maxlength="100" th:value="${laboratorioSelecionado.departamentoSetor}">
+                        </div>
+                        <div class="field">
+                            <label for="lab-edit-equip">Equip. Informática</label>
+                            <input id="lab-edit-equip" name="quantidadeEquipamentos" type="number" min="0" th:value="${laboratorioSelecionado.quantidadeEquipamentosInformatica}" required>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/infraestrutura/laboratorios}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${laboratorioSelecionado != null}">
+                <h2 class="panel-title">Editar Laboratório</h2>
+                <p class="panel-note">Escolha o lápis em um registro da tabela para carregar os dados aqui.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

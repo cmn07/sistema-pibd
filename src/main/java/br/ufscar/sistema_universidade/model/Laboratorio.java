@@ -4,6 +4,8 @@ public class Laboratorio extends Sala {
 
     private String departamentoSetor;
     private Integer quantidadeEquipamentosInformatica;
+    private Predio predio;
+    private Campus campus;
 
     public Laboratorio() {
     }
@@ -29,5 +31,21 @@ public class Laboratorio extends Sala {
 
     public void setQuantidadeEquipamentosInformatica(Integer quantidadeEquipamentosInformatica) {
         this.quantidadeEquipamentosInformatica = quantidadeEquipamentosInformatica;
+    }
+
+    public Predio getPredio() {
+        return predio;
+    }
+
+    public void setPredio(Predio predio) {
+        this.predio = predio;
+    }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
     }
 }

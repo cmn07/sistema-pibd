@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Infraestrutura - Visualizar</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-neutral-50">
+<main class="page-shell">
+    <header class="topbar">
+        <div class="topbar-content">
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Infraestrutura - Visualizar</h1>
+            <p class="page-subtitle">Visualização da estrutura de campus, prédios e salas.</p>
+        </div>
+    </header>
+
+    <section class="content-grid" aria-label="Estrutura de Infraestrutura">
+        <!-- Campi Section -->
+        <article class="surface-panel">
+            <h2 class="panel-title">Campi</h2>
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Cidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(campi)}">
+                        <td class="records-empty" colspan="3">Nenhum campus cadastrado.</td>
+                    </tr>
+                    <tr th:each="c : ${campi}">
+                        <td th:text="${c.codigo}"></td>
+                        <td th:text="${c.nome}"></td>
+                        <td th:text="${c.cidade}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <!-- Predios Section -->
+        <article class="surface-panel">
+            <h2 class="panel-title">Prédios</h2>
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Bloco</th>
+                        <th>Campus (Código)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(predios)}">
+                        <td class="records-empty" colspan="4">Nenhum prédio cadastrado.</td>
+                    </tr>
+                    <tr th:each="p : ${predios}">
+                        <td th:text="${p.codigo}"></td>
+                        <td th:text="${p.nome}"></td>
+                        <td th:text="${p.bloco != null && !p.bloco.isEmpty() ? p.bloco : '-'}"></td>
+                        <td th:text="${p.codigoCampus}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <!-- Salas Section -->
+        <article class="surface-panel">
+            <h2 class="panel-title">Salas</h2>
+            <table class="records-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Campus (Cidade)</th>
+                        <th>Prédio (Bloco)</th>
+                        <th>Número da Sala</th>
+                        <th>Categoria</th>
+                        <th>Capacidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(salas)}">
+                        <td class="records-empty" colspan="6">Nenhuma sala cadastrada.</td>
+                    </tr>
+                    <tr th:each="s : ${salas}">
+                        <td th:text="${s.codigo}"></td>
+                        <td>
+                            <strong th:text="${s.campus != null ? s.campus.nome : 'Sem Campus'}"></strong>
+                            <div class="record-meta" th:text="${s.campus != null ? s.campus.cidade : '-'}"></div>
+                        </td>
+                        <td>
+                            <span th:text="${s.predio != null ? s.predio.nome : 'Sem Prédio'}"></span>
+                            <div class="record-meta" th:text="${s.predio != null && s.predio.bloco != null ? 'Bloco: '+s.predio.bloco : ''}"></div>
+                        </td>
+                        <td th:text="${s.numeroSala}"></td>
+                        <td th:text="${s.categoria}"></td>
+                        <td th:text="${s.capacidade + ' pessoas'}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+    </section>
+</main>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

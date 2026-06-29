@@ -1,8 +1,7 @@
 package br.ufscar.sistema_universidade.controller;
 
-import br.ufscar.sistema_universidade.model.Sala;
-import br.ufscar.sistema_universidade.repository.SalaRepository;
-import br.ufscar.sistema_universidade.repository.CampusRepository;
+import br.ufscar.sistema_universidade.model.Laboratorio;
+import br.ufscar.sistema_universidade.repository.LaboratorioRepository;
 import br.ufscar.sistema_universidade.repository.PredioRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -15,18 +14,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/infraestrutura")
-public class SalaController {
+public class LaboratorioController {
 
     private static final String MENSAGEM_CONFLITO_INTEGRIDADE =
             "Nao foi possivel inserir ou realizar a acao. Ja existe um registro com a mesma chave ou com dados conflitantes.";
 
-    private final SalaRepository salaRepository;
-    private final CampusRepository campusRepository;
+    private final LaboratorioRepository laboratorioRepository;
     private final PredioRepository predioRepository;
 
-    public SalaController(SalaRepository salaRepository, CampusRepository campusRepository, PredioRepository predioRepository) {
-        this.salaRepository = salaRepository;
-        this.campusRepository = campusRepository;
+    public LaboratorioController(LaboratorioRepository laboratorioRepository, PredioRepository predioRepository) {
+        this.laboratorioRepository = laboratorioRepository;
         this.predioRepository = predioRepository;
     }
 
@@ -39,7 +36,8 @@ public class SalaController {
             String destino,
             String mensagemSucesso,
             RedirectAttributes redirectAttributes,
-            OperacaoPersistencia operacao) {
+            OperacaoPersistencia operacao
+    ) {
         try {
             operacao.executar();
             redirectAttributes.addFlashAttribute("mensagem", mensagemSucesso);
@@ -49,55 +47,57 @@ public class SalaController {
         return "redirect:" + destino;
     }
 
-    // ROTAS DE SALA
-
-    @GetMapping("/salas")
-    public String salas(Model model, @RequestParam(required = false) Long editar) {
-        model.addAttribute("salas", salaRepository.listarTodos());
-        model.addAttribute("salaSelecionada", editar == null ? null : salaRepository.buscarPorId(editar));
-        model.addAttribute("campi", campusRepository.listarTodos());
+    @GetMapping("/laboratorios")
+    public String laboratorios(Model model, @RequestParam(required = false) Long editar) {
+        model.addAttribute("laboratorios", laboratorioRepository.listarTodos());
+        model.addAttribute("laboratorioSelecionado", editar == null ? null : laboratorioRepository.buscarPorId(editar));
         model.addAttribute("predios", predioRepository.listarTodos());
-        return "infraestrutura/salas";
+        return "infraestrutura/laboratorio";
     }
 
-    @PostMapping("/salas/salvar")
-    public String salvarSala(
+    @PostMapping("/laboratorios/salvar")
+    public String salvarLaboratorio(
             @RequestParam String numero,
             @RequestParam Integer capacidade,
             @RequestParam(required=false) String categoria,
             @RequestParam(required=false) Long predio,
-            RedirectAttributes redirectAttributes) {
+            @RequestParam String departamentoSetor,
+            @RequestParam Integer quantidadeEquipamentos,
+            RedirectAttributes redirectAttributes
+    ) {
         return executarComTratamentoDeErro(
-                "/infraestrutura/salas",
-                "Sala salva com sucesso.",
+                "/infraestrutura/laboratorios",
+                "Laboratorio salvo com sucesso.",
                 redirectAttributes,
-                () -> salaRepository.salvar(new Sala(null, numero, categoria, capacidade, predio))
+                () -> laboratorioRepository.salvar(new Laboratorio(null, numero, categoria, capacidade, predio, departamentoSetor, quantidadeEquipamentos))
         );
     }
 
-    @PostMapping("/salas/editar")
-    public String editarSala(
+    @PostMapping("/laboratorios/editar")
+    public String editarLaboratorio(
             @RequestParam Long codigo,
             @RequestParam String numero,
             @RequestParam Integer capacidade,
             @RequestParam(required=false) String categoria,
             @RequestParam(required=false) Long predio,
+            @RequestParam String departamentoSetor,
+            @RequestParam Integer quantidadeEquipamentos,
             RedirectAttributes redirectAttributes) {
         return executarComTratamentoDeErro(
-                "/infraestrutura/salas",
-                "Sala atualizada com sucesso.",
+                "/infraestrutura/laboratorios",
+                "Laboratorio atualizado com sucesso.",
                 redirectAttributes,
-                () -> salaRepository.atualizar(new Sala(codigo, numero, categoria, capacidade, predio))
+                () -> laboratorioRepository.atualizar(new Laboratorio(codigo, numero, categoria, capacidade, predio, departamentoSetor, quantidadeEquipamentos))
         );
     }
 
-    @PostMapping("/salas/excluir")
-    public String excluirSala(@RequestParam Long codigo, RedirectAttributes redirectAttributes) {
+    @PostMapping("/laboratorios/excluir")
+    public String excluirLaboratorio(@RequestParam Long codigo, RedirectAttributes redirectAttributes) {
         return executarComTratamentoDeErro(
-                "/infraestrutura/salas",
-                "Sala excluida com sucesso.",
+                "/infraestrutura/laboratorios",
+                "Laboratorio excluido com sucesso.",
                 redirectAttributes,
-                () -> salaRepository.deletarPorId(codigo)
+                () -> laboratorioRepository.deletarPorId(codigo)
         );
     }
 }

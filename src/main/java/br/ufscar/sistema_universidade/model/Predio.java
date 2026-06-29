@@ -6,6 +6,7 @@ public class Predio {
     private String nome;
     private String bloco;
     private Long codigoCampus;
+    private Campus campus;
 
     public Predio() {
     }
@@ -47,5 +48,13 @@ public class Predio {
 
     public void setCodigoCampus(Long codigoCampus) {
         this.codigoCampus = codigoCampus;
+    }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
     }
 }
