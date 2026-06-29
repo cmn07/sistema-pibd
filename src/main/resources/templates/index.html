@@ -48,6 +48,7 @@
         <a class="menu-card" th:href="@{/pendencias}" sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Pendencias</a>
         <a class="menu-card" th:href="@{/relatorios/emprestimos}" sec:authorize="hasRole('ADMIN_OPERACIONAL')">Relatorio de Emprestimos</a>
         <a class="menu-card" th:href="@{/relatorios/reservas}" sec:authorize="hasAnyRole('ADMIN_OPERACIONAL','ADMIN_MASTER')">Relatorio de Reservas</a>
+        <a class="menu-card" th:href="@{/infraestrutura/relatorio-critico}" sec:authorize="hasRole('ADMIN_MASTER')">Relatorio de Infraestrutura Crítica</a>
     </section>
 </main>
 </body>
