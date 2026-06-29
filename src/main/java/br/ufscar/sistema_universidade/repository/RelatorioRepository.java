@@ -3,6 +3,7 @@ package br.ufscar.sistema_universidade.repository;
 import br.ufscar.sistema_universidade.dto.RelatorioSalaDTO;
 import br.ufscar.sistema_universidade.dto.RelatorioEmprestimoUsuarioDTO;
 import br.ufscar.sistema_universidade.dto.RelatorioReservaDTO;
+import br.ufscar.sistema_universidade.dto.RelatorioInfraestruturaDTO;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -42,6 +43,30 @@ public class RelatorioRepository {
                 rs.getString("numero_sala"),
                 rs.getString("categoria_sala"),
                 rs.getInt("capacidade")
+        ));
+    }
+
+    public List<RelatorioInfraestruturaDTO> emitirRelatorioInfraestruturaCritica() {
+        String sql = """
+            SELECT 
+                c.nome AS campus,
+                p.nome AS predio,
+                COUNT(s.codigo) AS total_salas,
+                COUNT(l.codigo_sala) AS total_laboratorios
+            FROM campus c
+            JOIN predio p ON c.codigo = p.codigo_campus
+            JOIN sala s ON p.codigo = s.codigo_predio
+            LEFT JOIN laboratorio l ON s.codigo = l.codigo_sala
+            GROUP BY c.nome, p.nome
+            HAVING COUNT(s.codigo) > 10 AND COUNT(l.codigo_sala) < 2
+            ORDER BY c.nome, p.nome
+            """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new RelatorioInfraestruturaDTO(
+                rs.getString("campus"),
+                rs.getString("predio"),
+                rs.getLong("total_salas"),
+                rs.getLong("total_laboratorios")
         ));
     }
 
