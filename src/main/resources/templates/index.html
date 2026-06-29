@@ -40,6 +40,7 @@
         <a class="menu-card" th:href="@{/infraestrutura/campus}" sec:authorize="hasRole('ADMIN_MASTER')">Campus</a>
         <a class="menu-card" th:href="@{/infraestrutura/predios}" sec:authorize="hasRole('ADMIN_MASTER')">Predios</a>
         <a class="menu-card" th:href="@{/relatorios/salas}" sec:authorize="hasRole('ADMIN_MASTER')">Relatorios</a>
+        <a class="menu-card" th:href="@{/infraestrutura/relatorios/salas-disponiveis}" sec:authorize="hasAnyRole('ADMIN_MASTER','ADMIN_OPERACIONAL')">Salas Disponíveis</a>
         <a class="menu-card" th:href="@{/reservas}" sec:authorize="hasAnyRole('FUNCIONARIO','ADMIN_OPERACIONAL')">Reservas</a>
         <a class="menu-card" th:href="@{/acervo}" sec:authorize="isAuthenticated()">Acervo</a>
         <a class="menu-card" th:href="@{/emprestimos}" sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Emprestimos</a>

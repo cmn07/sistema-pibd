@@ -71,3 +71,22 @@ CREATE TRIGGER trg_impedir_emprestimo_com_pendencia_ativa_emprestimo
     BEFORE INSERT OR UPDATE ON emprestimo
     FOR EACH ROW
 EXECUTE FUNCTION trg_impedir_emprestimo_com_pendencia_ativa();
+
+-- Trigger para reservas - limita a duracao maxima de uma reserva a 8 horas. (Hashimoto)
+CREATE OR REPLACE FUNCTION trg_limitar_duracao_reserva()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.horario_fim - NEW.horario_inicio > INTERVAL '8 hours' THEN
+        RAISE EXCEPTION 'A reserva nao pode ter duracao maior que 8 horas.';
+END IF;
+
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS trg_limitar_duracao_reserva ON reserva;
+
+CREATE TRIGGER trg_limitar_duracao_reserva
+    BEFORE INSERT OR UPDATE ON reserva
+                         FOR EACH ROW
+                         EXECUTE FUNCTION trg_limitar_duracao_reserva();
