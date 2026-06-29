@@ -2,6 +2,7 @@ package br.ufscar.sistema_universidade.repository;
 
 import br.ufscar.sistema_universidade.dto.RelatorioSalaDTO;
 import br.ufscar.sistema_universidade.dto.RelatorioEmprestimoUsuarioDTO;
+import br.ufscar.sistema_universidade.dto.RelatorioReservaDTO;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -66,5 +67,51 @@ public class RelatorioRepository {
                 rs.getDate("primeiro_emprestimo").toLocalDate(),
                 rs.getDate("ultimo_emprestimo").toLocalDate()
         ), Date.valueOf(dataInicio), Date.valueOf(dataFim));
+    }
+
+    public List<RelatorioReservaDTO> emitirRelatorioReservasPorPeriodo(
+            LocalDate dataInicio,
+            LocalDate dataFim,
+            String status
+    ) {
+        String sql = """
+            SELECT
+                r.id_reserva,
+                r.data,
+                r.horario_inicio,
+                r.horario_fim,
+                r.tipo_reserva,
+                r.status_reserva,
+                pessoa.nome AS nome_solicitante,
+                s.numero_sala,
+                s.categoria AS categoria_sala,
+                predio.nome AS nome_predio,
+                predio.bloco AS bloco_predio,
+                campus.nome AS nome_campus
+            FROM reserva r
+            INNER JOIN usuario u ON u.id_pessoa = r.codigo_usuario
+            INNER JOIN pessoa ON pessoa.id_pessoa = u.id_pessoa
+            INNER JOIN sala s ON s.codigo = r.codigo_sala
+            INNER JOIN predio ON predio.codigo = s.codigo_predio
+            INNER JOIN campus ON campus.codigo = predio.codigo_campus
+            WHERE r.data BETWEEN ? AND ?
+              AND (CAST(? AS VARCHAR) IS NULL OR r.status_reserva = ?)
+            ORDER BY r.data, r.horario_inicio, campus.nome, predio.nome, s.numero_sala
+            """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new RelatorioReservaDTO(
+                rs.getLong("id_reserva"),
+                rs.getDate("data").toLocalDate(),
+                rs.getTime("horario_inicio").toLocalTime(),
+                rs.getTime("horario_fim").toLocalTime(),
+                rs.getString("tipo_reserva"),
+                rs.getString("status_reserva"),
+                rs.getString("nome_solicitante"),
+                rs.getString("numero_sala"),
+                rs.getString("categoria_sala"),
+                rs.getString("nome_predio"),
+                rs.getString("bloco_predio"),
+                rs.getString("nome_campus")
+        ), Date.valueOf(dataInicio), Date.valueOf(dataFim), status, status);
     }
 }

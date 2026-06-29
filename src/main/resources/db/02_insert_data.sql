@@ -38,6 +38,12 @@ INSERT INTO credencial_acesso (id_pessoa, login, senha_hash) VALUES
 INSERT INTO reserva (data, tipo_reserva, status_reserva, objetivo, horario_inicio, horario_fim, codigo_usuario, codigo_sala, codigo_administrador)
 VALUES (CURRENT_DATE + 1, 'reuniao', 'pendente', 'Reuniao de planejamento', '10:00', '11:00', 1, 1, NULL);
 
+-- Dados de teste para o relatorio de reservas por periodo (Antonio)
+INSERT INTO reserva (data, tipo_reserva, status_reserva, objetivo, horario_inicio, horario_fim, codigo_usuario, codigo_sala, codigo_administrador)
+VALUES
+    (CURRENT_DATE + 3, 'aula', 'aprovada', 'Aula de banco de dados', '09:00', '11:00', 1, 2, 3),
+    (CURRENT_DATE + 7, 'evento', 'pendente', 'Apresentacao de projetos', '14:00', '16:00', 1, 1, NULL);
+
 -- Dados de teste para consulta e gestao do acervo
 INSERT INTO material_acervo (tipo_material, titulo, quantidade_copias, ano_publicacao, idioma, categoria, editora)
 VALUES
