@@ -2,6 +2,8 @@ package br.ufscar.sistema_universidade.repository;
 
 import br.ufscar.sistema_universidade.dto.RelatorioSalaDTO;
 import br.ufscar.sistema_universidade.dto.RelatorioEmprestimoUsuarioDTO;
+import br.ufscar.sistema_universidade.dto.RelatorioReservaDTO;
+import br.ufscar.sistema_universidade.dto.RelatorioInfraestruturaDTO;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -44,6 +46,30 @@ public class RelatorioRepository {
                 rs.getString("numero_sala"),
                 rs.getString("categoria_sala"),
                 rs.getInt("capacidade")
+        ));
+    }
+
+    public List<RelatorioInfraestruturaDTO> emitirRelatorioInfraestruturaCritica() {
+        String sql = """
+            SELECT 
+                c.nome AS campus,
+                p.nome AS predio,
+                COUNT(s.codigo) AS total_salas,
+                COUNT(l.codigo_sala) AS total_laboratorios
+            FROM campus c
+            JOIN predio p ON c.codigo = p.codigo_campus
+            JOIN sala s ON p.codigo = s.codigo_predio
+            LEFT JOIN laboratorio l ON s.codigo = l.codigo_sala
+            GROUP BY c.nome, p.nome
+            HAVING COUNT(s.codigo) > 10 AND COUNT(l.codigo_sala) < 2
+            ORDER BY c.nome, p.nome
+            """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new RelatorioInfraestruturaDTO(
+                rs.getString("campus"),
+                rs.getString("predio"),
+                rs.getLong("total_salas"),
+                rs.getLong("total_laboratorios")
         ));
     }
 
@@ -95,7 +121,6 @@ public class RelatorioRepository {
         params.add(Date.valueOf(data));
 
         if (horarioInicio != null && horarioFim != null) {
-            // sobreposicao de intervalos: inicio < fim_existente AND fim > inicio_existente
             sql.append(" AND r.horario_inicio < ? AND r.horario_fim > ? ");
             params.add(Time.valueOf(horarioFim));
             params.add(Time.valueOf(horarioInicio));
@@ -115,5 +140,51 @@ public class RelatorioRepository {
                 rs.getString("categoria_sala"),
                 rs.getInt("capacidade")
         ), params.toArray());
+    }
+
+    public List<RelatorioReservaDTO> emitirRelatorioReservasPorPeriodo(
+            LocalDate dataInicio,
+            LocalDate dataFim,
+            String status
+    ) {
+        String sql = """
+            SELECT
+                r.id_reserva,
+                r.data,
+                r.horario_inicio,
+                r.horario_fim,
+                r.tipo_reserva,
+                r.status_reserva,
+                pessoa.nome AS nome_solicitante,
+                s.numero_sala,
+                s.categoria AS categoria_sala,
+                predio.nome AS nome_predio,
+                predio.bloco AS bloco_predio,
+                campus.nome AS nome_campus
+            FROM reserva r
+            INNER JOIN usuario u ON u.id_pessoa = r.codigo_usuario
+            INNER JOIN pessoa ON pessoa.id_pessoa = u.id_pessoa
+            INNER JOIN sala s ON s.codigo = r.codigo_sala
+            INNER JOIN predio ON predio.codigo = s.codigo_predio
+            INNER JOIN campus ON campus.codigo = predio.codigo_campus
+            WHERE r.data BETWEEN ? AND ?
+              AND (CAST(? AS VARCHAR) IS NULL OR r.status_reserva = ?)
+            ORDER BY r.data, r.horario_inicio, campus.nome, predio.nome, s.numero_sala
+            """;
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new RelatorioReservaDTO(
+                rs.getLong("id_reserva"),
+                rs.getDate("data").toLocalDate(),
+                rs.getTime("horario_inicio").toLocalTime(),
+                rs.getTime("horario_fim").toLocalTime(),
+                rs.getString("tipo_reserva"),
+                rs.getString("status_reserva"),
+                rs.getString("nome_solicitante"),
+                rs.getString("numero_sala"),
+                rs.getString("categoria_sala"),
+                rs.getString("nome_predio"),
+                rs.getString("bloco_predio"),
+                rs.getString("nome_campus")
+        ), Date.valueOf(dataInicio), Date.valueOf(dataFim), status, status);
     }
 }

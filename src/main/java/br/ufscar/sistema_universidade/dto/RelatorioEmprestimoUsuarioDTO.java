@@ -19,9 +19,43 @@ public class RelatorioEmprestimoUsuarioDTO {
         this.ultimoEmprestimo = ultimoEmprestimo;
     }
 
-    public Long getIdPessoa() { return idPessoa; }
-    public String getNomeUsuario() { return nomeUsuario; }
-    public Integer getQuantidadeEmprestimos() { return quantidadeEmprestimos; }
-    public LocalDate getPrimeiroEmprestimo() { return primeiroEmprestimo; }
-    public LocalDate getUltimoEmprestimo() { return ultimoEmprestimo; }
+    public Long getIdPessoa() {
+        return idPessoa;
+    }
+
+    public void setIdPessoa(Long idPessoa) {
+        this.idPessoa = idPessoa;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    public Integer getQuantidadeEmprestimos() {
+        return quantidadeEmprestimos;
+    }
+
+    public void setQuantidadeEmprestimos(Integer quantidadeEmprestimos) {
+        this.quantidadeEmprestimos = quantidadeEmprestimos;
+    }
+
+    public LocalDate getPrimeiroEmprestimo() {
+        return primeiroEmprestimo;
+    }
+
+    public void setPrimeiroEmprestimo(LocalDate primeiroEmprestimo) {
+        this.primeiroEmprestimo = primeiroEmprestimo;
+    }
+
+    public LocalDate getUltimoEmprestimo() {
+        return ultimoEmprestimo;
+    }
+
+    public void setUltimoEmprestimo(LocalDate ultimoEmprestimo) {
+        this.ultimoEmprestimo = ultimoEmprestimo;
+    }
 }

@@ -30,9 +30,10 @@ Nao usar neste projeto:
 - Gestao de pessoas, usuarios, discentes, funcionarios e administradores.
 - Gestao de infraestrutura com campus e predios.
 - Relatorio SQL de salas por campus/predio.
+- Relatorio de reservas por periodo e status, relacionando solicitante, sala, predio e campus.
 - Reservas com validacao de funcionario solicitante e bloqueio de conflito de horario.
 - Login com Spring Security e perfis derivados do DER.
-- Placeholders navegaveis para acervo, emprestimos, pendencias e administracao da biblioteca.
+- Gestao de acervo, emprestimos e pendencias da biblioteca.
 
 ## Banco com Docker
 
@@ -142,6 +143,7 @@ Rotas por papel:
 - `/administradores/**`: `ROLE_ADMIN_MASTER`
 - `/infraestrutura/**`: `ROLE_ADMIN_MASTER`
 - `/relatorios/**`: `ROLE_ADMIN_MASTER`
+- `/relatorios/reservas`: `ROLE_ADMIN_OPERACIONAL` ou `ROLE_ADMIN_MASTER`
 - `/admin/**`: `ROLE_ADMIN_MASTER`
 - `/reservas`: `ROLE_FUNCIONARIO` ou `ROLE_ADMIN_OPERACIONAL`
 - `/reservas/nova`: `ROLE_FUNCIONARIO` ou `ROLE_ADMIN_OPERACIONAL`
@@ -181,6 +183,7 @@ Regras de banco ja previstas:
 - Validacao de capacidade de sala por categoria.
 - Bloqueio de reservas conflitantes para mesma sala/data/horario.
 - Bloqueio de emprestimo para usuario com pendencia ativa.
+- Bloqueio de reservas pendentes ou aprovadas em datas passadas.
 
 ## Organizacao do grupo
 

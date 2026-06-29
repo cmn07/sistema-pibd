@@ -19,6 +19,8 @@ public class SecurityConfig {
                 .requestMatchers("/pessoas", "/pessoas/**", "/usuarios", "/usuarios/**", "/credenciais", "/credenciais/**", "/funcionarios", "/funcionarios/**", "/discentes", "/discentes/**", "/administradores", "/administradores/**").hasRole("ADMIN_MASTER")
                 .requestMatchers("/estrutura").hasAnyRole("USUARIO", "ADMIN_MASTER")
                 .requestMatchers("/relatorios/emprestimos", "/relatorios/emprestimos/**").hasRole("ADMIN_OPERACIONAL")
+                .requestMatchers("/relatorios/reservas", "/relatorios/reservas/**").hasAnyRole("ADMIN_OPERACIONAL", "ADMIN_MASTER")
+                .requestMatchers("/infraestrutura/visualizar").hasAnyRole("USUARIO", "ADMIN_MASTER")
                 .requestMatchers("/infraestrutura/**", "/campus/**", "/predios/**", "/relatorios/**").hasRole("ADMIN_MASTER")
                 .requestMatchers("/admin", "/admin/**").hasRole("ADMIN_MASTER")
                 .requestMatchers(HttpMethod.POST, "/reservas/editar", "/reservas/excluir").hasRole("ADMIN_OPERACIONAL")

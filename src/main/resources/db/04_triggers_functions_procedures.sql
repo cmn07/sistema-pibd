@@ -78,9 +78,9 @@ RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.horario_fim - NEW.horario_inicio > INTERVAL '8 hours' THEN
         RAISE EXCEPTION 'A reserva nao pode ter duracao maior que 8 horas.';
-END IF;
+    END IF;
 
-RETURN NEW;
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -88,5 +88,24 @@ DROP TRIGGER IF EXISTS trg_limitar_duracao_reserva ON reserva;
 
 CREATE TRIGGER trg_limitar_duracao_reserva
     BEFORE INSERT OR UPDATE ON reserva
-                         FOR EACH ROW
-                         EXECUTE FUNCTION trg_limitar_duracao_reserva();
+    FOR EACH ROW
+EXECUTE FUNCTION trg_limitar_duracao_reserva();
+
+
+-- Trigger para reservas - impede o cadastro de reservas no passado (Antonio).
+CREATE OR REPLACE FUNCTION trg_impedir_reserva_no_passado()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.status_reserva IN ('pendente', 'aprovada')
+       AND NEW.data < CURRENT_DATE THEN
+        RAISE EXCEPTION 'Nao e permitido cadastrar reserva pendente ou aprovada em uma data passada.';
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_impedir_reserva_no_passado_reserva
+    BEFORE INSERT OR UPDATE OF data, status_reserva ON reserva
+    FOR EACH ROW
+EXECUTE FUNCTION trg_impedir_reserva_no_passado();

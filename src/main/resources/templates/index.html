@@ -41,11 +41,16 @@
         <a class="menu-card" th:href="@{/infraestrutura/predios}" sec:authorize="hasRole('ADMIN_MASTER')">Predios</a>
         <a class="menu-card" th:href="@{/relatorios/salas}" sec:authorize="hasRole('ADMIN_MASTER')">Relatorios</a>
         <a class="menu-card" th:href="@{/infraestrutura/relatorios/salas-disponiveis}" sec:authorize="hasAnyRole('ADMIN_MASTER','ADMIN_OPERACIONAL')">Salas Disponíveis</a>
+        <a class="menu-card" th:href="@{/infraestrutura/salas}" sec:authorize="hasRole('ADMIN_MASTER')">Salas</a>
+        <a class="menu-card" th:href="@{/infraestrutura/laboratorios}" sec:authorize="hasRole('ADMIN_MASTER')">Laboratórios</a>
+        <a class="menu-card" th:href="@{/infraestrutura/visualizar}" sec:authorize="isAuthenticated()">Visualizar Infraestrutura</a>
         <a class="menu-card" th:href="@{/reservas}" sec:authorize="hasAnyRole('FUNCIONARIO','ADMIN_OPERACIONAL')">Reservas</a>
         <a class="menu-card" th:href="@{/acervo}" sec:authorize="isAuthenticated()">Acervo</a>
         <a class="menu-card" th:href="@{/emprestimos}" sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Emprestimos</a>
         <a class="menu-card" th:href="@{/pendencias}" sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Pendencias</a>
-        <a class="menu-card" th:href="@{/relatorios/emprestimos}" sec:authorize="hasRole('ADMIN_OPERACIONAL')">Relatorio</a>
+        <a class="menu-card" th:href="@{/relatorios/emprestimos}" sec:authorize="hasRole('ADMIN_OPERACIONAL')">Relatorio de Emprestimos</a>
+        <a class="menu-card" th:href="@{/relatorios/reservas}" sec:authorize="hasAnyRole('ADMIN_OPERACIONAL','ADMIN_MASTER')">Relatorio de Reservas</a>
+        <a class="menu-card" th:href="@{/infraestrutura/relatorio-critico}" sec:authorize="hasRole('ADMIN_MASTER')">Relatorio de Infraestrutura Crítica</a>
     </section>
 </main>
 </body>
