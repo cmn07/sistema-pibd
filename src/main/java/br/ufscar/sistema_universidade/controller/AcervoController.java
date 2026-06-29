@@ -44,8 +44,18 @@ public class AcervoController {
     }
 
     @GetMapping
-    public String acervo(Model model) {
-        model.addAttribute("materiais", materialService.listarTodos());
+    public String acervo(
+            Model model,
+            @RequestParam(required = false) String termo,
+            @RequestParam(required = false) String tipoMaterial,
+            @RequestParam(required = false, defaultValue = "TODOS") String situacao
+    ) {
+        model.addAttribute("materiais", materialService.consultarAcervo(termo, tipoMaterial, situacao));
+        model.addAttribute("tiposMaterial", materialService.listarTiposMaterial());
+        model.addAttribute("situacoesConsulta", materialService.listarSituacoesConsulta());
+        model.addAttribute("termoSelecionado", termo);
+        model.addAttribute("tipoSelecionado", tipoMaterial);
+        model.addAttribute("situacaoSelecionada", situacao);
         return "acervo";
     }
 

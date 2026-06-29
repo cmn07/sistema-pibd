@@ -359,6 +359,26 @@ h1 {
     font-size: 0.9rem;
 }
 
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 9px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-pill--free {
+    background: rgba(22, 102, 91, 0.1);
+    color: var(--accent-strong);
+}
+
+.status-pill--busy {
+    background: rgba(143, 43, 43, 0.1);
+    color: #732020;
+}
+
 .panel-block {
     margin-top: 20px;
 }

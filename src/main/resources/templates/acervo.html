@@ -12,7 +12,7 @@
         <div>
             <a class="back-link" th:href="@{/}">Voltar ao menu</a>
             <h1 class="page-title">Acervo</h1>
-            <p class="page-subtitle">Consulta de materiais da biblioteca. Categoria e editora ja ficam visiveis para filtros futuros.</p>
+            <p class="page-subtitle">Consulta de materiais da biblioteca com filtros e situacao de emprestimo ativo.</p>
         </div>
         <a class="button button-primary" th:href="@{/acervo/novo}" sec:authorize="hasRole('ADMIN_OPERACIONAL')">Cadastrar material</a>
     </header>
@@ -20,8 +20,40 @@
     <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
 
     <section class="surface-panel" aria-label="Lista de materiais do acervo">
-        <h2 class="panel-title">Materiais cadastrados</h2>
-        <p class="panel-note">Todos os usuarios autenticados podem consultar esta tabela.</p>
+        <h2 class="panel-title">Busca de materiais</h2>
+        <p class="panel-note">A consulta usa material, emprestimo e pessoa para exibir disponibilidade e usuario vinculado ao emprestimo ativo.</p>
+
+        <form class="entity-form" th:action="@{/acervo}" method="get">
+            <div class="field-grid">
+                <div class="field">
+                    <label for="termo">Titulo, categoria ou editora</label>
+                    <input id="termo" name="termo" type="text" th:value="${termoSelecionado}" placeholder="Ex.: banco de dados">
+                </div>
+                <div class="field">
+                    <label for="tipoMaterial">Tipo</label>
+                    <select id="tipoMaterial" name="tipoMaterial">
+                        <option value="">Todos</option>
+                        <option th:each="tipo : ${tiposMaterial}"
+                                th:value="${tipo}"
+                                th:text="${tipo}"
+                                th:selected="${tipo == tipoSelecionado}"></option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="situacao">Situacao</label>
+                    <select id="situacao" name="situacao">
+                        <option th:each="situacao : ${situacoesConsulta}"
+                                th:value="${situacao}"
+                                th:text="${situacao}"
+                                th:selected="${situacao == situacaoSelecionada}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="button-row">
+                <button class="button button-primary" type="submit">Filtrar</button>
+                <a class="button button-secondary" th:href="@{/acervo}">Limpar filtros</a>
+            </div>
+        </form>
 
         <table class="records-table">
             <thead>
@@ -34,15 +66,18 @@
                 <th>Idioma</th>
                 <th>Ano</th>
                 <th>Copias</th>
+                <th>Situacao</th>
+                <th>Usuario</th>
+                <th>Devolucao prevista</th>
                 <th sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Acoes</th>
             </tr>
             </thead>
             <tbody>
             <tr th:if="${#lists.isEmpty(materiais)}">
-                <td class="records-empty" colspan="9">Nenhum material cadastrado.</td>
+                <td class="records-empty" colspan="12">Nenhum material encontrado para os filtros informados.</td>
             </tr>
             <tr th:each="material : ${materiais}">
-                <td th:text="${material.codigo}"></td>
+                <td th:text="${material.codigoMaterial}"></td>
                 <td th:text="${material.titulo}"></td>
                 <td th:text="${material.tipoMaterial}"></td>
                 <td th:text="${material.categoria != null && !material.categoria.isEmpty() ? material.categoria : '-'}"></td>
@@ -50,16 +85,23 @@
                 <td th:text="${material.idioma != null && !material.idioma.isEmpty() ? material.idioma : '-'}"></td>
                 <td th:text="${material.anoPublicacao != null ? material.anoPublicacao : '-'}"></td>
                 <td th:text="${material.quantidadeCopias}"></td>
+                <td>
+                    <span class="status-pill"
+                          th:classappend="${material.emprestado ? ' status-pill--busy' : ' status-pill--free'}"
+                          th:text="${material.emprestado ? material.statusEmprestimo : 'disponivel'}"></span>
+                </td>
+                <td th:text="${material.nomeUsuario != null ? material.nomeUsuario : '-'}"></td>
+                <td th:text="${material.dataDevolucaoPrevista != null ? #temporals.format(material.dataDevolucaoPrevista, 'dd/MM/yyyy') : '-'}"></td>
                 <td sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">
                     <div class="record-actions">
-                        <a class="icon-button" th:href="@{/emprestimos(material=${material.codigo})}" sec:authorize="hasRole('USUARIO')" title="Emprestar material" aria-label="Emprestar material">
+                        <a class="icon-button" th:href="@{/emprestimos(material=${material.codigoMaterial})}" sec:authorize="hasRole('USUARIO')" title="Emprestar material" aria-label="Emprestar material">
                             <i data-lucide="book-open-check"></i>
                         </a>
-                        <a class="icon-button" th:href="@{/acervo/editar(codigo=${material.codigo})}" sec:authorize="hasRole('ADMIN_OPERACIONAL')" title="Editar material" aria-label="Editar material">
+                        <a class="icon-button" th:href="@{/acervo/editar(codigo=${material.codigoMaterial})}" sec:authorize="hasRole('ADMIN_OPERACIONAL')" title="Editar material" aria-label="Editar material">
                             <i data-lucide="pencil"></i>
                         </a>
                         <form class="inline-form" th:action="@{/acervo/excluir}" method="post" sec:authorize="hasRole('ADMIN_OPERACIONAL')">
-                            <input type="hidden" name="codigo" th:value="${material.codigo}">
+                            <input type="hidden" name="codigo" th:value="${material.codigoMaterial}">
                             <button class="icon-button icon-button--danger" type="submit" title="Excluir material" aria-label="Excluir material">
                                 <i data-lucide="trash-2"></i>
                             </button>
