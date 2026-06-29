@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infraestrutura - Salas</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/infraestrutura/predios}">Voltar aos Prédios</a>
+            <h1 class="page-title">Salas</h1>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid" aria-label="Gestao de salas">
+        <article class="surface-panel">
+            <h2 class="panel-title">Registros</h2>
+            <p class="panel-note">Use o lápis para carregar um registro para edição ou a lixeira para excluir.</p>
+
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Campus (Cidade)</th>
+                    <th>Prédio (Bloco)</th>
+                    <th>Número da Sala</th>
+                    <th>Categoria</th>
+                    <th>Capacidade</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(salas)}">
+                    <td class="records-empty" colspan="6">Nenhum dado de infraestrutura encontrado.</td>
+                </tr>
+                <tr th:each="s : ${salas}">
+                    <td>
+                        <strong th:text="${s.campus != null ? s.campus.nome : 'Sem Campus'}"></strong>
+                        <div class="record-meta" th:text="${s.campus != null ? s.campus.cidade : '-'}"></div>
+                    </td>
+                    <td>
+                        <span th:text="${s.predio != null ? s.predio.nome : 'Sem Prédio'}"></span>
+                        <div class="record-meta" th:text="${s.predio != null && s.predio.bloco != null ? 'Bloco: ' + s.predio.bloco : ''}"></div>
+                    </td>
+                    <td th:text="${s.numeroSala}"></td>
+                    <td th:text="${s.categoria}"></td>
+                    <td th:text="${s.capacidade + ' pessoas'}"></td>
+                    <td>
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/infraestrutura/salas(editar=${s.codigo})}" title="Editar sala" aria-label="Editar sala">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/infraestrutura/salas/excluir}" method="post">
+                                <input type="hidden" name="codigo" th:value="${s.codigo}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir sala" aria-label="Excluir sala">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+
+        <div class="subpanel-stack">
+            <section class="surface-panel">
+                <h2 class="panel-title">Nova Sala</h2>
+                <p class="panel-note">Cadastre uma nova sala e associe-a a um prédio e campus.</p>
+
+                <form class="entity-form" th:action="@{/infraestrutura/salas/salvar}" method="post">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="sala-campus">Campus</label>
+                            <select id="sala-campus" name="campus" required>
+                                <option value="" selected disabled>Selecione um campus</option>
+                                <option th:each="c : ${campi}" th:value="${c.codigo}" th:text="${c.nome}"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="sala-predio">Prédio</label>
+                            <select id="sala-predio" name="predio" required>
+                                <option value="" selected disabled>Selecione um prédio</option>
+                                <option th:each="p : ${predios}" th:value="${p.codigo}" th:text="${p.nome}"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="sala-numero">Número da Sala</label>
+                            <input id="sala-numero" name="numero" type="text" maxlength="50" required>
+                        </div>
+                        <div class="field">
+                            <label for="sala-categoria">Categoria</label>
+                            <input id="sala-categoria" name="categoria" type="text" maxlength="100">
+                        </div>
+                        <div class="field">
+                            <label for="sala-capacidade">Capacidade</label>
+                            <input id="sala-capacidade" name="capacidade" type="number" min="0" required>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <button class="button button-secondary" type="reset">Limpar</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:if="${salaSelecionada != null}">
+                <h2 class="panel-title">Editar Sala</h2>
+                <p class="panel-note">Registro carregado: <span th:text="${salaSelecionada.numero}"></span></p>
+
+                <form class="entity-form" th:action="@{/infraestrutura/salas/editar}" method="post">
+                    <input type="hidden" name="codigo" th:value="${salaSelecionada.codigo}">
+                    <div class="field-grid">
+                        <div class="field">
+                            <label for="sala-edit-campus">Campus</label>
+                            <select id="sala-edit-campus" name="campus" required>
+                                <option value="" disabled>Selecione um campus</option>
+                                <option th:each="c : ${campi}"
+                                        th:value="${c.codigo}"
+                                        th:text="${c.nome}"
+                                        th:selected="${c.codigo == salaSelecionada.campus.codigo}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="sala-edit-predio">Prédio</label>
+                            <select id="sala-edit-predio" name="predio" required>
+                                <option value="" disabled>Selecione um prédio</option>
+                                <option th:each="p : ${predios}"
+                                        th:value="${p.codigo}"
+                                        th:text="${p.nome}"
+                                        th:selected="${p.codigo == salaSelecionada.predio.codigo}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="sala-edit-numero">Número da Sala</label>
+                            <input id="sala-edit-numero" name="numero" type="text" maxlength="50" th:value="${salaSelecionada.numero}" required>
+                        </div>
+                        <div class="field">
+                            <label for="sala-edit-categoria">Categoria</label>
+                            <input id="sala-edit-categoria" name="categoria" type="text" maxlength="100" th:value="${salaSelecionada.categoria}">
+                        </div>
+                        <div class="field">
+                            <label for="sala-edit-capacidade">Capacidade</label>
+                            <input id="sala-edit-capacidade" name="capacidade" type="number" min="0" th:value="${salaSelecionada.capacidade}" required>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar alterações</button>
+                        <a class="button button-secondary" th:href="@{/infraestrutura/salas}">Limpar</a>
+                    </div>
+                </form>
+            </section>
+
+            <section class="surface-panel" th:unless="${salaSelecionada != null}">
+                <h2 class="panel-title">Editar Sala</h2>
+                <p class="panel-note">Escolha o lápis em um registro da tabela para carregar os dados aqui.</p>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+</body>
+</html>

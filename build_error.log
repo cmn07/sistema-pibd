@@ -1,0 +1,1122 @@
+[1mApache Maven 3.9.9[m
+Maven home: /usr/share/maven
+Java version: 21.0.11, vendor: Ubuntu, runtime: /usr/lib/jvm/java-21-openjdk-amd64
+Default locale: pt_BR, platform encoding: UTF-8
+OS name: "linux", version: "6.17.0-29-generic", arch: "amd64", family: "unix"
+[[1;36mDEBUG[m] Created new class realm maven.api
+[[1;36mDEBUG[m] Importing foreign packages into class realm maven.api
+[[1;36mDEBUG[m]   Imported: javax.annotation.* < plexus.core
+[[1;36mDEBUG[m]   Imported: javax.annotation.security.* < plexus.core
+[[1;36mDEBUG[m]   Imported: javax.inject.* < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.* < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.artifact < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.classrealm < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.cli < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.configuration < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.exception < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.execution < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.execution.scope < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.graph < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.lifecycle < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.model < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.monitor < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.plugin < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.profiles < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.project < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.reporting < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.repository < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.rtinfo < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.settings < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.toolchain < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.usability < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.wagon.* < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.wagon.authentication < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.wagon.authorization < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.wagon.events < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.wagon.observers < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.wagon.proxy < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.wagon.repository < plexus.core
+[[1;36mDEBUG[m]   Imported: org.apache.maven.wagon.resource < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.classworlds < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.* < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.classworlds < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.component < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.configuration < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.container < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.context < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.lifecycle < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.logging < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.personality < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.util.xml.Xpp3Dom < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParser < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParserException < plexus.core
+[[1;36mDEBUG[m]   Imported: org.codehaus.plexus.util.xml.pull.XmlSerializer < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.* < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.artifact < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.collection < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.deployment < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.graph < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.impl < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.installation < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.internal.impl < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.metadata < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.repository < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.resolution < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.spi < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.transfer < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.util < plexus.core
+[[1;36mDEBUG[m]   Imported: org.eclipse.aether.version < plexus.core
+[[1;36mDEBUG[m]   Imported: org.fusesource.jansi.* < plexus.core
+[[1;36mDEBUG[m]   Imported: org.slf4j.* < plexus.core
+[[1;36mDEBUG[m]   Imported: org.slf4j.event.* < plexus.core
+[[1;36mDEBUG[m]   Imported: org.slf4j.helpers.* < plexus.core
+[[1;36mDEBUG[m]   Imported: org.slf4j.spi.* < plexus.core
+[[1;36mDEBUG[m] Populating class realm maven.api
+[[1;36mDEBUG[m] Created adapter factory; available factories [file-lock, rwlock-local, semaphore-local, noop]; available name mappers [discriminating, file-gav, file-hgav, file-static, gav, static]
+[[1;34mINFO[m] Error stacktraces are turned on.
+[[1;36mDEBUG[m] Message scheme: color
+[[1;36mDEBUG[m] Message styles: [1;36mdebug[m [1;34minfo[m [1;33mwarning[m [1;31merror[m [1;32msuccess[m [1;31mfailure[m [1mstrong[m [32mmojo[m [36mproject[m
+[[1;36mDEBUG[m] Reading global settings from /usr/share/maven/conf/settings.xml
+[[1;36mDEBUG[m] Reading user settings from /home/rafaela/.m2/settings.xml
+[[1;36mDEBUG[m] Reading global toolchains from /usr/share/maven/conf/toolchains.xml
+[[1;36mDEBUG[m] Reading user toolchains from /home/rafaela/.m2/toolchains.xml
+[[1;36mDEBUG[m] Using local repository at /home/rafaela/.m2/repository
+[[1;36mDEBUG[m] Using manager EnhancedLocalRepositoryManager with priority 10.0 for /home/rafaela/.m2/repository
+[[1;34mINFO[m] Scanning for projects...
+[[1;36mDEBUG[m] Creating adapter using nameMapper 'gav' and factory 'rwlock-local'
+[[1;36mDEBUG[m] Extension realms for project br.ufscar:sistema-universidade:jar:0.0.1-SNAPSHOT: (none)
+[[1;36mDEBUG[m] Looking up lifecycle mappings for packaging jar from ClassRealm[plexus.core, parent: null]
+[[1;36mDEBUG[m] Extension realms for project org.springframework.boot:spring-boot-starter-parent:pom:4.1.0: (none)
+[[1;36mDEBUG[m] Looking up lifecycle mappings for packaging pom from ClassRealm[plexus.core, parent: null]
+[[1;36mDEBUG[m] Extension realms for project org.springframework.boot:spring-boot-dependencies:pom:4.1.0: (none)
+[[1;36mDEBUG[m] Looking up lifecycle mappings for packaging pom from ClassRealm[plexus.core, parent: null]
+[[1;36mDEBUG[m] === REACTOR BUILD PLAN ================================================
+[[1;36mDEBUG[m] Project: br.ufscar:sistema-universidade:jar:0.0.1-SNAPSHOT
+[[1;36mDEBUG[m] Tasks:   [compile]
+[[1;36mDEBUG[m] Style:   Regular
+[[1;36mDEBUG[m] =======================================================================
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-------------------< [0;36mbr.ufscar:sistema-universidade[0;1m >-------------------[m
+[[1;34mINFO[m] [1mBuilding  0.0.1-SNAPSHOT[m
+[[1;34mINFO[m]   from pom.xml
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;36mDEBUG[m] Lifecycle clean -> [pre-clean, clean, post-clean]
+[[1;36mDEBUG[m] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[[1;36mDEBUG[m] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[[1;36mDEBUG[m] Lifecycle clean -> [pre-clean, clean, post-clean]
+[[1;36mDEBUG[m] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[[1;36mDEBUG[m] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[[1;36mDEBUG[m] Lifecycle clean -> [pre-clean, clean, post-clean]
+[[1;36mDEBUG[m] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[[1;36mDEBUG[m] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[[1;36mDEBUG[m] === PROJECT BUILD PLAN ================================================
+[[1;36mDEBUG[m] Project:       br.ufscar:sistema-universidade:0.0.1-SNAPSHOT
+[[1;36mDEBUG[m] Dependencies (collect): []
+[[1;36mDEBUG[m] Dependencies (resolve): [compile]
+[[1;36mDEBUG[m] Repositories (dependencies): [central (https://repo.maven.apache.org/maven2, default, releases)]
+[[1;36mDEBUG[m] Repositories (plugins)     : [central (https://repo.maven.apache.org/maven2, default, releases)]
+[[1;36mDEBUG[m] -----------------------------------------------------------------------
+[[1;36mDEBUG[m] Goal:          org.apache.maven.plugins:maven-resources-plugin:3.5.0:resources (default-resources)
+[[1;36mDEBUG[m] Style:         Regular
+[[1;36mDEBUG[m] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <addDefaultExcludes default-value="true"/>
+  <buildFilters default-value="${project.build.filters}"/>
+  <delimiters>
+    <delimiter>@</delimiter>
+  </delimiters>
+  <encoding default-value="${project.build.sourceEncoding}"/>
+  <escapeWindowsPaths default-value="true"/>
+  <fileNameFiltering default-value="false"/>
+  <includeEmptyDirs default-value="false"/>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <overwrite default-value="false"/>
+  <project default-value="${project}"/>
+  <propertiesEncoding>UTF-8</propertiesEncoding>
+  <resources default-value="${project.resources}"/>
+  <session default-value="${session}"/>
+  <skip default-value="false">${maven.resources.skip}</skip>
+  <supportMultiLineFiltering default-value="false"/>
+  <useBuildFilters default-value="true"/>
+  <useDefaultDelimiters default-value="true">false</useDefaultDelimiters>
+</configuration>
+[[1;36mDEBUG[m] -----------------------------------------------------------------------
+[[1;36mDEBUG[m] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.15.0:compile (default-compile)
+[[1;36mDEBUG[m] Style:         Regular
+[[1;36mDEBUG[m] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <annotationProcessorPathsUseDepMgmt default-value="false"/>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <compilePath default-value="${project.compileClasspathElements}"/>
+  <compileSourceRoots default-value="${project.compileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <createMissingPackageInfoClass default-value="true">${maven.compiler.createMissingPackageInfoClass}</createMissingPackageInfoClass>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debugFileName default-value="javac"/>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <enablePreview default-value="false">${maven.compiler.enablePreview}</enablePreview>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <failOnWarning default-value="false">${maven.compiler.failOnWarning}</failOnWarning>
+  <fileExtensions default-value="class,jar"/>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <forceLegacyJavacApi default-value="false">${maven.compiler.forceLegacyJavacApi}</forceLegacyJavacApi>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedSourcesDirectory default-value="${project.build.directory}/generated-sources/annotations"/>
+  <implicit>${maven.compiler.implicit}</implicit>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <moduleVersion default-value="${project.version}">${maven.compiler.moduleVersion}</moduleVersion>
+  <mojoExecution default-value="${mojoExecution}"/>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.outputDirectory}">${maven.compiler.outputDirectory}</outputDirectory>
+  <outputTimestamp default-value="${project.build.outputTimestamp}"/>
+  <parameters default-value="false">true</parameters>
+  <proc>${maven.compiler.proc}</proc>
+  <project default-value="${project}"/>
+  <projectArtifact default-value="${project.artifact}"/>
+  <release>${maven.compiler.release}</release>
+  <session default-value="${session}"/>
+  <showCompilationChanges default-value="false">${maven.compiler.showCompilationChanges}</showCompilationChanges>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="true">${maven.compiler.showWarnings}</showWarnings>
+  <skipMain>${maven.main.skip}</skipMain>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.8">${maven.compiler.source}</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.8">${maven.compiler.target}</target>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <useModuleVersion default-value="true">${maven.compiler.useModuleVersion}</useModuleVersion>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+</configuration>
+[[1;36mDEBUG[m] =======================================================================
+[[1;36mDEBUG[m] Using mirror maven-default-http-blocker (http://0.0.0.0/) for vaadin-snapshots (http://oss.sonatype.org/content/repositories/vaadin-snapshots/).
+[[1;36mDEBUG[m] Using mirror maven-default-http-blocker (http://0.0.0.0/) for vaadin-releases (http://oss.sonatype.org/content/repositories/vaadin-releases/).
+[[1;36mDEBUG[m] Dependency collection stats {ConflictMarker.analyzeTime=1736834, ConflictMarker.markTime=650980, ConflictMarker.nodeCount=233, ConflictIdSorter.graphTime=945241, ConflictIdSorter.topsortTime=498175, ConflictIdSorter.conflictIdCount=106, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=10730406, ConflictResolver.conflictItemCount=232, DfDependencyCollector.collectTime=297390195, DfDependencyCollector.transformTime=16711745}
+[[1;36mDEBUG[m] br.ufscar:sistema-universidade:jar:0.0.1-SNAPSHOT
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-starter-jdbc:jar:4.1.0:compile
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-starter:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-starter-logging:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]             ch.qos.logback:logback-classic:jar:1.5.34:compile (version managed from 1.5.34)
+[[1;36mDEBUG[m]                ch.qos.logback:logback-core:jar:1.5.34:compile (version managed from 1.5.34)
+[[1;36mDEBUG[m]             org.apache.logging.log4j:log4j-to-slf4j:jar:2.25.4:compile (version managed from 2.25.4)
+[[1;36mDEBUG[m]                org.apache.logging.log4j:log4j-api:jar:2.25.4:compile (version managed from 2.25.4)
+[[1;36mDEBUG[m]             org.slf4j:jul-to-slf4j:jar:2.0.18:compile (version managed from 2.0.18)
+[[1;36mDEBUG[m]          jakarta.annotation:jakarta.annotation-api:jar:3.0.0:compile (version managed from 3.0.0)
+[[1;36mDEBUG[m]          org.yaml:snakeyaml:jar:2.6:compile (version managed from 2.6)
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-jdbc:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-sql:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-transaction:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]             org.springframework.boot:spring-boot-persistence:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]             org.springframework:spring-tx:jar:7.0.8:compile (version managed from 7.0.8)
+[[1;36mDEBUG[m]          org.springframework:spring-jdbc:jar:7.0.8:compile (version managed from 7.0.8)
+[[1;36mDEBUG[m]       com.zaxxer:HikariCP:jar:7.0.2:compile (version managed from 7.0.2)
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-starter-thymeleaf:jar:4.1.0:compile
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-thymeleaf:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework:spring-web:jar:7.0.8:compile (version managed from 7.0.8)
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-starter-validation:jar:4.1.0:compile
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-validation:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.apache.tomcat.embed:tomcat-embed-el:jar:11.0.22:compile (version managed from 11.0.22)
+[[1;36mDEBUG[m]          org.hibernate.validator:hibernate-validator:jar:9.1.0.Final:compile (version managed from 9.1.0.Final)
+[[1;36mDEBUG[m]             jakarta.validation:jakarta.validation-api:jar:3.1.1:compile (version managed from 3.1.1)
+[[1;36mDEBUG[m]             org.jboss.logging:jboss-logging:jar:3.6.3.Final:compile (version managed from 3.6.1.Final)
+[[1;36mDEBUG[m]             com.fasterxml:classmate:jar:1.7.3:compile (version managed from 1.7.1)
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-starter-webmvc:jar:4.1.0:compile
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-starter-jackson:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-jackson:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]             tools.jackson.core:jackson-databind:jar:3.1.4:compile (version managed from 3.1.4)
+[[1;36mDEBUG[m]                com.fasterxml.jackson.core:jackson-annotations:jar:2.21:compile (version managed from 2.21)
+[[1;36mDEBUG[m]                tools.jackson.core:jackson-core:jar:3.1.4:compile (version managed from 3.1.4)
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-starter-tomcat:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-starter-tomcat-runtime:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]             org.apache.tomcat.embed:tomcat-embed-core:jar:11.0.22:compile (version managed from 11.0.22)
+[[1;36mDEBUG[m]             org.apache.tomcat.embed:tomcat-embed-websocket:jar:11.0.22:compile (version managed from 11.0.22)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-tomcat:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-http-converter:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-webmvc:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-servlet:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework:spring-webmvc:jar:7.0.8:compile (version managed from 7.0.8)
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-devtools:jar:4.1.0:runtime (optional)
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework:spring-context:jar:7.0.8:compile (version managed from 7.0.8)
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-autoconfigure:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]    org.postgresql:postgresql:jar:42.7.11:runtime
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-starter-jdbc-test:jar:4.1.0:test
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-starter-test:jar:4.1.0:test (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-test:jar:4.1.0:test (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-test-autoconfigure:jar:4.1.0:test (version managed from 4.1.0)
+[[1;36mDEBUG[m]          com.jayway.jsonpath:json-path:jar:2.10.0:test (version managed from 2.10.0)
+[[1;36mDEBUG[m]          jakarta.xml.bind:jakarta.xml.bind-api:jar:4.0.5:test (version managed from 4.0.5)
+[[1;36mDEBUG[m]             jakarta.activation:jakarta.activation-api:jar:2.1.4:test (version managed from 2.1.4)
+[[1;36mDEBUG[m]          net.minidev:json-smart:jar:2.6.0:test (version managed from 2.6.0)
+[[1;36mDEBUG[m]             net.minidev:accessors-smart:jar:2.6.0:test
+[[1;36mDEBUG[m]                org.ow2.asm:asm:jar:9.7.1:test
+[[1;36mDEBUG[m]          org.assertj:assertj-core:jar:3.27.7:test (version managed from 3.27.7)
+[[1;36mDEBUG[m]             net.bytebuddy:byte-buddy:jar:1.18.10:test (version managed from 1.18.3)
+[[1;36mDEBUG[m]          org.awaitility:awaitility:jar:4.3.0:test (version managed from 4.3.0)
+[[1;36mDEBUG[m]          org.hamcrest:hamcrest:jar:3.0:test (version managed from 3.0)
+[[1;36mDEBUG[m]          org.junit.jupiter:junit-jupiter:jar:6.0.3:test (version managed from 6.0.3)
+[[1;36mDEBUG[m]             org.junit.jupiter:junit-jupiter-api:jar:6.0.3:test (version managed from 6.0.3)
+[[1;36mDEBUG[m]                org.opentest4j:opentest4j:jar:1.3.0:test
+[[1;36mDEBUG[m]                org.junit.platform:junit-platform-commons:jar:6.0.3:test (version managed from 6.0.3)
+[[1;36mDEBUG[m]                org.apiguardian:apiguardian-api:jar:1.1.2:test
+[[1;36mDEBUG[m]             org.junit.jupiter:junit-jupiter-params:jar:6.0.3:test (version managed from 6.0.3)
+[[1;36mDEBUG[m]             org.junit.jupiter:junit-jupiter-engine:jar:6.0.3:test (version managed from 6.0.3)
+[[1;36mDEBUG[m]                org.junit.platform:junit-platform-engine:jar:6.0.3:test (version managed from 6.0.3)
+[[1;36mDEBUG[m]          org.mockito:mockito-core:jar:5.23.0:test (version managed from 5.23.0)
+[[1;36mDEBUG[m]             net.bytebuddy:byte-buddy-agent:jar:1.18.10:test (version managed from 1.17.7)
+[[1;36mDEBUG[m]             org.objenesis:objenesis:jar:3.3:test
+[[1;36mDEBUG[m]          org.mockito:mockito-junit-jupiter:jar:5.23.0:test (version managed from 5.23.0)
+[[1;36mDEBUG[m]          org.skyscreamer:jsonassert:jar:1.5.3:test (version managed from 1.5.3)
+[[1;36mDEBUG[m]             com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1:test
+[[1;36mDEBUG[m]          org.xmlunit:xmlunit-core:jar:2.11.0:test (version managed from 2.11.0)
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-jdbc-test:jar:4.1.0:test (version managed from 4.1.0)
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-starter-thymeleaf-test:jar:4.1.0:test
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-starter-validation-test:jar:4.1.0:test
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-starter-webmvc-test:jar:4.1.0:test
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-starter-jackson-test:jar:4.1.0:test (version managed from 4.1.0)
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-webmvc-test:jar:4.1.0:test (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.boot:spring-boot-web-server:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-resttestclient:jar:4.1.0:test (version managed from 4.1.0)
+[[1;36mDEBUG[m]    org.springframework.boot:spring-boot-starter-security:jar:4.1.0:compile
+[[1;36mDEBUG[m]       org.springframework.boot:spring-boot-security:jar:4.1.0:compile (version managed from 4.1.0)
+[[1;36mDEBUG[m]          org.springframework.security:spring-security-config:jar:7.1.0:compile (version managed from 7.1.0)
+[[1;36mDEBUG[m]       org.springframework:spring-aop:jar:7.0.8:compile (version managed from 7.0.8)
+[[1;36mDEBUG[m]          org.springframework:spring-beans:jar:7.0.8:compile (version managed from 7.0.8)
+[[1;36mDEBUG[m]    org.springframework.security:spring-security-test:jar:7.1.0:test
+[[1;36mDEBUG[m]       org.springframework.security:spring-security-core:jar:7.1.0:compile (version managed from 7.1.0)
+[[1;36mDEBUG[m]          org.springframework.security:spring-security-crypto:jar:7.1.0:compile (version managed from 7.1.0)
+[[1;36mDEBUG[m]          org.springframework:spring-expression:jar:7.0.8:compile (version managed from 7.0.8)
+[[1;36mDEBUG[m]          io.micrometer:micrometer-observation:jar:1.17.0:compile (version managed from 1.17.0)
+[[1;36mDEBUG[m]             io.micrometer:micrometer-commons:jar:1.17.0:compile (version managed from 1.17.0)
+[[1;36mDEBUG[m]       org.springframework.security:spring-security-web:jar:7.1.0:compile (version managed from 7.1.0)
+[[1;36mDEBUG[m]       org.springframework:spring-core:jar:7.0.8:compile (version managed from 7.0.8)
+[[1;36mDEBUG[m]          commons-logging:commons-logging:jar:1.3.6:compile (version managed from 1.3.5)
+[[1;36mDEBUG[m]          org.jspecify:jspecify:jar:1.0.0:compile (version managed from 1.0.0)
+[[1;36mDEBUG[m]       org.springframework:spring-test:jar:7.0.8:test (version managed from 7.0.8)
+[[1;36mDEBUG[m]    org.thymeleaf.extras:thymeleaf-extras-springsecurity6:jar:3.1.5.RELEASE:compile
+[[1;36mDEBUG[m]       org.thymeleaf:thymeleaf-spring6:jar:3.1.5.RELEASE:compile (version managed from 3.1.5.RELEASE)
+[[1;36mDEBUG[m]          org.thymeleaf:thymeleaf:jar:3.1.5.RELEASE:compile (version managed from 3.1.5.RELEASE)
+[[1;36mDEBUG[m]             org.attoparser:attoparser:jar:2.0.7.RELEASE:compile
+[[1;36mDEBUG[m]             org.unbescape:unbescape:jar:1.1.6.RELEASE:compile
+[[1;36mDEBUG[m]       org.slf4j:slf4j-api:jar:2.0.18:compile (version managed from 2.0.17)
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mresources:3.5.0:resources[m [1m(default-resources)[m @ [36msistema-universidade[0;1m ---[m
+[[1;36mDEBUG[m] Dependency collection stats {ConflictMarker.analyzeTime=212041, ConflictMarker.markTime=84704, ConflictMarker.nodeCount=12, ConflictIdSorter.graphTime=121702, ConflictIdSorter.topsortTime=22081, ConflictIdSorter.conflictIdCount=9, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=350484, ConflictResolver.conflictItemCount=12, DfDependencyCollector.collectTime=47516772, DfDependencyCollector.transformTime=826009}
+[[1;36mDEBUG[m] org.apache.maven.plugins:maven-resources-plugin:jar:3.5.0
+[[1;36mDEBUG[m]    org.apache.maven.shared:maven-filtering:jar:3.5.0:compile
+[[1;36mDEBUG[m]       org.slf4j:slf4j-api:jar:1.7.36:compile
+[[1;36mDEBUG[m]       org.codehaus.plexus:plexus-build-api:jar:1.2.0:compile
+[[1;36mDEBUG[m]          javax.inject:javax.inject:jar:1:compile
+[[1;36mDEBUG[m]          org.sonatype.plexus:plexus-build-api:jar:0.0.7:compile
+[[1;36mDEBUG[m]          org.eclipse.sisu:org.eclipse.sisu.plexus:jar:0.9.0.M4:compile (version managed from default)
+[[1;36mDEBUG[m]       org.codehaus.plexus:plexus-interpolation:jar:1.29:compile
+[[1;36mDEBUG[m]    org.codehaus.plexus:plexus-utils:jar:3.6.0:compile
+[[1;36mDEBUG[m] Created new class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.5.0
+[[1;36mDEBUG[m] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.5.0
+[[1;36mDEBUG[m]   Imported:  < maven.api
+[[1;36mDEBUG[m] Populating class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.5.0
+[[1;36mDEBUG[m]   Included: org.apache.maven.plugins:maven-resources-plugin:jar:3.5.0
+[[1;36mDEBUG[m]   Included: org.apache.maven.shared:maven-filtering:jar:3.5.0
+[[1;36mDEBUG[m]   Included: org.codehaus.plexus:plexus-build-api:jar:1.2.0
+[[1;36mDEBUG[m]   Included: org.sonatype.plexus:plexus-build-api:jar:0.0.7
+[[1;36mDEBUG[m]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.29
+[[1;36mDEBUG[m]   Included: org.codehaus.plexus:plexus-utils:jar:3.6.0
+[[1;36mDEBUG[m] Loading mojo org.apache.maven.plugins:maven-resources-plugin:3.5.0:resources from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-resources-plugin:3.5.0, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@639fee48]
+[[1;36mDEBUG[m] Configuring mojo execution 'org.apache.maven.plugins:maven-resources-plugin:3.5.0:resources:default-resources' with basic configurator -->
+[[1;36mDEBUG[m]   (f) addDefaultExcludes = true
+[[1;36mDEBUG[m]   (f) buildFilters = []
+[[1;36mDEBUG[m]   (s) delimiters = [@]
+[[1;36mDEBUG[m]   (f) encoding = UTF-8
+[[1;36mDEBUG[m]   (f) escapeWindowsPaths = true
+[[1;36mDEBUG[m]   (f) fileNameFiltering = false
+[[1;36mDEBUG[m]   (s) includeEmptyDirs = false
+[[1;36mDEBUG[m]   (s) outputDirectory = /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes
+[[1;36mDEBUG[m]   (s) overwrite = false
+[[1;36mDEBUG[m]   (f) project = MavenProject: br.ufscar:sistema-universidade:0.0.1-SNAPSHOT @ /home/rafaela/Documentos/PIBD/sistema-pibd/pom.xml
+[[1;36mDEBUG[m]   (f) propertiesEncoding = UTF-8
+[[1;36mDEBUG[m]   (s) resources = [Resource {targetPath: null, filtering: true, FileSet {directory: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources, PatternSet [includes: {**/application*.yml, **/application*.yaml, **/application*.properties}, excludes: {}]}}, Resource {targetPath: null, filtering: false, FileSet {directory: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources, PatternSet [includes: {}, excludes: {**/application*.yml, **/application*.yaml, **/application*.properties}]}}]
+[[1;36mDEBUG[m]   (f) session = org.apache.maven.execution.MavenSession@1aabf50d
+[[1;36mDEBUG[m]   (f) skip = false
+[[1;36mDEBUG[m]   (f) supportMultiLineFiltering = false
+[[1;36mDEBUG[m]   (f) useBuildFilters = true
+[[1;36mDEBUG[m]   (s) useDefaultDelimiters = false
+[[1;36mDEBUG[m] -- end configuration --
+[[1;36mDEBUG[m] properties used:
+[[1;36mDEBUG[m] activemq.version: 6.2.6
+[[1;36mDEBUG[m] angus-mail.version: 2.0.5
+[[1;36mDEBUG[m] artemis.version: 2.53.0
+[[1;36mDEBUG[m] aspectj.version: 1.9.25.1
+[[1;36mDEBUG[m] assertj.version: 3.27.7
+[[1;36mDEBUG[m] awaitility.version: 4.3.0
+[[1;36mDEBUG[m] brave.version: 6.3.1
+[[1;36mDEBUG[m] build-helper-maven-plugin.version: 3.6.1
+[[1;36mDEBUG[m] byte-buddy.version: 1.18.10
+[[1;36mDEBUG[m] cache2k.version: 2.6.1.Final
+[[1;36mDEBUG[m] caffeine.version: 3.2.4
+[[1;36mDEBUG[m] cassandra-driver.version: 4.19.3
+[[1;36mDEBUG[m] classmate.version: 1.7.3
+[[1;36mDEBUG[m] classworlds.conf: /usr/share/maven/bin/m2.conf
+[[1;36mDEBUG[m] commons-codec.version: 1.21.0
+[[1;36mDEBUG[m] commons-dbcp2.version: 2.14.0
+[[1;36mDEBUG[m] commons-lang3.version: 3.20.0
+[[1;36mDEBUG[m] commons-logging.version: 1.3.6
+[[1;36mDEBUG[m] commons-pool.version: 1.6
+[[1;36mDEBUG[m] commons-pool2.version: 2.13.1
+[[1;36mDEBUG[m] couchbase-client.version: 3.11.3
+[[1;36mDEBUG[m] crac.version: 1.5.0
+[[1;36mDEBUG[m] cyclonedx-maven-plugin.version: 2.9.1
+[[1;36mDEBUG[m] db2-jdbc.version: 12.1.4.0
+[[1;36mDEBUG[m] dependency-management-plugin.version: 1.1.7
+[[1;36mDEBUG[m] derby.version: 10.16.1.1
+[[1;36mDEBUG[m] ehcache3.version: 3.12.0
+[[1;36mDEBUG[m] elasticsearch-client.version: 9.4.2
+[[1;36mDEBUG[m] env.COLORTERM: truecolor
+[[1;36mDEBUG[m] env.DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
+[[1;36mDEBUG[m] env.DEBUGINFOD_URLS: https://debuginfod.ubuntu.com 
+[[1;36mDEBUG[m] env.DESKTOP_SESSION: gnome
+[[1;36mDEBUG[m] env.DISPLAY: :0
+[[1;36mDEBUG[m] env.GDMSESSION: gnome
+[[1;36mDEBUG[m] env.GIO_LAUNCHED_DESKTOP_FILE: /usr/share/applications/dev.warp.Warp.desktop
+[[1;36mDEBUG[m] env.GIO_LAUNCHED_DESKTOP_FILE_PID: 7486
+[[1;36mDEBUG[m] env.GJS_DEBUG_OUTPUT: stderr
+[[1;36mDEBUG[m] env.GJS_DEBUG_TOPICS: JS ERROR;JS LOG
+[[1;36mDEBUG[m] env.GNOME_DESKTOP_SESSION_ID: this-is-deprecated
+[[1;36mDEBUG[m] env.GNOME_SETUP_DISPLAY: :1
+[[1;36mDEBUG[m] env.GPG_AGENT_INFO: /run/user/1000/gnupg/S.gpg-agent:0:1
+[[1;36mDEBUG[m] env.GTK_MODULES: gail:atk-bridge
+[[1;36mDEBUG[m] env.HISTFILESIZE: 2000
+[[1;36mDEBUG[m] env.HISTSIZE: 1000
+[[1;36mDEBUG[m] env.HOME: /home/rafaela
+[[1;36mDEBUG[m] env.IM_CONFIG_CHECK_ENV: 1
+[[1;36mDEBUG[m] env.IM_CONFIG_PHASE: 1
+[[1;36mDEBUG[m] env.INVOCATION_ID: c4d774542063489fa5a6184a0586226d
+[[1;36mDEBUG[m] env.JAVA_HOME: /usr/lib/jvm/java-21-openjdk-amd64
+[[1;36mDEBUG[m] env.JOURNAL_STREAM: 9:41546
+[[1;36mDEBUG[m] env.LANG: pt_BR.UTF-8
+[[1;36mDEBUG[m] env.LESSCLOSE: /usr/bin/lesspipe %s %s
+[[1;36mDEBUG[m] env.LESSOPEN: | /usr/bin/lesspipe %s
+[[1;36mDEBUG[m] env.LOGNAME: rafaela
+[[1;36mDEBUG[m] env.LS_COLORS: rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.swp=00;90:*.tmp=00;90:*.dpkg-dist=00;90:*.dpkg-old=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:
+[[1;36mDEBUG[m] env.MANAGERPID: 4502
+[[1;36mDEBUG[m] env.MAVEN_CMD_LINE_ARGS:  compile -X
+[[1;36mDEBUG[m] env.MAVEN_PROJECTBASEDIR: /home/rafaela/Documentos/PIBD/sistema-pibd
+[[1;36mDEBUG[m] env.MEMORY_PRESSURE_WATCH: /sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure
+[[1;36mDEBUG[m] env.MEMORY_PRESSURE_WRITE: c29tZSAyMDAwMDAgMjAwMDAwMAA=
+[[1;36mDEBUG[m] env.NVM_BIN: /home/rafaela/.nvm/versions/node/v22.23.1/bin
+[[1;36mDEBUG[m] env.NVM_CD_FLAGS: 
+[[1;36mDEBUG[m] env.NVM_DIR: /home/rafaela/.nvm
+[[1;36mDEBUG[m] env.NVM_INC: /home/rafaela/.nvm/versions/node/v22.23.1/include/node
+[[1;36mDEBUG[m] env.OLDPWD: /home/rafaela/Documentos/PIBD/sistema-pibd
+[[1;36mDEBUG[m] env.PATH: /home/rafaela/.pi/agent/bin:/home/rafaela/.local/bin:/home/rafaela/.nvm/versions/node/v22.23.1/bin:/usr/lib/jvm/java-21-openjdk-amd64/bin:/home/rafaela/.sdkman/candidates/java/current/bin:/home/rafaela/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/rafaela/.lmstudio/bin:/home/rafaela/.lmstudio/bin:/home/rafaela/.lmstudio/bin
+[[1;36mDEBUG[m] env.PI_CODING_AGENT: true
+[[1;36mDEBUG[m] env.PWD: /home/rafaela/Documentos/PIBD/sistema-pibd
+[[1;36mDEBUG[m] env.QT_ACCESSIBILITY: 1
+[[1;36mDEBUG[m] env.QT_IM_MODULE: ibus
+[[1;36mDEBUG[m] env.QT_IM_MODULES: wayland;ibus
+[[1;36mDEBUG[m] env.SDKMAN_BROKER_API: https://broker.sdkman.io
+[[1;36mDEBUG[m] env.SDKMAN_CANDIDATES_API: https://api.sdkman.io/2
+[[1;36mDEBUG[m] env.SDKMAN_CANDIDATES_DIR: /home/rafaela/.sdkman/candidates
+[[1;36mDEBUG[m] env.SDKMAN_DIR: /home/rafaela/.sdkman
+[[1;36mDEBUG[m] env.SDKMAN_PLATFORM: linuxx64
+[[1;36mDEBUG[m] env.SHELL: /bin/bash
+[[1;36mDEBUG[m] env.SHLVL: 2
+[[1;36mDEBUG[m] env.SSH_AUTH_SOCK: /run/user/1000/gcr/ssh
+[[1;36mDEBUG[m] env.SSH_SOCKET_DIR: ~/.ssh
+[[1;36mDEBUG[m] env.SYSTEMD_EXEC_PID: 4785
+[[1;36mDEBUG[m] env.TERM: xterm-256color
+[[1;36mDEBUG[m] env.TERM_PROGRAM: WarpTerminal
+[[1;36mDEBUG[m] env.TERM_PROGRAM_VERSION: v0.2026.05.20.09.21.stable_03
+[[1;36mDEBUG[m] env.USER: rafaela
+[[1;36mDEBUG[m] env.USERNAME: rafaela
+[[1;36mDEBUG[m] env.WARP_CLIENT_VERSION: v0.2026.05.20.09.21.stable_03
+[[1;36mDEBUG[m] env.WARP_CLI_AGENT_PROTOCOL_VERSION: 1
+[[1;36mDEBUG[m] env.WARP_HONOR_PS1: 0
+[[1;36mDEBUG[m] env.WARP_IS_LOCAL_SHELL_SESSION: 1
+[[1;36mDEBUG[m] env.WARP_PATH_APPEND: 
+[[1;36mDEBUG[m] env.WARP_USE_SSH_WRAPPER: 1
+[[1;36mDEBUG[m] env.WAYLAND_DISPLAY: wayland-0
+[[1;36mDEBUG[m] env.XAUTHORITY: /run/user/1000/.mutter-Xwaylandauth.3G63R3
+[[1;36mDEBUG[m] env.XDG_CONFIG_DIRS: /etc/xdg/xdg-gnome:/etc/xdg
+[[1;36mDEBUG[m] env.XDG_CURRENT_DESKTOP: GNOME
+[[1;36mDEBUG[m] env.XDG_DATA_DIRS: /usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+[[1;36mDEBUG[m] env.XDG_MENU_PREFIX: gnome-
+[[1;36mDEBUG[m] env.XDG_RUNTIME_DIR: /run/user/1000
+[[1;36mDEBUG[m] env.XDG_SESSION_CLASS: user
+[[1;36mDEBUG[m] env.XDG_SESSION_DESKTOP: gnome
+[[1;36mDEBUG[m] env.XDG_SESSION_TYPE: wayland
+[[1;36mDEBUG[m] env.XMODIFIERS: @im=ibus
+[[1;36mDEBUG[m] env._: /usr/bin/mvn
+[[1;36mDEBUG[m] file.encoding: UTF-8
+[[1;36mDEBUG[m] file.separator: /
+[[1;36mDEBUG[m] flyway.version: 12.4.0
+[[1;36mDEBUG[m] freemarker.version: 2.3.34
+[[1;36mDEBUG[m] git-commit-id-maven-plugin.version: 9.2.0
+[[1;36mDEBUG[m] glassfish-jaxb.version: 4.0.9
+[[1;36mDEBUG[m] glassfish-jstl.version: 3.0.1
+[[1;36mDEBUG[m] graphql-java.version: 25.0
+[[1;36mDEBUG[m] groovy.version: 5.0.6
+[[1;36mDEBUG[m] grpc-java.version: 1.80.0
+[[1;36mDEBUG[m] grpc-kotlin.version: 1.5.0
+[[1;36mDEBUG[m] gson.version: 2.13.2
+[[1;36mDEBUG[m] h2.version: 2.4.240
+[[1;36mDEBUG[m] hamcrest.version: 3.0
+[[1;36mDEBUG[m] hazelcast.version: 5.5.0
+[[1;36mDEBUG[m] hibernate-validator.version: 9.1.0.Final
+[[1;36mDEBUG[m] hibernate.version: 7.4.1.Final
+[[1;36mDEBUG[m] hikaricp.version: 7.0.2
+[[1;36mDEBUG[m] hsqldb.version: 2.7.3
+[[1;36mDEBUG[m] htmlunit.version: 4.21.0
+[[1;36mDEBUG[m] httpasyncclient.version: 4.1.5
+[[1;36mDEBUG[m] httpclient5.version: 5.6.1
+[[1;36mDEBUG[m] httpcore.version: 4.4.16
+[[1;36mDEBUG[m] httpcore5.version: 5.4.2
+[[1;36mDEBUG[m] infinispan.version: 16.1.4
+[[1;36mDEBUG[m] influxdb-java.version: 2.25
+[[1;36mDEBUG[m] jackson-2-bom.version: 2.21.4
+[[1;36mDEBUG[m] jackson-bom.version: 3.1.4
+[[1;36mDEBUG[m] jakarta-activation.version: 2.1.4
+[[1;36mDEBUG[m] jakarta-annotation.version: 3.0.0
+[[1;36mDEBUG[m] jakarta-inject.version: 2.0.1
+[[1;36mDEBUG[m] jakarta-jms.version: 3.1.0
+[[1;36mDEBUG[m] jakarta-json-bind.version: 3.0.2
+[[1;36mDEBUG[m] jakarta-json.version: 2.1.3
+[[1;36mDEBUG[m] jakarta-mail.version: 2.1.5
+[[1;36mDEBUG[m] jakarta-management.version: 1.1.4
+[[1;36mDEBUG[m] jakarta-persistence.version: 3.2.0
+[[1;36mDEBUG[m] jakarta-servlet-jsp-jstl.version: 3.0.2
+[[1;36mDEBUG[m] jakarta-servlet.version: 6.1.0
+[[1;36mDEBUG[m] jakarta-transaction.version: 2.0.1
+[[1;36mDEBUG[m] jakarta-validation.version: 3.1.1
+[[1;36mDEBUG[m] jakarta-websocket.version: 2.2.0
+[[1;36mDEBUG[m] jakarta-ws-rs.version: 4.0.0
+[[1;36mDEBUG[m] jakarta-xml-bind.version: 4.0.5
+[[1;36mDEBUG[m] jakarta-xml-soap.version: 3.0.2
+[[1;36mDEBUG[m] jakarta-xml-ws.version: 4.0.3
+[[1;36mDEBUG[m] janino.version: 3.1.12
+[[1;36mDEBUG[m] jansi.mode: force
+[[1;36mDEBUG[m] java.class.path: /usr/share/maven/boot/plexus-classworlds-2.x.jar
+[[1;36mDEBUG[m] java.class.version: 65.0
+[[1;36mDEBUG[m] java.home: /usr/lib/jvm/java-21-openjdk-amd64
+[[1;36mDEBUG[m] java.io.tmpdir: /tmp
+[[1;36mDEBUG[m] java.library.path: /usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib
+[[1;36mDEBUG[m] java.runtime.name: OpenJDK Runtime Environment
+[[1;36mDEBUG[m] java.runtime.version: 21.0.11+10-1-25.10.2-Ubuntu
+[[1;36mDEBUG[m] java.specification.name: Java Platform API Specification
+[[1;36mDEBUG[m] java.specification.vendor: Oracle Corporation
+[[1;36mDEBUG[m] java.specification.version: 21
+[[1;36mDEBUG[m] java.vendor: Ubuntu
+[[1;36mDEBUG[m] java.vendor.url: https://ubuntu.com/
+[[1;36mDEBUG[m] java.vendor.url.bug: https://bugs.launchpad.net/ubuntu/+source/openjdk-21
+[[1;36mDEBUG[m] java.version: 21.0.11
+[[1;36mDEBUG[m] java.version.date: 2026-04-21
+[[1;36mDEBUG[m] java.vm.compressedOopsMode: Zero based
+[[1;36mDEBUG[m] java.vm.info: mixed mode, sharing
+[[1;36mDEBUG[m] java.vm.name: OpenJDK 64-Bit Server VM
+[[1;36mDEBUG[m] java.vm.specification.name: Java Virtual Machine Specification
+[[1;36mDEBUG[m] java.vm.specification.vendor: Oracle Corporation
+[[1;36mDEBUG[m] java.vm.specification.version: 21
+[[1;36mDEBUG[m] java.vm.vendor: Ubuntu
+[[1;36mDEBUG[m] java.vm.version: 21.0.11+10-1-25.10.2-Ubuntu
+[[1;36mDEBUG[m] javax-cache.version: 1.1.1
+[[1;36mDEBUG[m] javax-money.version: 1.1
+[[1;36mDEBUG[m] jaxen.version: 2.0.6
+[[1;36mDEBUG[m] jaybird.version: 6.0.5
+[[1;36mDEBUG[m] jboss-logging.version: 3.6.3.Final
+[[1;36mDEBUG[m] jdk.debug: release
+[[1;36mDEBUG[m] jdom2.version: 2.0.6.1
+[[1;36mDEBUG[m] jedis.version: 7.4.1
+[[1;36mDEBUG[m] jersey.version: 4.0.2
+[[1;36mDEBUG[m] jetty-reactive-httpclient.version: 4.1.5
+[[1;36mDEBUG[m] jetty.version: 12.1.10
+[[1;36mDEBUG[m] jmustache.version: 1.16
+[[1;36mDEBUG[m] jooq.version: 3.21.5
+[[1;36mDEBUG[m] json-path.version: 2.10.0
+[[1;36mDEBUG[m] json-smart.version: 2.6.0
+[[1;36mDEBUG[m] jsonassert.version: 1.5.3
+[[1;36mDEBUG[m] jspecify.version: 1.0.0
+[[1;36mDEBUG[m] jtds.version: 1.3.1
+[[1;36mDEBUG[m] junit-jupiter.version: 6.0.3
+[[1;36mDEBUG[m] junit.version: 4.13.2
+[[1;36mDEBUG[m] kafka.version: 4.2.1
+[[1;36mDEBUG[m] kotlin-coroutines.version: 1.10.2
+[[1;36mDEBUG[m] kotlin-serialization.version: 1.11.0
+[[1;36mDEBUG[m] kotlin.version: 2.3.21
+[[1;36mDEBUG[m] lettuce.version: 7.5.2.RELEASE
+[[1;36mDEBUG[m] library.jansi.path: /usr/share/maven/lib/jansi-native
+[[1;36mDEBUG[m] line.separator: 
+
+[[1;36mDEBUG[m] liquibase.version: 5.0.3
+[[1;36mDEBUG[m] log4j2.version: 2.25.4
+[[1;36mDEBUG[m] logback.version: 1.5.34
+[[1;36mDEBUG[m] lombok.version: 1.18.46
+[[1;36mDEBUG[m] mariadb.version: 3.5.8
+[[1;36mDEBUG[m] maven-antrun-plugin.version: 3.2.0
+[[1;36mDEBUG[m] maven-assembly-plugin.version: 3.8.0
+[[1;36mDEBUG[m] maven-clean-plugin.version: 3.5.0
+[[1;36mDEBUG[m] maven-compiler-plugin.version: 3.15.0
+[[1;36mDEBUG[m] maven-dependency-plugin.version: 3.10.0
+[[1;36mDEBUG[m] maven-deploy-plugin.version: 3.1.4
+[[1;36mDEBUG[m] maven-enforcer-plugin.version: 3.6.3
+[[1;36mDEBUG[m] maven-failsafe-plugin.version: 3.5.6
+[[1;36mDEBUG[m] maven-help-plugin.version: 3.5.1
+[[1;36mDEBUG[m] maven-install-plugin.version: 3.1.4
+[[1;36mDEBUG[m] maven-invoker-plugin.version: 3.9.1
+[[1;36mDEBUG[m] maven-jar-plugin.version: 3.5.0
+[[1;36mDEBUG[m] maven-javadoc-plugin.version: 3.12.0
+[[1;36mDEBUG[m] maven-resources-plugin.version: 3.5.0
+[[1;36mDEBUG[m] maven-shade-plugin.version: 3.6.2
+[[1;36mDEBUG[m] maven-source-plugin.version: 3.4.0
+[[1;36mDEBUG[m] maven-surefire-plugin.version: 3.5.6
+[[1;36mDEBUG[m] maven-war-plugin.version: 3.5.1
+[[1;36mDEBUG[m] maven.build.timestamp: 2026-06-29T04:06:38Z
+[[1;36mDEBUG[m] maven.build.version: Apache Maven 3.9.9
+[[1;36mDEBUG[m] maven.compiler.release: 17
+[[1;36mDEBUG[m] maven.conf: /usr/share/maven/conf
+[[1;36mDEBUG[m] maven.home: /usr/share/maven
+[[1;36mDEBUG[m] maven.multiModuleProjectDirectory: /home/rafaela/Documentos/PIBD/sistema-pibd
+[[1;36mDEBUG[m] maven.version: 3.9.9
+[[1;36mDEBUG[m] micrometer-tracing.version: 1.7.0
+[[1;36mDEBUG[m] micrometer.version: 1.17.0
+[[1;36mDEBUG[m] mockito.version: 5.23.0
+[[1;36mDEBUG[m] mongodb.version: 5.8.0
+[[1;36mDEBUG[m] mssql-jdbc.version: 13.4.0.jre11
+[[1;36mDEBUG[m] mysql.version: 9.7.0
+[[1;36mDEBUG[m] native-build-tools-plugin.version: 1.1.1
+[[1;36mDEBUG[m] native.encoding: UTF-8
+[[1;36mDEBUG[m] nekohtml.version: 1.9.22
+[[1;36mDEBUG[m] neo4j-java-driver.version: 6.1.0
+[[1;36mDEBUG[m] netty.version: 4.2.15.Final
+[[1;36mDEBUG[m] opentelemetry.version: 1.62.0
+[[1;36mDEBUG[m] oracle-database.version: 23.26.2.0.0
+[[1;36mDEBUG[m] oracle-r2dbc.version: 1.3.0
+[[1;36mDEBUG[m] os.arch: amd64
+[[1;36mDEBUG[m] os.name: Linux
+[[1;36mDEBUG[m] os.version: 6.17.0-29-generic
+[[1;36mDEBUG[m] path.separator: :
+[[1;36mDEBUG[m] pooled-jms.version: 3.2.2
+[[1;36mDEBUG[m] postgresql.version: 42.7.11
+[[1;36mDEBUG[m] project.baseUri: file:/home/rafaela/Documentos/PIBD/sistema-pibd/
+[[1;36mDEBUG[m] project.build.sourceEncoding: UTF-8
+[[1;36mDEBUG[m] project.reporting.outputEncoding: UTF-8
+[[1;36mDEBUG[m] prometheus-client.version: 1.5.1
+[[1;36mDEBUG[m] prometheus-simpleclient.version: 0.16.0
+[[1;36mDEBUG[m] protobuf-common-protos.version: 2.70.0
+[[1;36mDEBUG[m] protobuf-java.version: 4.34.2
+[[1;36mDEBUG[m] protobuf-maven-plugin.version: 5.1.4
+[[1;36mDEBUG[m] pulsar.version: 4.2.2
+[[1;36mDEBUG[m] qpid-protonj2.version: 1.1.0
+[[1;36mDEBUG[m] quartz.version: 2.5.2
+[[1;36mDEBUG[m] querydsl.version: 5.1.0
+[[1;36mDEBUG[m] r2dbc-h2.version: 1.1.0.RELEASE
+[[1;36mDEBUG[m] r2dbc-mariadb.version: 1.4.0
+[[1;36mDEBUG[m] r2dbc-mssql.version: 1.0.4.RELEASE
+[[1;36mDEBUG[m] r2dbc-mysql.version: 1.4.2
+[[1;36mDEBUG[m] r2dbc-pool.version: 1.0.2.RELEASE
+[[1;36mDEBUG[m] r2dbc-postgresql.version: 1.1.1.RELEASE
+[[1;36mDEBUG[m] r2dbc-proxy.version: 1.1.6.RELEASE
+[[1;36mDEBUG[m] r2dbc-spi.version: 1.0.0.RELEASE
+[[1;36mDEBUG[m] rabbit-amqp-client.version: 5.30.0
+[[1;36mDEBUG[m] rabbit-stream-client.version: 1.6.0
+[[1;36mDEBUG[m] reactive-streams.version: 1.0.4
+[[1;36mDEBUG[m] reactor-bom.version: 2025.0.6
+[[1;36mDEBUG[m] resource.delimiter: @
+[[1;36mDEBUG[m] rsocket.version: 1.1.5
+[[1;36mDEBUG[m] rxjava3.version: 3.1.12
+[[1;36mDEBUG[m] saaj-impl.version: 3.0.6
+[[1;36mDEBUG[m] selenium-htmlunit.version: 4.43.0
+[[1;36mDEBUG[m] selenium.version: 4.43.0
+[[1;36mDEBUG[m] sendgrid.version: 4.10.3
+[[1;36mDEBUG[m] slf4j.version: 2.0.18
+[[1;36mDEBUG[m] snakeyaml.version: 2.6
+[[1;36mDEBUG[m] spring-amqp.version: 4.1.0
+[[1;36mDEBUG[m] spring-batch.version: 6.0.4
+[[1;36mDEBUG[m] spring-boot.run.main-class: ${start-class}
+[[1;36mDEBUG[m] spring-data-bom.version: 2026.0.0
+[[1;36mDEBUG[m] spring-framework.version: 7.0.8
+[[1;36mDEBUG[m] spring-graphql.version: 2.0.4
+[[1;36mDEBUG[m] spring-grpc.version: 1.1.0
+[[1;36mDEBUG[m] spring-hateoas.version: 3.1.1
+[[1;36mDEBUG[m] spring-integration.version: 7.1.0
+[[1;36mDEBUG[m] spring-kafka.version: 4.1.0
+[[1;36mDEBUG[m] spring-ldap.version: 4.1.0
+[[1;36mDEBUG[m] spring-pulsar.version: 2.0.6
+[[1;36mDEBUG[m] spring-restdocs.version: 4.0.1
+[[1;36mDEBUG[m] spring-security.version: 7.1.0
+[[1;36mDEBUG[m] spring-session.version: 4.1.0
+[[1;36mDEBUG[m] spring-ws.version: 5.0.2
+[[1;36mDEBUG[m] sqlite-jdbc.version: 3.53.2.0
+[[1;36mDEBUG[m] stderr.encoding: UTF-8
+[[1;36mDEBUG[m] stdout.encoding: UTF-8
+[[1;36mDEBUG[m] sun.arch.data.model: 64
+[[1;36mDEBUG[m] sun.boot.library.path: /usr/lib/jvm/java-21-openjdk-amd64/lib
+[[1;36mDEBUG[m] sun.cpu.endian: little
+[[1;36mDEBUG[m] sun.io.unicode.encoding: UnicodeLittle
+[[1;36mDEBUG[m] sun.java.command: org.codehaus.plexus.classworlds.launcher.Launcher compile -X
+[[1;36mDEBUG[m] sun.java.launcher: SUN_STANDARD
+[[1;36mDEBUG[m] sun.jnu.encoding: UTF-8
+[[1;36mDEBUG[m] sun.management.compiler: HotSpot 64-Bit Tiered Compilers
+[[1;36mDEBUG[m] testcontainers-redis-module.version: 2.2.4
+[[1;36mDEBUG[m] testcontainers.version: 2.0.5
+[[1;36mDEBUG[m] thymeleaf-extras-data-attribute.version: 2.0.1
+[[1;36mDEBUG[m] thymeleaf-extras-springsecurity.version: 3.1.5.RELEASE
+[[1;36mDEBUG[m] thymeleaf-layout-dialect.version: 4.0.1
+[[1;36mDEBUG[m] thymeleaf.version: 3.1.5.RELEASE
+[[1;36mDEBUG[m] tomcat.version: 11.0.22
+[[1;36mDEBUG[m] unboundid-ldapsdk.version: 7.0.4
+[[1;36mDEBUG[m] user.country: BR
+[[1;36mDEBUG[m] user.dir: /home/rafaela/Documentos/PIBD/sistema-pibd
+[[1;36mDEBUG[m] user.home: /home/rafaela
+[[1;36mDEBUG[m] user.language: pt
+[[1;36mDEBUG[m] user.name: rafaela
+[[1;36mDEBUG[m] versions-maven-plugin.version: 2.21.0
+[[1;36mDEBUG[m] vibur.version: 26.0
+[[1;36mDEBUG[m] webjars-locator-core.version: 0.59
+[[1;36mDEBUG[m] webjars-locator-lite.version: 1.1.3
+[[1;36mDEBUG[m] wsdl4j.version: 1.6.3
+[[1;36mDEBUG[m] xml-maven-plugin.version: 1.2.1
+[[1;36mDEBUG[m] xmlunit2.version: 2.11.0
+[[1;36mDEBUG[m] yasson.version: 3.0.4
+[[1;36mDEBUG[m] zipkin-reporter.version: 3.5.3
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered properties files.
+[[1;36mDEBUG[m] resource with targetPath null
+directory /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources
+excludes []
+includes [**/application*.yml, **/application*.yaml, **/application*.properties]
+[[1;34mINFO[m] Copying 1 resource from src/main/resources to target/classes
+[[1;36mDEBUG[m] Copying file application.properties
+[[1;36mDEBUG[m] file application.properties has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'application.properties'.
+[[1;36mDEBUG[m] filtering /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/application.properties to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/application.properties
+[[1;36mDEBUG[m] resource with targetPath null
+directory /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources
+excludes [**/application*.yml, **/application*.yaml, **/application*.properties]
+includes []
+[[1;34mINFO[m] Copying 24 resources from src/main/resources to target/classes
+[[1;36mDEBUG[m] Copying file db/03_indexes.sql
+[[1;36mDEBUG[m] file 03_indexes.sql has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource '03_indexes.sql'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/db/03_indexes.sql to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/db/03_indexes.sql
+[[1;36mDEBUG[m] Copying file db/02_insert_data.sql
+[[1;36mDEBUG[m] file 02_insert_data.sql has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource '02_insert_data.sql'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/db/02_insert_data.sql to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/db/02_insert_data.sql
+[[1;36mDEBUG[m] Copying file db/01_create_tables.sql
+[[1;36mDEBUG[m] file 01_create_tables.sql has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource '01_create_tables.sql'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/db/01_create_tables.sql to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/db/01_create_tables.sql
+[[1;36mDEBUG[m] Copying file db/04_triggers_functions_procedures.sql
+[[1;36mDEBUG[m] file 04_triggers_functions_procedures.sql has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource '04_triggers_functions_procedures.sql'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/db/04_triggers_functions_procedures.sql to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/db/04_triggers_functions_procedures.sql
+[[1;36mDEBUG[m] Copying file static/css/style.css
+[[1;36mDEBUG[m] file style.css has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'style.css'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/static/css/style.css to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/static/css/style.css
+[[1;36mDEBUG[m] Copying file templates/pessoas.html
+[[1;36mDEBUG[m] file pessoas.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'pessoas.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/pessoas.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/pessoas.html
+[[1;36mDEBUG[m] Copying file templates/reservas.html
+[[1;36mDEBUG[m] file reservas.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'reservas.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/reservas.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/reservas.html
+[[1;36mDEBUG[m] Copying file templates/discentes.html
+[[1;36mDEBUG[m] file discentes.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'discentes.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/discentes.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/discentes.html
+[[1;36mDEBUG[m] Copying file templates/emprestimos.html
+[[1;36mDEBUG[m] file emprestimos.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'emprestimos.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/emprestimos.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/emprestimos.html
+[[1;36mDEBUG[m] Copying file templates/login.html
+[[1;36mDEBUG[m] file login.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'login.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/login.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/login.html
+[[1;36mDEBUG[m] Copying file templates/placeholder.html
+[[1;36mDEBUG[m] file placeholder.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'placeholder.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/placeholder.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/placeholder.html
+[[1;36mDEBUG[m] Copying file templates/funcionarios.html
+[[1;36mDEBUG[m] file funcionarios.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'funcionarios.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/funcionarios.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/funcionarios.html
+[[1;36mDEBUG[m] Copying file templates/pendencias.html
+[[1;36mDEBUG[m] file pendencias.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'pendencias.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/pendencias.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/pendencias.html
+[[1;36mDEBUG[m] Copying file templates/acervo-form.html
+[[1;36mDEBUG[m] file acervo-form.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'acervo-form.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/acervo-form.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/acervo-form.html
+[[1;36mDEBUG[m] Copying file templates/administradores.html
+[[1;36mDEBUG[m] file administradores.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'administradores.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/administradores.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/administradores.html
+[[1;36mDEBUG[m] Copying file templates/acervo.html
+[[1;36mDEBUG[m] file acervo.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'acervo.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/acervo.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/acervo.html
+[[1;36mDEBUG[m] Copying file templates/usuarios.html
+[[1;36mDEBUG[m] file usuarios.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'usuarios.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/usuarios.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/usuarios.html
+[[1;36mDEBUG[m] Copying file templates/credenciais.html
+[[1;36mDEBUG[m] file credenciais.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'credenciais.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/credenciais.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/credenciais.html
+[[1;36mDEBUG[m] Copying file templates/index.html
+[[1;36mDEBUG[m] file index.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'index.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/index.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/index.html
+[[1;36mDEBUG[m] Copying file templates/infraestrutura/relatorio-salas.html
+[[1;36mDEBUG[m] file relatorio-salas.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'relatorio-salas.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/infraestrutura/relatorio-salas.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/infraestrutura/relatorio-salas.html
+[[1;36mDEBUG[m] Copying file templates/infraestrutura/predios.html
+[[1;36mDEBUG[m] file predios.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'predios.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/infraestrutura/predios.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/infraestrutura/predios.html
+[[1;36mDEBUG[m] Copying file templates/infraestrutura/salas.html
+[[1;36mDEBUG[m] file salas.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'salas.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/infraestrutura/salas.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/infraestrutura/salas.html
+[[1;36mDEBUG[m] Copying file templates/infraestrutura/laboratorio.html
+[[1;36mDEBUG[m] file laboratorio.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'laboratorio.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/infraestrutura/laboratorio.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/infraestrutura/laboratorio.html
+[[1;36mDEBUG[m] Copying file templates/infraestrutura/campus.html
+[[1;36mDEBUG[m] file campus.html has a filtered file extension
+[[1;36mDEBUG[m] Using 'UTF-8' encoding to copy filtered resource 'campus.html'.
+[[1;36mDEBUG[m] copy /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/resources/templates/infraestrutura/campus.html to /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes/templates/infraestrutura/campus.html
+[[1;36mDEBUG[m] no user filter components
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mcompiler:3.15.0:compile[m [1m(default-compile)[m @ [36msistema-universidade[0;1m ---[m
+[[1;36mDEBUG[m] Using mirror maven-default-http-blocker (http://0.0.0.0/) for apache.snapshots (http://repository.apache.org/snapshots).
+[[1;36mDEBUG[m] Dependency collection stats {ConflictMarker.analyzeTime=80394, ConflictMarker.markTime=177322, ConflictMarker.nodeCount=23, ConflictIdSorter.graphTime=50347, ConflictIdSorter.topsortTime=32582, ConflictIdSorter.conflictIdCount=14, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=675072, ConflictResolver.conflictItemCount=23, DfDependencyCollector.collectTime=62588999, DfDependencyCollector.transformTime=1056955}
+[[1;36mDEBUG[m] org.apache.maven.plugins:maven-compiler-plugin:jar:3.15.0
+[[1;36mDEBUG[m]    org.ow2.asm:asm:jar:9.9.1:compile
+[[1;36mDEBUG[m]    org.apache.maven.shared:maven-shared-utils:jar:3.4.2:compile
+[[1;36mDEBUG[m]       org.slf4j:slf4j-api:jar:1.7.36:compile
+[[1;36mDEBUG[m]       commons-io:commons-io:jar:2.11.0:compile
+[[1;36mDEBUG[m]    org.apache.maven.shared:maven-shared-incremental:jar:1.1:compile
+[[1;36mDEBUG[m]    org.codehaus.plexus:plexus-java:jar:1.5.2:compile
+[[1;36mDEBUG[m]       com.thoughtworks.qdox:qdox:jar:2.2.0:compile
+[[1;36mDEBUG[m]    org.codehaus.plexus:plexus-compiler-api:jar:2.16.2:compile
+[[1;36mDEBUG[m]    org.codehaus.plexus:plexus-compiler-manager:jar:2.16.2:compile
+[[1;36mDEBUG[m]       javax.inject:javax.inject:jar:1:compile
+[[1;36mDEBUG[m]       org.codehaus.plexus:plexus-xml:jar:3.0.1:compile (version managed from default)
+[[1;36mDEBUG[m]    org.codehaus.plexus:plexus-compiler-javac:jar:2.16.2:runtime
+[[1;36mDEBUG[m]    org.codehaus.plexus:plexus-utils:jar:4.0.2:compile
+[[1;36mDEBUG[m] Created new class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.15.0
+[[1;36mDEBUG[m] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.15.0
+[[1;36mDEBUG[m]   Imported:  < maven.api
+[[1;36mDEBUG[m] Populating class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.15.0
+[[1;36mDEBUG[m]   Included: org.apache.maven.plugins:maven-compiler-plugin:jar:3.15.0
+[[1;36mDEBUG[m]   Included: org.ow2.asm:asm:jar:9.9.1
+[[1;36mDEBUG[m]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.4.2
+[[1;36mDEBUG[m]   Included: commons-io:commons-io:jar:2.11.0
+[[1;36mDEBUG[m]   Included: org.apache.maven.shared:maven-shared-incremental:jar:1.1
+[[1;36mDEBUG[m]   Included: org.codehaus.plexus:plexus-java:jar:1.5.2
+[[1;36mDEBUG[m]   Included: com.thoughtworks.qdox:qdox:jar:2.2.0
+[[1;36mDEBUG[m]   Included: org.codehaus.plexus:plexus-compiler-api:jar:2.16.2
+[[1;36mDEBUG[m]   Included: org.codehaus.plexus:plexus-compiler-manager:jar:2.16.2
+[[1;36mDEBUG[m]   Included: org.codehaus.plexus:plexus-xml:jar:3.0.1
+[[1;36mDEBUG[m]   Included: org.codehaus.plexus:plexus-compiler-javac:jar:2.16.2
+[[1;36mDEBUG[m]   Included: org.codehaus.plexus:plexus-utils:jar:4.0.2
+[[1;36mDEBUG[m] Loading mojo org.apache.maven.plugins:maven-compiler-plugin:3.15.0:compile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.15.0, parent: jdk.internal.loader.ClassLoaders$AppClassLoader@639fee48]
+[[1;36mDEBUG[m] Configuring mojo execution 'org.apache.maven.plugins:maven-compiler-plugin:3.15.0:compile:default-compile' with basic configurator -->
+[[1;36mDEBUG[m]   (f) annotationProcessorPathsUseDepMgmt = false
+[[1;36mDEBUG[m]   (f) basedir = /home/rafaela/Documentos/PIBD/sistema-pibd
+[[1;36mDEBUG[m]   (f) buildDirectory = /home/rafaela/Documentos/PIBD/sistema-pibd/target
+[[1;36mDEBUG[m]   (f) compilePath = [/home/rafaela/Documentos/PIBD/sistema-pibd/target/classes, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/4.1.0/spring-boot-starter-jdbc-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter/4.1.0/spring-boot-starter-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-logging/4.1.0/spring-boot-starter-logging-4.1.0.jar, /home/rafaela/.m2/repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar, /home/rafaela/.m2/repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar, /home/rafaela/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar, /home/rafaela/.m2/repository/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar, /home/rafaela/.m2/repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar, /home/rafaela/.m2/repository/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar, /home/rafaela/.m2/repository/org/yaml/snakeyaml/2.6/snakeyaml-2.6.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-jdbc/4.1.0/spring-boot-jdbc-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-sql/4.1.0/spring-boot-sql-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-transaction/4.1.0/spring-boot-transaction-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-persistence/4.1.0/spring-boot-persistence-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/spring-tx/7.0.8/spring-tx-7.0.8.jar, /home/rafaela/.m2/repository/org/springframework/spring-jdbc/7.0.8/spring-jdbc-7.0.8.jar, /home/rafaela/.m2/repository/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/4.1.0/spring-boot-starter-thymeleaf-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-thymeleaf/4.1.0/spring-boot-thymeleaf-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/spring-web/7.0.8/spring-web-7.0.8.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-validation/4.1.0/spring-boot-starter-validation-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-validation/4.1.0/spring-boot-validation-4.1.0.jar, /home/rafaela/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/11.0.22/tomcat-embed-el-11.0.22.jar, /home/rafaela/.m2/repository/org/hibernate/validator/hibernate-validator/9.1.0.Final/hibernate-validator-9.1.0.Final.jar, /home/rafaela/.m2/repository/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar, /home/rafaela/.m2/repository/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar, /home/rafaela/.m2/repository/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-webmvc/4.1.0/spring-boot-starter-webmvc-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-jackson/4.1.0/spring-boot-starter-jackson-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-jackson/4.1.0/spring-boot-jackson-4.1.0.jar, /home/rafaela/.m2/repository/tools/jackson/core/jackson-databind/3.1.4/jackson-databind-3.1.4.jar, /home/rafaela/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar, /home/rafaela/.m2/repository/tools/jackson/core/jackson-core/3.1.4/jackson-core-3.1.4.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/4.1.0/spring-boot-starter-tomcat-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.1.0/spring-boot-starter-tomcat-runtime-4.1.0.jar, /home/rafaela/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/11.0.22/tomcat-embed-core-11.0.22.jar, /home/rafaela/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.22/tomcat-embed-websocket-11.0.22.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-tomcat/4.1.0/spring-boot-tomcat-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-http-converter/4.1.0/spring-boot-http-converter-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-webmvc/4.1.0/spring-boot-webmvc-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-servlet/4.1.0/spring-boot-servlet-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/spring-webmvc/7.0.8/spring-webmvc-7.0.8.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot/4.1.0/spring-boot-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/spring-context/7.0.8/spring-context-7.0.8.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/4.1.0/spring-boot-autoconfigure-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-web-server/4.1.0/spring-boot-web-server-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-security/4.1.0/spring-boot-starter-security-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-security/4.1.0/spring-boot-security-4.1.0.jar, /home/rafaela/.m2/repository/org/springframework/security/spring-security-config/7.1.0/spring-security-config-7.1.0.jar, /home/rafaela/.m2/repository/org/springframework/spring-aop/7.0.8/spring-aop-7.0.8.jar, /home/rafaela/.m2/repository/org/springframework/spring-beans/7.0.8/spring-beans-7.0.8.jar, /home/rafaela/.m2/repository/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar, /home/rafaela/.m2/repository/org/springframework/security/spring-security-crypto/7.1.0/spring-security-crypto-7.1.0.jar, /home/rafaela/.m2/repository/org/springframework/spring-expression/7.0.8/spring-expression-7.0.8.jar, /home/rafaela/.m2/repository/io/micrometer/micrometer-observation/1.17.0/micrometer-observation-1.17.0.jar, /home/rafaela/.m2/repository/io/micrometer/micrometer-commons/1.17.0/micrometer-commons-1.17.0.jar, /home/rafaela/.m2/repository/org/springframework/security/spring-security-web/7.1.0/spring-security-web-7.1.0.jar, /home/rafaela/.m2/repository/org/springframework/spring-core/7.0.8/spring-core-7.0.8.jar, /home/rafaela/.m2/repository/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar, /home/rafaela/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar, /home/rafaela/.m2/repository/org/thymeleaf/extras/thymeleaf-extras-springsecurity6/3.1.5.RELEASE/thymeleaf-extras-springsecurity6-3.1.5.RELEASE.jar, /home/rafaela/.m2/repository/org/thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/thymeleaf-spring6-3.1.5.RELEASE.jar, /home/rafaela/.m2/repository/org/thymeleaf/thymeleaf/3.1.5.RELEASE/thymeleaf-3.1.5.RELEASE.jar, /home/rafaela/.m2/repository/org/attoparser/attoparser/2.0.7.RELEASE/attoparser-2.0.7.RELEASE.jar, /home/rafaela/.m2/repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar, /home/rafaela/.m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar]
+[[1;36mDEBUG[m]   (f) compileSourceRoots = [/home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java]
+[[1;36mDEBUG[m]   (f) compilerId = javac
+[[1;36mDEBUG[m]   (f) createMissingPackageInfoClass = true
+[[1;36mDEBUG[m]   (f) debug = true
+[[1;36mDEBUG[m]   (f) debugFileName = javac
+[[1;36mDEBUG[m]   (f) enablePreview = false
+[[1;36mDEBUG[m]   (f) encoding = UTF-8
+[[1;36mDEBUG[m]   (f) failOnError = true
+[[1;36mDEBUG[m]   (f) failOnWarning = false
+[[1;36mDEBUG[m]   (f) fileExtensions = [jar, class]
+[[1;36mDEBUG[m]   (f) forceJavacCompilerUse = false
+[[1;36mDEBUG[m]   (f) forceLegacyJavacApi = false
+[[1;36mDEBUG[m]   (f) fork = false
+[[1;36mDEBUG[m]   (f) generatedSourcesDirectory = /home/rafaela/Documentos/PIBD/sistema-pibd/target/generated-sources/annotations
+[[1;36mDEBUG[m]   (f) moduleVersion = 0.0.1-SNAPSHOT
+[[1;36mDEBUG[m]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.15.0:compile {execution: default-compile}
+[[1;36mDEBUG[m]   (f) optimize = false
+[[1;36mDEBUG[m]   (f) outputDirectory = /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes
+[[1;36mDEBUG[m]   (f) parameters = true
+[[1;36mDEBUG[m]   (f) project = MavenProject: br.ufscar:sistema-universidade:0.0.1-SNAPSHOT @ /home/rafaela/Documentos/PIBD/sistema-pibd/pom.xml
+[[1;36mDEBUG[m]   (f) projectArtifact = br.ufscar:sistema-universidade:jar:0.0.1-SNAPSHOT
+[[1;36mDEBUG[m]   (s) release = 17
+[[1;36mDEBUG[m]   (f) session = org.apache.maven.execution.MavenSession@1aabf50d
+[[1;36mDEBUG[m]   (f) showCompilationChanges = false
+[[1;36mDEBUG[m]   (f) showDeprecation = false
+[[1;36mDEBUG[m]   (f) showWarnings = true
+[[1;36mDEBUG[m]   (f) skipMultiThreadWarning = false
+[[1;36mDEBUG[m]   (f) source = 1.8
+[[1;36mDEBUG[m]   (f) staleMillis = 0
+[[1;36mDEBUG[m]   (s) target = 1.8
+[[1;36mDEBUG[m]   (f) useIncrementalCompilation = true
+[[1;36mDEBUG[m]   (f) useModuleVersion = true
+[[1;36mDEBUG[m]   (f) verbose = false
+[[1;36mDEBUG[m] -- end configuration --
+[[1;36mDEBUG[m] Using compiler 'javac'.
+[[1;36mDEBUG[m] CompilerReuseStrategy: reuseCreated
+[[1;36mDEBUG[m] useIncrementalCompilation enabled
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Campus.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Autor.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/MaterialAcervo.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Outros.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/LaboratorioController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Emprestimo.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Periodico.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/dto/EmprestimoResumoDTO.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/UsuarioLogado.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/RedirectLegadoController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/PendenciaRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/service/MaterialService.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/RelatorioRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/dto/RelatorioSalaDTO.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/InfraestruturaController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Sala.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/dto/PendenciaResumoDTO.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/PredioRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/DiscenteRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/PessoaRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/service/EmprestimoService.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/FuncionarioRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/MaterialRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/EmprestimoRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/SistemaUniversidadeApplication.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Pendencia.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/CampusRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/UsuarioRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/config/SecurityConfig.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Laboratorio.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/service/ReservaService.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/dto/RelatorioEmprestimoUsuarioDTO.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/SalaController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/ReservaRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/service/UsuarioAutenticadoService.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/dto/package-info.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Pessoa.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/AcervoController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/CredencialAcessoRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Funcionario.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/PendenciaController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Usuario.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Reserva.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Livro.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/PlaceholderController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Predio.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/ReservaController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Discente.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/CredencialAcesso.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/model/Administrador.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/HomeController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/EmprestimoController.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/service/PendenciaService.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/service/PessoaService.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/config/package-info.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/SalaRepository.java
+[[1;34mINFO[m] 	Stale source detected: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/AdministradorRepository.java
+[[1;34mINFO[m] Recompiling the module because of [1mchanged source code[m.
+[[1;36mDEBUG[m] Classpath:
+[[1;36mDEBUG[m]  /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/4.1.0/spring-boot-starter-jdbc-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter/4.1.0/spring-boot-starter-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-logging/4.1.0/spring-boot-starter-logging-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/yaml/snakeyaml/2.6/snakeyaml-2.6.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-jdbc/4.1.0/spring-boot-jdbc-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-sql/4.1.0/spring-boot-sql-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-transaction/4.1.0/spring-boot-transaction-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-persistence/4.1.0/spring-boot-persistence-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/spring-tx/7.0.8/spring-tx-7.0.8.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/spring-jdbc/7.0.8/spring-jdbc-7.0.8.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/4.1.0/spring-boot-starter-thymeleaf-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-thymeleaf/4.1.0/spring-boot-thymeleaf-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/spring-web/7.0.8/spring-web-7.0.8.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-validation/4.1.0/spring-boot-starter-validation-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-validation/4.1.0/spring-boot-validation-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/11.0.22/tomcat-embed-el-11.0.22.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/hibernate/validator/hibernate-validator/9.1.0.Final/hibernate-validator-9.1.0.Final.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-webmvc/4.1.0/spring-boot-starter-webmvc-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-jackson/4.1.0/spring-boot-starter-jackson-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-jackson/4.1.0/spring-boot-jackson-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/tools/jackson/core/jackson-databind/3.1.4/jackson-databind-3.1.4.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/tools/jackson/core/jackson-core/3.1.4/jackson-core-3.1.4.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/4.1.0/spring-boot-starter-tomcat-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.1.0/spring-boot-starter-tomcat-runtime-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/11.0.22/tomcat-embed-core-11.0.22.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.22/tomcat-embed-websocket-11.0.22.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-tomcat/4.1.0/spring-boot-tomcat-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-http-converter/4.1.0/spring-boot-http-converter-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-webmvc/4.1.0/spring-boot-webmvc-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-servlet/4.1.0/spring-boot-servlet-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/spring-webmvc/7.0.8/spring-webmvc-7.0.8.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot/4.1.0/spring-boot-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/spring-context/7.0.8/spring-context-7.0.8.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/4.1.0/spring-boot-autoconfigure-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-web-server/4.1.0/spring-boot-web-server-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-security/4.1.0/spring-boot-starter-security-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/boot/spring-boot-security/4.1.0/spring-boot-security-4.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/security/spring-security-config/7.1.0/spring-security-config-7.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/spring-aop/7.0.8/spring-aop-7.0.8.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/spring-beans/7.0.8/spring-beans-7.0.8.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/security/spring-security-crypto/7.1.0/spring-security-crypto-7.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/spring-expression/7.0.8/spring-expression-7.0.8.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/io/micrometer/micrometer-observation/1.17.0/micrometer-observation-1.17.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/io/micrometer/micrometer-commons/1.17.0/micrometer-commons-1.17.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/security/spring-security-web/7.1.0/spring-security-web-7.1.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/springframework/spring-core/7.0.8/spring-core-7.0.8.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/thymeleaf/extras/thymeleaf-extras-springsecurity6/3.1.5.RELEASE/thymeleaf-extras-springsecurity6-3.1.5.RELEASE.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/thymeleaf-spring6-3.1.5.RELEASE.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/thymeleaf/thymeleaf/3.1.5.RELEASE/thymeleaf-3.1.5.RELEASE.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/attoparser/attoparser/2.0.7.RELEASE/attoparser-2.0.7.RELEASE.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar
+[[1;36mDEBUG[m]  /home/rafaela/.m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar
+[[1;36mDEBUG[m] Source roots:
+[[1;36mDEBUG[m]  /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java
+[[1;36mDEBUG[m] Command line options:
+[[1;36mDEBUG[m] -d /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes -classpath /home/rafaela/Documentos/PIBD/sistema-pibd/target/classes:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/4.1.0/spring-boot-starter-jdbc-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter/4.1.0/spring-boot-starter-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-logging/4.1.0/spring-boot-starter-logging-4.1.0.jar:/home/rafaela/.m2/repository/ch/qos/logback/logback-classic/1.5.34/logback-classic-1.5.34.jar:/home/rafaela/.m2/repository/ch/qos/logback/logback-core/1.5.34/logback-core-1.5.34.jar:/home/rafaela/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.25.4/log4j-to-slf4j-2.25.4.jar:/home/rafaela/.m2/repository/org/apache/logging/log4j/log4j-api/2.25.4/log4j-api-2.25.4.jar:/home/rafaela/.m2/repository/org/slf4j/jul-to-slf4j/2.0.18/jul-to-slf4j-2.0.18.jar:/home/rafaela/.m2/repository/jakarta/annotation/jakarta.annotation-api/3.0.0/jakarta.annotation-api-3.0.0.jar:/home/rafaela/.m2/repository/org/yaml/snakeyaml/2.6/snakeyaml-2.6.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-jdbc/4.1.0/spring-boot-jdbc-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-sql/4.1.0/spring-boot-sql-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-transaction/4.1.0/spring-boot-transaction-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-persistence/4.1.0/spring-boot-persistence-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/spring-tx/7.0.8/spring-tx-7.0.8.jar:/home/rafaela/.m2/repository/org/springframework/spring-jdbc/7.0.8/spring-jdbc-7.0.8.jar:/home/rafaela/.m2/repository/com/zaxxer/HikariCP/7.0.2/HikariCP-7.0.2.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/4.1.0/spring-boot-starter-thymeleaf-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-thymeleaf/4.1.0/spring-boot-thymeleaf-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/spring-web/7.0.8/spring-web-7.0.8.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-validation/4.1.0/spring-boot-starter-validation-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-validation/4.1.0/spring-boot-validation-4.1.0.jar:/home/rafaela/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/11.0.22/tomcat-embed-el-11.0.22.jar:/home/rafaela/.m2/repository/org/hibernate/validator/hibernate-validator/9.1.0.Final/hibernate-validator-9.1.0.Final.jar:/home/rafaela/.m2/repository/jakarta/validation/jakarta.validation-api/3.1.1/jakarta.validation-api-3.1.1.jar:/home/rafaela/.m2/repository/org/jboss/logging/jboss-logging/3.6.3.Final/jboss-logging-3.6.3.Final.jar:/home/rafaela/.m2/repository/com/fasterxml/classmate/1.7.3/classmate-1.7.3.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-webmvc/4.1.0/spring-boot-starter-webmvc-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-jackson/4.1.0/spring-boot-starter-jackson-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-jackson/4.1.0/spring-boot-jackson-4.1.0.jar:/home/rafaela/.m2/repository/tools/jackson/core/jackson-databind/3.1.4/jackson-databind-3.1.4.jar:/home/rafaela/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.21/jackson-annotations-2.21.jar:/home/rafaela/.m2/repository/tools/jackson/core/jackson-core/3.1.4/jackson-core-3.1.4.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/4.1.0/spring-boot-starter-tomcat-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.1.0/spring-boot-starter-tomcat-runtime-4.1.0.jar:/home/rafaela/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/11.0.22/tomcat-embed-core-11.0.22.jar:/home/rafaela/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.22/tomcat-embed-websocket-11.0.22.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-tomcat/4.1.0/spring-boot-tomcat-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-http-converter/4.1.0/spring-boot-http-converter-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-webmvc/4.1.0/spring-boot-webmvc-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-servlet/4.1.0/spring-boot-servlet-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/spring-webmvc/7.0.8/spring-webmvc-7.0.8.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot/4.1.0/spring-boot-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/spring-context/7.0.8/spring-context-7.0.8.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/4.1.0/spring-boot-autoconfigure-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-web-server/4.1.0/spring-boot-web-server-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-starter-security/4.1.0/spring-boot-starter-security-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/boot/spring-boot-security/4.1.0/spring-boot-security-4.1.0.jar:/home/rafaela/.m2/repository/org/springframework/security/spring-security-config/7.1.0/spring-security-config-7.1.0.jar:/home/rafaela/.m2/repository/org/springframework/spring-aop/7.0.8/spring-aop-7.0.8.jar:/home/rafaela/.m2/repository/org/springframework/spring-beans/7.0.8/spring-beans-7.0.8.jar:/home/rafaela/.m2/repository/org/springframework/security/spring-security-core/7.1.0/spring-security-core-7.1.0.jar:/home/rafaela/.m2/repository/org/springframework/security/spring-security-crypto/7.1.0/spring-security-crypto-7.1.0.jar:/home/rafaela/.m2/repository/org/springframework/spring-expression/7.0.8/spring-expression-7.0.8.jar:/home/rafaela/.m2/repository/io/micrometer/micrometer-observation/1.17.0/micrometer-observation-1.17.0.jar:/home/rafaela/.m2/repository/io/micrometer/micrometer-commons/1.17.0/micrometer-commons-1.17.0.jar:/home/rafaela/.m2/repository/org/springframework/security/spring-security-web/7.1.0/spring-security-web-7.1.0.jar:/home/rafaela/.m2/repository/org/springframework/spring-core/7.0.8/spring-core-7.0.8.jar:/home/rafaela/.m2/repository/commons-logging/commons-logging/1.3.6/commons-logging-1.3.6.jar:/home/rafaela/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/home/rafaela/.m2/repository/org/thymeleaf/extras/thymeleaf-extras-springsecurity6/3.1.5.RELEASE/thymeleaf-extras-springsecurity6-3.1.5.RELEASE.jar:/home/rafaela/.m2/repository/org/thymeleaf/thymeleaf-spring6/3.1.5.RELEASE/thymeleaf-spring6-3.1.5.RELEASE.jar:/home/rafaela/.m2/repository/org/thymeleaf/thymeleaf/3.1.5.RELEASE/thymeleaf-3.1.5.RELEASE.jar:/home/rafaela/.m2/repository/org/attoparser/attoparser/2.0.7.RELEASE/attoparser-2.0.7.RELEASE.jar:/home/rafaela/.m2/repository/org/unbescape/unbescape/1.1.6.RELEASE/unbescape-1.1.6.RELEASE.jar:/home/rafaela/.m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar: -sourcepath /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java: -s /home/rafaela/Documentos/PIBD/sistema-pibd/target/generated-sources/annotations -g -parameters --release 17 -encoding UTF-8 -XDuseUnsharedTable=true
+[[1;36mDEBUG[m] incrementalBuildHelper#beforeRebuildExecution
+[[1;34mINFO[m] Compiling 58 source files with javac [debug parameters release 17] to target/classes
+[[1;36mDEBUG[m] incrementalBuildHelper#afterRebuildExecution
+[[1;34mINFO[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/SalaRepository.java: /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/SalaRepository.java uses or overrides a deprecated API.
+[[1;34mINFO[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/SalaRepository.java: Recompile with -Xlint:deprecation for details.
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;31mERROR[m] COMPILATION ERROR : 
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/LaboratorioController.java:[15,2] cannot find symbol
+  symbol: class RequestMapping
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[9,45] cannot find symbol
+  symbol:   class GeneratedKeyHolder
+  location: package org.springframework.jdbc.core.support
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[10,45] cannot find symbol
+  symbol:   class KeyHolder
+  location: package org.springframework.jdbc.core.support
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[87,9] cannot find symbol
+  symbol:   class KeyHolder
+  location: class br.ufscar.sistema_universidade.repository.LaboratorioRepository
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[87,35] cannot find symbol
+  symbol:   class GeneratedKeyHolder
+  location: class br.ufscar.sistema_universidade.repository.LaboratorioRepository
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[96,96] cannot find symbol
+  symbol:   method getLong(int)
+  location: interface java.sql.PreparedStatement
+[[1;34mINFO[m] 6 errors 
+[[1;34mINFO[m] -------------------------------------------------------------
+[[1;36mDEBUG[m] Adding /home/rafaela/Documentos/PIBD/sistema-pibd/target/generated-sources/annotations to the project compile source roots but NOT the actual compile source roots:
+  /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  2.671 s
+[[1;34mINFO[m] Finished at: 2026-06-29T01:06:40-03:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-compiler-plugin:3.15.0:compile[m [1m(default-compile)[m on project [36msistema-universidade[m: [1;31mCompilation failure[m: Compilation failure: 
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/controller/LaboratorioController.java:[15,2] cannot find symbol
+[[1;31mERROR[m]   symbol: class RequestMapping
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[9,45] cannot find symbol
+[[1;31mERROR[m]   symbol:   class GeneratedKeyHolder
+[[1;31mERROR[m]   location: package org.springframework.jdbc.core.support
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[10,45] cannot find symbol
+[[1;31mERROR[m]   symbol:   class KeyHolder
+[[1;31mERROR[m]   location: package org.springframework.jdbc.core.support
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[87,9] cannot find symbol
+[[1;31mERROR[m]   symbol:   class KeyHolder
+[[1;31mERROR[m]   location: class br.ufscar.sistema_universidade.repository.LaboratorioRepository
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[87,35] cannot find symbol
+[[1;31mERROR[m]   symbol:   class GeneratedKeyHolder
+[[1;31mERROR[m]   location: class br.ufscar.sistema_universidade.repository.LaboratorioRepository
+[[1;31mERROR[m] /home/rafaela/Documentos/PIBD/sistema-pibd/src/main/java/br/ufscar/sistema_universidade/repository/LaboratorioRepository.java:[96,96] cannot find symbol
+[[1;31mERROR[m]   symbol:   method getLong(int)
+[[1;31mERROR[m]   location: interface java.sql.PreparedStatement
+[[1;31mERROR[m] -> [1m[Help 1][m
+[1;31morg.apache.maven.lifecycle.LifecycleExecutionException[m: [1;31mFailed to execute goal [32morg.apache.maven.plugins:maven-compiler-plugin:3.15.0:compile[m [1m(default-compile)[m on project [36msistema-universidade[m: [1;31mCompilation failure[m[m
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 ([1mMojoExecutor.java:333[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.doExecute ([1mMojoExecutor.java:316[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:212[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:174[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.access$000 ([1mMojoExecutor.java:75[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor$1.run ([1mMojoExecutor.java:162[m)
+    [1mat[m org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute ([1mDefaultMojosExecutionStrategy.java:39[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:159[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:105[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:73[m)
+    [1mat[m org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build ([1mSingleThreadedBuilder.java:53[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleStarter.execute ([1mLifecycleStarter.java:118[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:261[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:173[m)
+    [1mat[m org.apache.maven.DefaultMaven.execute ([1mDefaultMaven.java:101[m)
+    [1mat[m org.apache.maven.cli.MavenCli.execute ([1mMavenCli.java:906[m)
+    [1mat[m org.apache.maven.cli.MavenCli.doMain ([1mMavenCli.java:283[m)
+    [1mat[m org.apache.maven.cli.MavenCli.main ([1mMavenCli.java:206[m)
+    [1mat[m jdk.internal.reflect.DirectMethodHandleAccessor.invoke ([1mDirectMethodHandleAccessor.java:103[m)
+    [1mat[m java.lang.reflect.Method.invoke ([1mMethod.java:580[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced ([1mLauncher.java:283[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launch ([1mLauncher.java:226[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode ([1mLauncher.java:407[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.main ([1mLauncher.java:348[m)
+[1mCaused by[m: org.apache.maven.plugin.compiler.CompilationFailureException: [1;31mCompilation failure[m
+    [1mat[m org.apache.maven.plugin.compiler.AbstractCompilerMojo.executeReal ([1mAbstractCompilerMojo.java:1319[m)
+    [1mat[m org.apache.maven.plugin.compiler.AbstractCompilerMojo.execute ([1mAbstractCompilerMojo.java:708[m)
+    [1mat[m org.apache.maven.plugin.compiler.CompilerMojo.execute ([1mCompilerMojo.java:235[m)
+    [1mat[m org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo ([1mDefaultBuildPluginManager.java:126[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2 ([1mMojoExecutor.java:328[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.doExecute ([1mMojoExecutor.java:316[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:212[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:174[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.access$000 ([1mMojoExecutor.java:75[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor$1.run ([1mMojoExecutor.java:162[m)
+    [1mat[m org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute ([1mDefaultMojosExecutionStrategy.java:39[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:159[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:105[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:73[m)
+    [1mat[m org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build ([1mSingleThreadedBuilder.java:53[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleStarter.execute ([1mLifecycleStarter.java:118[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:261[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:173[m)
+    [1mat[m org.apache.maven.DefaultMaven.execute ([1mDefaultMaven.java:101[m)
+    [1mat[m org.apache.maven.cli.MavenCli.execute ([1mMavenCli.java:906[m)
+    [1mat[m org.apache.maven.cli.MavenCli.doMain ([1mMavenCli.java:283[m)
+    [1mat[m org.apache.maven.cli.MavenCli.main ([1mMavenCli.java:206[m)
+    [1mat[m jdk.internal.reflect.DirectMethodHandleAccessor.invoke ([1mDirectMethodHandleAccessor.java:103[m)
+    [1mat[m java.lang.reflect.Method.invoke ([1mMethod.java:580[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced ([1mLauncher.java:283[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launch ([1mLauncher.java:226[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode ([1mLauncher.java:407[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.main ([1mLauncher.java:348[m)
+[[1;31mERROR[m] 
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[[1;36mDEBUG[m] Shutting down adapter factory; available factories [file-lock, rwlock-local, semaphore-local, noop]; available name mappers [discriminating, file-gav, file-hgav, file-static, gav, static]
+[[1;36mDEBUG[m] Shutting down 'file-lock' factory
+[[1;36mDEBUG[m] Shutting down 'rwlock-local' factory
+[[1;36mDEBUG[m] Shutting down 'semaphore-local' factory
+[[1;36mDEBUG[m] Shutting down 'noop' factory

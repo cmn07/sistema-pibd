@@ -7,6 +7,8 @@ public class Sala {
     private String categoria;
     private Integer capacidade;
     private Long codigoPredio;
+    private Predio predio;
+    private Campus campus;
 
     public Sala() {
     }
@@ -57,5 +59,21 @@ public class Sala {
 
     public void setCodigoPredio(Long codigoPredio) {
         this.codigoPredio = codigoPredio;
+    }
+
+    public Predio getPredio() {
+        return predio;
+    }
+
+    public void setPredio(Predio predio) {
+        this.predio = predio;
+    }
+
+    public Campus getCampus() {
+        return campus;
+    }
+
+    public void setCampus(Campus campus) {
+        this.campus = campus;
     }
 }
