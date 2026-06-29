@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Infraestrutura Crítica</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="bg-neutral-50">
+<main class="page-shell">
+    <header class="topbar">
+        <div class="topbar-content">
+            <a class="back-link" th:href="@{/infraestrutura/visualizacao}">Voltar para Visualização</a>
+            <h1 class="page-title">Relatório de Infraestrutura Crítica</h1>
+            <p class="page-subtitle">Identificação de áreas com alta densidade de salas e baixa disponibilidade de laboratórios.</p>
+        </div>
+    </header>
+
+    <section class="surface-panel" aria-label="Relatório Crítico">
+        <table class="records-table">
+            <thead>
+            <tr>
+                <th>Campus</th>
+                <th>Prédio</th>
+                <th>Total Salas</th>
+                <th>Total Laboratórios</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(relatorioCritico)}">
+                <td class="records-empty" colspan="4">Nenhum ponto de atenção identificado nos critérios atuais.</td>
+            </tr>
+            <tr th:each="linha : ${relatorioCritico}">
+                <td th:text="${linha.campus}"></td>
+                <td th:text="${linha.predio}"></td>
+                <td th:text="${linha.totalSalas}"></td>
+                <td th:text="${linha.totalLaboratorios}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>
