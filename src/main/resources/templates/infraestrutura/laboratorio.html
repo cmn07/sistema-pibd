@@ -22,53 +22,55 @@
             <h2 class="panel-title">Registros</h2>
             <p class="panel-note">Use o lápis para carregar um registro para edição ou a lixeira para excluir.</p>
 
-            <table class="records-table">
-                <thead class="records-table-head">
-                <tr class="records-table-row">
-                    <th class="records-table-cell">Campus (Cidade)</th>
-                    <th class="records-table-cell">Prédio (Bloco)</th>
-                    <th class="records-table-cell">Número do Lab</th>
-                    <th class="records-table-cell">Categoria</th>
-                    <th class="records-table-cell">Capacidade</th>
-                    <th class="records-table-cell">Dep. Setor</th>
-                    <th class="records-table-cell">Equip. Info</th>
-                    <th class="records-table-cell">Ações</th>
-                </tr>
-                </thead>
-                <tbody class="records-table-body">
-                <tr th:if="${#lists.isEmpty(laboratorios)}">
-                    <td class="records-empty" colspan="8">Nenhum laboratório cadastrado.</td>
-                </tr>
-                <tr th:each="l : ${laboratorios}">
-                    <td class="records-table-cell">
-                        <strong th:text="${l.getCampus().getNome()}"></strong>
-                        <div class="record-meta" th:text="${l.getCampus().getCidade()}"></div>
-                    </td>
-                    <td class="records-table-cell">
-                        <span th:text="${l.predio.nome}"></span>
-                        <div class="record-meta" th:text="${l.predio.bloco != null ? 'Bloco: ' + l.predio.bloco : ''}"></div>
-                    </td>
-                    <td class="records-table-cell" th:text="${l.numeroSala}"></td>
-                    <td class="records-table-cell" th:text="${l.categoria}"></td>
-                    <td class="records-table-cell" th:text="${l.capacidade + ' pessoas'}"></td>
-                    <td class="records-table-cell" th:text="${l.departamentoSetor}"></td>
-                    <td class="records-table-cell" th:text="${l.quantidadeEquipamentosInformatica}"></td>
-                    <td class="records-table-cell">
-                        <div class="record-actions">
-                            <a class="icon-button" th:href="@{/infraestrutura/laboratorios(editar=${l.codigo})}" title="Editar laboratório" aria-label="Editar laboratório">
-                                <i data-lucide="pencil"></i>
-                            </a>
-                            <form class="inline-form" th:action="@{/infraestrutura/laboratorios/excluir}" method="post">
-                                <input type="hidden" name="codigo" th:value="${l.codigo}">
-                                <button class="icon-button icon-button--danger" type="submit" title="Excluir laboratório" aria-label="Excluir laboratório">
-                                    <i data-lucide="trash-2"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="overflow-x: auto;">
+                <table class="records-table" style="min-width: 900px;">
+                    <thead class="records-table-head">
+                    <tr class="records-table-row">
+                        <th class="records-table-cell">Campus (Cidade)</th>
+                        <th class="records-table-cell">Prédio (Bloco)</th>
+                        <th class="records-table-cell">Número do Lab</th>
+                        <th class="records-table-cell">Categoria</th>
+                        <th class="records-table-cell">Capacidade</th>
+                        <th class="records-table-cell">Dep. Setor</th>
+                        <th class="records-table-cell">Equip. Info</th>
+                        <th class="records-table-cell">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody class="records-table-body">
+                    <tr th:if="${#lists.isEmpty(laboratorios)}">
+                        <td class="records-empty" colspan="8">Nenhum laboratório cadastrado.</td>
+                    </tr>
+                    <tr th:each="l : ${laboratorios}">
+                        <td class="records-table-cell">
+                            <strong th:text="${l.getCampus().getNome()}"></strong>
+                            <div class="record-meta" th:text="${l.getCampus().getCidade()}"></div>
+                        </td>
+                        <td class="records-table-cell">
+                            <span th:text="${l.predio.nome}"></span>
+                            <div class="record-meta" th:text="${l.predio.bloco != null ? 'Bloco: ' + l.predio.bloco : ''}"></div>
+                        </td>
+                        <td class="records-table-cell" th:text="${l.numeroSala}"></td>
+                        <td class="records-table-cell" th:text="${l.categoria}"></td>
+                        <td class="records-table-cell" th:text="${l.capacidade + ' pessoas'}"></td>
+                        <td class="records-table-cell" th:text="${l.departamentoSetor}"></td>
+                        <td class="records-table-cell" th:text="${l.quantidadeEquipamentosInformatica}"></td>
+                        <td class="records-table-cell">
+                            <div class="record-actions">
+                                <a class="icon-button" th:href="@{/infraestrutura/laboratorios(editar=${l.codigo})}" title="Editar laboratório" aria-label="Editar laboratório">
+                                    <i data-lucide="pencil"></i>
+                                </a>
+                                <form class="inline-form" th:action="@{/infraestrutura/laboratorios/excluir}" method="post">
+                                    <input type="hidden" name="codigo" th:value="${l.codigo}">
+                                    <button class="icon-button icon-button--danger" type="submit" title="Excluir laboratório" aria-label="Excluir laboratório">
+                                        <i data-lucide="trash-2"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </article>
 
         <div class="subpanel-stack">
@@ -115,7 +117,7 @@
 
             <section class="surface-panel" th:if="${laboratorioSelecionado != null}">
                 <h2 class="panel-title">Editar Laboratório</h2>
-                <p class="panel-note">Registro carregado: <span th:text="${laboratorioSelecionado.numero}"></span></p>
+                <p class="panel-note">Registro carregado: <span th:text="${laboratorioSelecionado.numeroSala}"></span></p>
 
                 <form class="entity-form" th:action="@{/infraestrutura/laboratorios/editar}" method="post">
                     <input type="hidden" name="codigo" th:value="${laboratorioSelecionado.codigo}">
@@ -133,7 +135,7 @@
                         </div>
                         <div class="field">
                             <label for="lab-edit-numero">Número do Lab</label>
-                            <input id="lab-edit-numero" name="numero" type="text" maxlength="50" th:value="${laboratorioSelecionado.numero}" required>
+                            <input id="lab-edit-numero" name="numero" type="text" maxlength="50" th:value="${laboratorioSelecionado.numeroSala}" required>
                         </div>
                         <div class="field">
                             <label for="lab-edit-categoria">Categoria</label>
