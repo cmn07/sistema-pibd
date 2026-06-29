@@ -23,39 +23,19 @@ public class RelatorioEmprestimoUsuarioDTO {
         return idPessoa;
     }
 
-    public void setIdPessoa(Long idPessoa) {
-        this.idPessoa = idPessoa;
-    }
-
     public String getNomeUsuario() {
         return nomeUsuario;
-    }
-
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
     }
 
     public Integer getQuantidadeEmprestimos() {
         return quantidadeEmprestimos;
     }
 
-    public void setQuantidadeEmprestimos(Integer quantidadeEmprestimos) {
-        this.quantidadeEmprestimos = quantidadeEmprestimos;
-    }
-
     public LocalDate getPrimeiroEmprestimo() {
         return primeiroEmprestimo;
     }
 
-    public void setPrimeiroEmprestimo(LocalDate primeiroEmprestimo) {
-        this.primeiroEmprestimo = primeiroEmprestimo;
-    }
-
     public LocalDate getUltimoEmprestimo() {
         return ultimoEmprestimo;
-    }
-
-    public void setUltimoEmprestimo(LocalDate ultimoEmprestimo) {
-        this.ultimoEmprestimo = ultimoEmprestimo;
     }
 }
