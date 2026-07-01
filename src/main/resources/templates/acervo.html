@@ -55,62 +55,64 @@
             </div>
         </form>
 
-        <table class="records-table">
-            <thead>
-            <tr>
-                <th>Codigo</th>
-                <th>Titulo</th>
-                <th>Tipo</th>
-                <th>Categoria</th>
-                <th>Editora</th>
-                <th>Idioma</th>
-                <th>Ano</th>
-                <th>Copias</th>
-                <th>Situacao</th>
-                <th>Usuario</th>
-                <th>Devolucao prevista</th>
-                <th sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Acoes</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${#lists.isEmpty(materiais)}">
-                <td class="records-empty" colspan="12">Nenhum material encontrado para os filtros informados.</td>
-            </tr>
-            <tr th:each="material : ${materiais}">
-                <td th:text="${material.codigoMaterial}"></td>
-                <td th:text="${material.titulo}"></td>
-                <td th:text="${material.tipoMaterial}"></td>
-                <td th:text="${material.categoria != null && !material.categoria.isEmpty() ? material.categoria : '-'}"></td>
-                <td th:text="${material.editora != null && !material.editora.isEmpty() ? material.editora : '-'}"></td>
-                <td th:text="${material.idioma != null && !material.idioma.isEmpty() ? material.idioma : '-'}"></td>
-                <td th:text="${material.anoPublicacao != null ? material.anoPublicacao : '-'}"></td>
-                <td th:text="${material.quantidadeCopias}"></td>
-                <td>
-                    <span class="status-pill"
-                          th:classappend="${material.emprestado ? ' status-pill--busy' : ' status-pill--free'}"
-                          th:text="${material.emprestado ? material.statusEmprestimo : 'disponivel'}"></span>
-                </td>
-                <td th:text="${material.nomeUsuario != null ? material.nomeUsuario : '-'}"></td>
-                <td th:text="${material.dataDevolucaoPrevista != null ? #temporals.format(material.dataDevolucaoPrevista, 'dd/MM/yyyy') : '-'}"></td>
-                <td sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">
-                    <div class="record-actions">
-                        <a class="icon-button" th:href="@{/emprestimos(material=${material.codigoMaterial})}" sec:authorize="hasRole('USUARIO')" title="Emprestar material" aria-label="Emprestar material">
-                            <i data-lucide="book-open-check"></i>
-                        </a>
-                        <a class="icon-button" th:href="@{/acervo/editar(codigo=${material.codigoMaterial})}" sec:authorize="hasRole('ADMIN_OPERACIONAL')" title="Editar material" aria-label="Editar material">
-                            <i data-lucide="pencil"></i>
-                        </a>
-                        <form class="inline-form" th:action="@{/acervo/excluir}" method="post" sec:authorize="hasRole('ADMIN_OPERACIONAL')">
-                            <input type="hidden" name="codigo" th:value="${material.codigoMaterial}">
-                            <button class="icon-button icon-button--danger" type="submit" title="Excluir material" aria-label="Excluir material">
-                                <i data-lucide="trash-2"></i>
-                            </button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="table-scroll acervo-table-scroll" role="region" aria-label="Materiais encontrados" tabindex="0">
+            <table class="records-table acervo-table">
+                <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Título</th>
+                    <th>Tipo</th>
+                    <th>Categoria</th>
+                    <th>Editora</th>
+                    <th>Idioma</th>
+                    <th>Ano</th>
+                    <th>Cópias</th>
+                    <th>Situação</th>
+                    <th>Usuário</th>
+                    <th>Devolução prevista</th>
+                    <th sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(materiais)}">
+                    <td class="records-empty" colspan="12">Nenhum material encontrado para os filtros informados.</td>
+                </tr>
+                <tr th:each="material : ${materiais}">
+                    <td th:text="${material.codigoMaterial}"></td>
+                    <td th:text="${material.titulo}"></td>
+                    <td th:text="${material.tipoMaterial}"></td>
+                    <td th:text="${material.categoria != null && !material.categoria.isEmpty() ? material.categoria : '-'}"></td>
+                    <td th:text="${material.editora != null && !material.editora.isEmpty() ? material.editora : '-'}"></td>
+                    <td th:text="${material.idioma != null && !material.idioma.isEmpty() ? material.idioma : '-'}"></td>
+                    <td th:text="${material.anoPublicacao != null ? material.anoPublicacao : '-'}"></td>
+                    <td th:text="${material.quantidadeCopias}"></td>
+                    <td>
+                        <span class="status-pill"
+                              th:classappend="${material.emprestado ? ' status-pill--busy' : ' status-pill--free'}"
+                              th:text="${material.emprestado ? material.statusEmprestimo : 'disponivel'}"></span>
+                    </td>
+                    <td th:text="${material.nomeUsuario != null ? material.nomeUsuario : '-'}"></td>
+                    <td th:text="${material.dataDevolucaoPrevista != null ? #temporals.format(material.dataDevolucaoPrevista, 'dd/MM/yyyy') : '-'}"></td>
+                    <td sec:authorize="hasAnyRole('USUARIO','ADMIN_OPERACIONAL')">
+                        <div class="record-actions">
+                            <a class="icon-button" th:href="@{/emprestimos(material=${material.codigoMaterial})}" sec:authorize="hasRole('USUARIO')" title="Emprestar material" aria-label="Emprestar material">
+                                <i data-lucide="book-open-check"></i>
+                            </a>
+                            <a class="icon-button" th:href="@{/acervo/editar(codigo=${material.codigoMaterial})}" sec:authorize="hasRole('ADMIN_OPERACIONAL')" title="Editar material" aria-label="Editar material">
+                                <i data-lucide="pencil"></i>
+                            </a>
+                            <form class="inline-form" th:action="@{/acervo/excluir}" method="post" sec:authorize="hasRole('ADMIN_OPERACIONAL')">
+                                <input type="hidden" name="codigo" th:value="${material.codigoMaterial}">
+                                <button class="icon-button icon-button--danger" type="submit" title="Excluir material" aria-label="Excluir material">
+                                    <i data-lucide="trash-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
 </main>
 

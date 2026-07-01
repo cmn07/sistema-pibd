@@ -288,6 +288,33 @@ h1 {
     min-width: 900px;
 }
 
+.acervo-table-scroll {
+    max-width: 100%;
+    margin-top: 18px;
+    border-radius: 6px;
+    scrollbar-gutter: stable;
+}
+
+.acervo-table-scroll .acervo-table {
+    min-width: 1260px;
+    margin-top: 0;
+}
+
+.acervo-table th:nth-child(1),
+.acervo-table th:nth-child(7),
+.acervo-table th:nth-child(8),
+.acervo-table th:nth-child(9),
+.acervo-table th:nth-child(11),
+.acervo-table th:nth-child(12),
+.acervo-table td:nth-child(1),
+.acervo-table td:nth-child(7),
+.acervo-table td:nth-child(8),
+.acervo-table td:nth-child(9),
+.acervo-table td:nth-child(11),
+.acervo-table td:nth-child(12) {
+    white-space: nowrap;
+}
+
 .records-table th,
 .records-table td {
     padding: 12px 10px;
