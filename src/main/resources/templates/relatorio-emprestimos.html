@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Empréstimos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Relatório de Empréstimos</h1>
+            <p class="page-subtitle">Liste os usuários que fizeram empréstimos em um período.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${erro}" th:text="${erro}"></p>
+
+    <section class="surface-panel" aria-label="Filtros do relatório">
+        <h2 class="panel-title">Filtros</h2>
+        <p class="panel-note">Informe o período dos empréstimos que deseja consultar.</p>
+
+        <form class="entity-form" th:action="@{/relatorios/emprestimos}" method="get">
+            <div class="field-grid">
+                <div class="field">
+                    <label for="data-inicio">Data inicial</label>
+                    <input id="data-inicio" name="dataInicio" type="date" th:value="${dataInicio}" required>
+                </div>
+                <div class="field">
+                    <label for="data-fim">Data final</label>
+                    <input id="data-fim" name="dataFim" type="date" th:value="${dataFim}" required>
+                </div>
+            </div>
+            <div class="button-row">
+                <button class="button button-primary" type="submit">Consultar</button>
+                <a class="button button-secondary" th:href="@{/relatorios/emprestimos}">Limpar filtros</a>
+            </div>
+        </form>
+    </section>
+
+    <section class="surface-panel report-results" aria-label="Resultado do relatório">
+        <h2 class="panel-title">Empréstimos por usuário</h2>
+        <div class="table-scroll">
+            <table class="records-table">
+                <thead>
+                <tr>
+                    <th>Usuário</th>
+                    <th>Quantidade de empréstimos</th>
+                    <th>Primeiro empréstimo</th>
+                    <th>Último empréstimo</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(relatorio)}">
+                    <td class="records-empty" colspan="4">Nenhum empréstimo encontrado para o período informado.</td>
+                </tr>
+                <tr th:each="linha : ${relatorio}">
+                    <td>
+                        <strong th:text="${linha.nomeUsuario}"></strong>
+                        <div class="record-meta" th:text="${'Código: ' + linha.idPessoa}"></div>
+                    </td>
+                    <td th:text="${linha.quantidadeEmprestimos}"></td>
+                    <td th:text="${#temporals.format(linha.primeiroEmprestimo, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${#temporals.format(linha.ultimoEmprestimo, 'dd/MM/yyyy')}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -2,7 +2,6 @@ package br.ufscar.sistema_universidade.controller;
 
 import br.ufscar.sistema_universidade.model.Sala;
 import br.ufscar.sistema_universidade.repository.SalaRepository;
-import br.ufscar.sistema_universidade.repository.CampusRepository;
 import br.ufscar.sistema_universidade.repository.PredioRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -21,12 +20,10 @@ public class SalaController {
             "Nao foi possivel inserir ou realizar a acao. Ja existe um registro com a mesma chave ou com dados conflitantes.";
 
     private final SalaRepository salaRepository;
-    private final CampusRepository campusRepository;
     private final PredioRepository predioRepository;
 
-    public SalaController(SalaRepository salaRepository, CampusRepository campusRepository, PredioRepository predioRepository) {
+    public SalaController(SalaRepository salaRepository, PredioRepository predioRepository) {
         this.salaRepository = salaRepository;
-        this.campusRepository = campusRepository;
         this.predioRepository = predioRepository;
     }
 
@@ -55,7 +52,6 @@ public class SalaController {
     public String salas(Model model, @RequestParam(required = false) Long editar) {
         model.addAttribute("salas", salaRepository.listarTodos());
         model.addAttribute("salaSelecionada", editar == null ? null : salaRepository.buscarPorId(editar));
-        model.addAttribute("campi", campusRepository.listarTodos());
         model.addAttribute("predios", predioRepository.listarTodos());
         return "infraestrutura/salas";
     }
@@ -64,8 +60,8 @@ public class SalaController {
     public String salvarSala(
             @RequestParam String numero,
             @RequestParam Integer capacidade,
-            @RequestParam(required=false) String categoria,
-            @RequestParam(required=false) Long predio,
+            @RequestParam String categoria,
+            @RequestParam Long predio,
             RedirectAttributes redirectAttributes) {
         return executarComTratamentoDeErro(
                 "/infraestrutura/salas",
@@ -80,8 +76,8 @@ public class SalaController {
             @RequestParam Long codigo,
             @RequestParam String numero,
             @RequestParam Integer capacidade,
-            @RequestParam(required=false) String categoria,
-            @RequestParam(required=false) Long predio,
+            @RequestParam String categoria,
+            @RequestParam Long predio,
             RedirectAttributes redirectAttributes) {
         return executarComTratamentoDeErro(
                 "/infraestrutura/salas",

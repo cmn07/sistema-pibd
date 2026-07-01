@@ -123,8 +123,7 @@ public class ReservaRepository {
     }
 
     public boolean existeConflito(Reserva reserva) {
-        Integer quantidade = jdbcTemplate.queryForObject(
-            """
+        String sql = """
             SELECT COUNT(*)
             FROM reserva
             WHERE codigo_sala = ?
@@ -132,17 +131,29 @@ public class ReservaRepository {
               AND status_reserva IN ('pendente', 'aprovada')
               AND horario_inicio < ?
               AND horario_fim > ?
-              AND (? IS NULL OR id_reserva <> ?)
-            """,
-            Integer.class,
+            """;
+
+        Object[] parametrosBase = {
             reserva.getCodigoSala(),
             Date.valueOf(reserva.getData()),
             Time.valueOf(reserva.getHorarioFim()),
-            Time.valueOf(reserva.getHorarioInicio()),
-            reserva.getIdReserva(),
-            reserva.getIdReserva()
-        );
+            Time.valueOf(reserva.getHorarioInicio())
+        };
+
+        Integer quantidade;
+        if (reserva.getIdReserva() == null) {
+            quantidade = jdbcTemplate.queryForObject(sql, Integer.class, parametrosBase);
+        } else {
+            quantidade = jdbcTemplate.queryForObject(
+                sql + " AND id_reserva <> ?",
+                Integer.class,
+                reserva.getCodigoSala(),
+                Date.valueOf(reserva.getData()),
+                Time.valueOf(reserva.getHorarioFim()),
+                Time.valueOf(reserva.getHorarioInicio()),
+                reserva.getIdReserva()
+            );
+        }
         return quantidade != null && quantidade > 0;
     }
 }
-
