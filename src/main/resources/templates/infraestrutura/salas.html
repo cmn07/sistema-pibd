@@ -75,17 +75,12 @@
                 <form class="entity-form" th:action="@{/infraestrutura/salas/salvar}" method="post">
                     <div class="field-grid">
                         <div class="field">
-                            <label for="sala-campus">Campus</label>
-                            <select id="sala-campus" name="campus" required>
-                                <option value="" selected disabled>Selecione um campus</option>
-                                <option th:each="c : ${campi}" th:value="${c.codigo}" th:text="${c.nome}"></option>
-                            </select>
-                        </div>
-                        <div class="field">
                             <label for="sala-predio">Prédio</label>
                             <select id="sala-predio" name="predio" required>
                                 <option value="" selected disabled>Selecione um prédio</option>
-                                <option th:each="p : ${predios}" th:value="${p.codigo}" th:text="${p.nome}"></option>
+                                <option th:each="p : ${predios}"
+                                        th:value="${p.codigo}"
+                                        th:text="${p.nome + (p.campus != null ? ' — ' + p.campus.nome : '')}"></option>
                             </select>
                         </div>
                         <div class="field">
@@ -94,11 +89,19 @@
                         </div>
                         <div class="field">
                             <label for="sala-categoria">Categoria</label>
-                            <input id="sala-categoria" name="categoria" type="text" maxlength="100">
+                            <select id="sala-categoria" name="categoria" required>
+                                <option value="" selected disabled>Selecione uma categoria</option>
+                                <option value="sala_aula">Sala de aula</option>
+                                <option value="laboratorio">Laboratório</option>
+                                <option value="sala_informatica">Sala de informática</option>
+                                <option value="auditorio">Auditório</option>
+                                <option value="sala_reuniao">Sala de reunião</option>
+                                <option value="outro">Outro</option>
+                            </select>
                         </div>
                         <div class="field">
                             <label for="sala-capacidade">Capacidade</label>
-                            <input id="sala-capacidade" name="capacidade" type="number" min="0" required>
+                            <input id="sala-capacidade" name="capacidade" type="number" min="1" required>
                         </div>
                     </div>
                     <div class="button-row">
@@ -116,24 +119,13 @@
                     <input type="hidden" name="codigo" th:value="${salaSelecionada.codigo}">
                     <div class="field-grid">
                         <div class="field">
-                            <label for="sala-edit-campus">Campus</label>
-                            <select id="sala-edit-campus" name="campus" required>
-                                <option value="" disabled>Selecione um campus</option>
-                                <option th:each="c : ${campi}"
-                                        th:value="${c.codigo}"
-                                        th:text="${c.nome}"
-                                        th:selected="${c.codigo == salaSelecionada.campus.codigo}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="field">
                             <label for="sala-edit-predio">Prédio</label>
                             <select id="sala-edit-predio" name="predio" required>
                                 <option value="" disabled>Selecione um prédio</option>
                                 <option th:each="p : ${predios}"
                                         th:value="${p.codigo}"
-                                        th:text="${p.nome}"
-                                        th:selected="${p.codigo == salaSelecionada.predio.codigo}">
+                                        th:text="${p.nome + (p.campus != null ? ' — ' + p.campus.nome : '')}"
+                                        th:selected="${salaSelecionada.predio != null and p.codigo == salaSelecionada.predio.codigo}">
                                 </option>
                             </select>
                         </div>
@@ -143,11 +135,18 @@
                         </div>
                         <div class="field">
                             <label for="sala-edit-categoria">Categoria</label>
-                            <input id="sala-edit-categoria" name="categoria" type="text" maxlength="100" th:value="${salaSelecionada.categoria}">
+                            <select id="sala-edit-categoria" name="categoria" required>
+                                <option value="sala_aula" th:selected="${salaSelecionada.categoria == 'sala_aula'}">Sala de aula</option>
+                                <option value="laboratorio" th:selected="${salaSelecionada.categoria == 'laboratorio'}">Laboratório</option>
+                                <option value="sala_informatica" th:selected="${salaSelecionada.categoria == 'sala_informatica'}">Sala de informática</option>
+                                <option value="auditorio" th:selected="${salaSelecionada.categoria == 'auditorio'}">Auditório</option>
+                                <option value="sala_reuniao" th:selected="${salaSelecionada.categoria == 'sala_reuniao'}">Sala de reunião</option>
+                                <option value="outro" th:selected="${salaSelecionada.categoria == 'outro'}">Outro</option>
+                            </select>
                         </div>
                         <div class="field">
                             <label for="sala-edit-capacidade">Capacidade</label>
-                            <input id="sala-edit-capacidade" name="capacidade" type="number" min="0" th:value="${salaSelecionada.capacidade}" required>
+                            <input id="sala-edit-capacidade" name="capacidade" type="number" min="1" th:value="${salaSelecionada.capacidade}" required>
                         </div>
                     </div>
                     <div class="button-row">
