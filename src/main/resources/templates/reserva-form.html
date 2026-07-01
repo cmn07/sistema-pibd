@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${edicao ? 'Editar reserva' : 'Nova reserva'}">Reserva</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/reservas}">Voltar às reservas</a>
+            <h1 class="page-title" th:text="${edicao ? 'Editar reserva' : 'Nova reserva'}"></h1>
+            <p class="page-subtitle">O horário final precisa ser posterior ao horário inicial.</p>
+        </div>
+    </header>
+
+    <section class="surface-panel" aria-label="Formulário de reserva">
+        <form class="entity-form"
+              th:action="${edicao} ? @{/reservas/editar} : @{/reservas/salvar}"
+              method="post">
+            <input th:if="${edicao}" type="hidden" name="idReserva" th:value="${reservaSelecionada.idReserva}">
+
+            <div class="field-grid">
+                <div class="field" th:if="${adminOperacional}">
+                    <label for="reserva-usuario">Funcionário</label>
+                    <select id="reserva-usuario" name="codigoUsuario" required>
+                        <option value="" disabled th:selected="${!edicao}">Selecione um funcionário</option>
+                        <option th:each="funcionario : ${funcionarios}"
+                                th:value="${funcionario.idPessoa}"
+                                th:text="${funcionario.nome}"
+                                th:selected="${edicao and funcionario.idPessoa == reservaSelecionada.codigoUsuario}"></option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="reserva-sala">Sala</label>
+                    <select id="reserva-sala" name="codigoSala" required>
+                        <option value="" disabled th:selected="${!edicao}">Selecione uma sala</option>
+                        <option th:each="sala : ${salas}"
+                                th:value="${sala.codigo}"
+                                th:text="${sala.numeroSala + ' - ' + sala.categoria + ' (' + sala.capacidade + ' lugares)'}"
+                                th:selected="${edicao and sala.codigo == reservaSelecionada.codigoSala}"></option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="reserva-data">Data</label>
+                    <input id="reserva-data" name="data" type="date"
+                           th:value="${edicao ? reservaSelecionada.data : ''}" required>
+                </div>
+
+                <div class="field">
+                    <label for="reserva-inicio">Início</label>
+                    <input id="reserva-inicio" name="horarioInicio" type="time"
+                           th:value="${edicao ? reservaSelecionada.horarioInicio : ''}" required>
+                </div>
+
+                <div class="field">
+                    <label for="reserva-fim">Fim</label>
+                    <input id="reserva-fim" name="horarioFim" type="time"
+                           th:value="${edicao ? reservaSelecionada.horarioFim : ''}" required>
+                </div>
+
+                <div class="field">
+                    <label for="reserva-tipo">Tipo</label>
+                    <select id="reserva-tipo" name="tipoReserva" required>
+                        <option value="" disabled th:selected="${!edicao}">Selecione um tipo</option>
+                        <option th:each="tipo : ${tiposReserva}"
+                                th:value="${tipo}"
+                                th:text="${tipo}"
+                                th:selected="${edicao and tipo == reservaSelecionada.tipoReserva}"></option>
+                    </select>
+                </div>
+
+                <div class="field" th:if="${edicao}">
+                    <label for="reserva-status">Status</label>
+                    <select id="reserva-status" name="statusReserva" required>
+                        <option th:each="status : ${statusReserva}"
+                                th:value="${status}"
+                                th:text="${status}"
+                                th:selected="${status == reservaSelecionada.statusReserva}"></option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="reserva-objetivo">Objetivo</label>
+                    <textarea id="reserva-objetivo" name="objetivo" maxlength="500"
+                              th:text="${edicao ? reservaSelecionada.objetivo : ''}"></textarea>
+                </div>
+            </div>
+
+            <div class="button-row">
+                <button class="button button-primary" type="submit"
+                        th:text="${edicao ? 'Salvar alterações' : 'Criar reserva'}"></button>
+                <a class="button button-secondary" th:href="@{/reservas}">Cancelar</a>
+            </div>
+        </form>
+    </section>
+</main>
+</body>
+</html>

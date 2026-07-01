@@ -2,7 +2,6 @@ package br.ufscar.sistema_universidade.controller;
 
 import br.ufscar.sistema_universidade.model.Reserva;
 import br.ufscar.sistema_universidade.model.UsuarioLogado;
-import br.ufscar.sistema_universidade.repository.AdministradorRepository;
 import br.ufscar.sistema_universidade.repository.FuncionarioRepository;
 import br.ufscar.sistema_universidade.repository.SalaRepository;
 import br.ufscar.sistema_universidade.service.ReservaService;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class    ReservaController {
+public class ReservaController {
 
     private static final String MENSAGEM_CONFLITO_INTEGRIDADE =
         "Nao foi possivel inserir ou realizar a acao. Ja existe um registro com a mesma chave ou com dados conflitantes.";
@@ -27,18 +26,15 @@ public class    ReservaController {
     private final ReservaService reservaService;
     private final FuncionarioRepository funcionarioRepository;
     private final SalaRepository salaRepository;
-    private final AdministradorRepository administradorRepository;
 
     public ReservaController(
         ReservaService reservaService,
         FuncionarioRepository funcionarioRepository,
-        SalaRepository salaRepository,
-        AdministradorRepository administradorRepository
+        SalaRepository salaRepository
     ) {
         this.reservaService = reservaService;
         this.funcionarioRepository = funcionarioRepository;
         this.salaRepository = salaRepository;
-        this.administradorRepository = administradorRepository;
     }
 
     @FunctionalInterface
@@ -63,21 +59,44 @@ public class    ReservaController {
         return "redirect:" + destino;
     }
 
-    @GetMapping({"/reservas", "/reservas/nova"})
-    public String reservas(Model model, @RequestParam(required = false) Long editar,
-                           @AuthenticationPrincipal UsuarioLogado usuarioLogado) {
+    @GetMapping("/reservas")
+    public String reservas(Model model, @AuthenticationPrincipal UsuarioLogado usuarioLogado) {
         boolean adminOperacional = usuarioLogado.temPerfil("ROLE_ADMIN_OPERACIONAL");
         model.addAttribute("reservas", adminOperacional
             ? reservaService.listarTodos()
             : reservaService.listarPorUsuario(usuarioLogado.getIdPessoa()));
+        return "reservas";
+    }
+
+    @GetMapping("/reservas/nova")
+    public String novaReserva(Model model, @AuthenticationPrincipal UsuarioLogado usuarioLogado) {
+        preencherFormulario(model, null, usuarioLogado.temPerfil("ROLE_ADMIN_OPERACIONAL"));
+        return "reserva-form";
+    }
+
+    @GetMapping("/reservas/editar")
+    public String editarReserva(
+        @RequestParam Long idReserva,
+        Model model,
+        @AuthenticationPrincipal UsuarioLogado usuarioLogado
+    ) {
+        exigirAdminOperacional(usuarioLogado);
+        Reserva reserva = reservaService.buscarPorId(idReserva);
+        if (reserva == null) {
+            return "redirect:/reservas";
+        }
+        preencherFormulario(model, reserva, true);
+        return "reserva-form";
+    }
+
+    private void preencherFormulario(Model model, Reserva reserva, boolean adminOperacional) {
         model.addAttribute("funcionarios", funcionarioRepository.listarTodos());
         model.addAttribute("salas", salaRepository.listarTodos());
-        model.addAttribute("administradores", administradorRepository.listarTodos());
         model.addAttribute("tiposReserva", ReservaService.TIPOS_RESERVA);
         model.addAttribute("statusReserva", ReservaService.STATUS_RESERVA);
         model.addAttribute("adminOperacional", adminOperacional);
-        model.addAttribute("reservaSelecionada", adminOperacional && editar != null ? reservaService.buscarPorId(editar) : null);
-        return "reservas";
+        model.addAttribute("reservaSelecionada", reserva);
+        model.addAttribute("edicao", reserva != null);
     }
 
     @PostMapping("/reservas/salvar")
