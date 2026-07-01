@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatorio de Emprestimos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<main class="page-shell">
+    <header class="topbar">
+        <div>
+            <a class="back-link" th:href="@{/}">Voltar ao menu</a>
+            <h1 class="page-title">Relatorio</h1>
+            <p class="page-subtitle">Usuarios que realizaram emprestimos dentro de um periodo informado. O resultado traz uma linha por usuario com a quantidade de emprestimos registrados no intervalo.</p>
+        </div>
+    </header>
+
+    <p class="flash-message" th:if="${mensagem != null}" th:text="${mensagem}"></p>
+
+    <section class="content-grid content-grid--full" aria-label="Relatorio de emprestimos por periodo">
+        <article class="surface-panel">
+            <h2 class="panel-title">Usuarios com emprestimos no periodo</h2>
+            <p class="panel-note" th:text="${dataInicio != null and dataFim != null ? 'Periodo selecionado: ' + #temporals.format(dataInicio, 'dd/MM/yyyy') + ' a ' + #temporals.format(dataFim, 'dd/MM/yyyy') : 'Defina um periodo para consultar os usuarios que tiveram emprestimos.'}">Defina um periodo para consultar os usuarios.</p>
+
+            <div class="table-scroll">
+                <table class="records-table">
+                    <thead>
+                    <tr>
+                        <th>ID Usuario</th>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Primeiro emprestimo</th>
+                        <th>Ultimo emprestimo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${#lists.isEmpty(relatorio)}">
+                        <td class="records-empty" colspan="5">Nenhum usuario realizou emprestimos no periodo informado.</td>
+                    </tr>
+                    <tr th:each="linha : ${relatorio}">
+                        <td th:text="${linha.idPessoa}"></td>
+                        <td th:text="${linha.nomeUsuario}"></td>
+                        <td th:text="${linha.quantidadeEmprestimos}"></td>
+                        <td th:text="${#temporals.format(linha.primeiroEmprestimo, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${#temporals.format(linha.ultimoEmprestimo, 'dd/MM/yyyy')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <aside class="surface-panel">
+            <h2 class="panel-title">Filtrar periodo</h2>
+            <p class="panel-note">Somente administradores operacionais podem acessar este relatorio.</p>
+
+            <form class="entity-form" th:action="@{/relatorios/emprestimos}" method="get">
+                <div class="field-grid">
+                    <div class="field">
+                        <label for="relatorio-data-inicio">Data inicial</label>
+                        <input id="relatorio-data-inicio"
+                               name="dataInicio"
+                               type="date"
+                               th:value="${dataInicio}">
+                    </div>
+                    <div class="field">
+                        <label for="relatorio-data-fim">Data final</label>
+                        <input id="relatorio-data-fim"
+                               name="dataFim"
+                               type="date"
+                               th:value="${dataFim}">
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button class="button button-primary" type="submit">Gerar relatorio</button>
+                    <a class="button button-secondary" th:href="@{/relatorios/emprestimos}">Limpar</a>
+                </div>
+            </form>
+        </aside>
+    </section>
+</main>
+</body>
+</html>
